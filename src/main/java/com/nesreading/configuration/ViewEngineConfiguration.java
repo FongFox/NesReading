@@ -10,7 +10,7 @@ import org.thymeleaf.templateresolver.ClassLoaderTemplateResolver;
 public class ViewEngineConfiguration {
 
     @Bean
-    public ClassLoaderTemplateResolver templateResolver() {
+    ClassLoaderTemplateResolver templateResolver() {
         ClassLoaderTemplateResolver resolver = new ClassLoaderTemplateResolver();
         resolver.setPrefix("templates/");
         resolver.setSuffix(".html");
@@ -20,14 +20,14 @@ public class ViewEngineConfiguration {
     }
 
     @Bean
-    public SpringTemplateEngine templateEngine(ClassLoaderTemplateResolver templateResolver) {
+    SpringTemplateEngine templateEngine(ClassLoaderTemplateResolver templateResolver) {
         SpringTemplateEngine engine = new SpringTemplateEngine();
         engine.setTemplateResolver(templateResolver);
         return engine;
     }
 
     @Bean
-    public ThymeleafViewResolver viewResolver(SpringTemplateEngine templateEngine) {
+    ThymeleafViewResolver viewResolver(SpringTemplateEngine templateEngine) {
         ThymeleafViewResolver resolver = new ThymeleafViewResolver();
         resolver.setTemplateEngine(templateEngine);
         return resolver;
