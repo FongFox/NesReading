@@ -19,6 +19,9 @@ public class Book {
 	@ManyToOne
 	@JoinColumn(name = "author_id")
 	private Author author;
+
+	@Column(name = "other_authors", columnDefinition = "MEDIUMTEXT")
+	private String otherAuthors;
 	
 	@ManyToOne
 	@JoinColumn(name = "book_category_id")
@@ -35,9 +38,11 @@ public class Book {
 	private int stock;
 	
 	private int sold;
+	
+	private int status; //0: In stock; 1: Out of stock; 2: Not Available
 
-    @OneToMany(mappedBy = "book")
-    private List<BookReview> bookReviews;
+  @OneToMany(mappedBy = "book")
+  private List<BookReview> bookReviews;
 	
 	@CreationTimestamp
 	@Column(name = "create_at")
@@ -69,6 +74,14 @@ public class Book {
 
 	public void setAuthor(Author author) {
 		this.author = author;
+	}
+
+	public String getOtherAuthors() {
+		return otherAuthors;
+	}
+
+	public void setOtherAuthors(String otherAuthors) {
+		this.otherAuthors = otherAuthors;
 	}
 
 	public BookCategory getBookCategory() {
@@ -119,6 +132,22 @@ public class Book {
 		this.sold = sold;
 	}
 
+	public int getStatus() {
+		return status;
+	}
+
+	public void setStatus(int status) {
+		this.status = status;
+	}
+
+	public List<BookReview> getBookReviews() {
+		return bookReviews;
+	}
+
+	public void setBookReviews(List<BookReview> bookReviews) {
+		this.bookReviews = bookReviews;
+	}
+
 	public LocalDateTime getCreateAt() {
 		return createAt;
 	}
@@ -137,10 +166,11 @@ public class Book {
 
 	@Override
 	public String toString() {
-		return "Book [id=" + id + ", title=" + title + ", author=" + author + ", bookCategory=" + bookCategory
-				+ ", price=" + price + ", shortDescription=" + shortDescription + ", detailDescription="
-				+ detailDescription + ", stock=" + stock + ", sold=" + sold + ", createAt=" + createAt + ", updateAt="
-				+ updateAt + "]";
+		return "Book [id=" + id + ", title=" + title + ", author=" + author + ", otherAuthors=" + otherAuthors
+				+ ", bookCategory=" + bookCategory + ", price=" + price + ", shortDescription=" + shortDescription
+				+ ", detailDescription=" + detailDescription + ", stock=" + stock + ", sold=" + sold + ", status=" + status
+				+ ", bookReviews=" + bookReviews + ", createAt=" + createAt + ", updateAt=" + updateAt + "]";
 	}
+
 
 }

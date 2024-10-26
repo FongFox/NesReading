@@ -1,6 +1,10 @@
 package com.nesreading.domain;
 
+import java.time.LocalDateTime;
 import java.util.List;
+
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -17,12 +21,18 @@ public class Author {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	
-	private String name;
-	
-	private String shortDescription;
+	private String fullName;
 	
 	@OneToMany(mappedBy = "author")
 	private List<Book> books;
+	
+	@CreationTimestamp
+	@Column(name = "create_at")
+	private LocalDateTime createAt;
+	
+	@UpdateTimestamp
+	@Column(name = "update_at")
+	private LocalDateTime updateAt;
 
 	public int getId() {
 		return id;
@@ -32,20 +42,12 @@ public class Author {
 		this.id = id;
 	}
 
-	public String getName() {
-		return name;
+	public String getFullName() {
+		return fullName;
 	}
 
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public String getShortDescription() {
-		return shortDescription;
-	}
-
-	public void setShortDescription(String shortDescription) {
-		this.shortDescription = shortDescription;
+	public void setFullName(String fullName) {
+		this.fullName = fullName;
 	}
 
 	public List<Book> getBooks() {
@@ -56,9 +58,25 @@ public class Author {
 		this.books = books;
 	}
 
+	public LocalDateTime getCreateAt() {
+		return createAt;
+	}
+
+	public void setCreateAt(LocalDateTime createAt) {
+		this.createAt = createAt;
+	}
+
+	public LocalDateTime getUpdateAt() {
+		return updateAt;
+	}
+
+	public void setUpdateAt(LocalDateTime updateAt) {
+		this.updateAt = updateAt;
+	}
+
 	@Override
 	public String toString() {
-		return "Author [id=" + id + ", name=" + name + ", shortDescription=" + shortDescription + ", books=" + books
-				+ "]";
+		return "Author [id=" + id + ", fullName=" + fullName + ", books=" + books + ", createAt=" + createAt + ", updateAt="
+				+ updateAt + "]";
 	}
 }

@@ -21,6 +21,7 @@ public class BookReview {
   private int id;
 
   private int rating;
+  
   private String content;
 
   @ManyToOne()

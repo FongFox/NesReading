@@ -36,7 +36,7 @@ public class Order {
 	@Column(name = "total_price")
 	private double totalPrice;
 	
-	private int status; //0: pending; 1: shipping; 2: completed; 3: canceled
+	private int status; //0: Pending; 1: Shipping; 2: Completed; 3: Canceled
 	
 	@CreationTimestamp
 	@Column(name = "create_at")
