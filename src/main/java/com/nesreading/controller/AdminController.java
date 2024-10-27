@@ -1,11 +1,9 @@
 package com.nesreading.controller;
 
+import com.nesreading.domain.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import com.nesreading.service.AuthorService;
 import com.nesreading.service.BookCategoryService;
@@ -37,37 +35,56 @@ public class AdminController {
 
 	// ================== User (Start) ====================
 	@GetMapping("users")
-	public String getAdminUserViewPage() {
+	public String getAdminUserViewPage(Model model) {
+		model.addAttribute("userList", userService.handleFetchAllUsers());
 		return "admin/user/view";
 	}
 	
 	@GetMapping("users/create")
 	public String getAdminUserCreatePage(Model model) {
+		model.addAttribute("newUser", new User());
 		return "admin/user/create";
 	}
 
 	@PostMapping("users/create")
-	public String handleCreateUser() {
+	public String handleCreateUser(@ModelAttribute("newUser") User newUser) {
+		userService.handleCreateUser(newUser);
 		return "redirect:/admin/users";
 	}
 
 	@GetMapping("users/{id}")
-	public String getAdminUserDetailPage(@PathVariable int id) {
+	public String getAdminUserDetailPage(@PathVariable int id, Model model) {
+		User dbUser = userService.handleFetchUserById(id).orElse(null);
+
+		if (dbUser == null) {
+			return "redirect:/admin/users";
+		}
+
+		model.addAttribute("dbUser", dbUser);
 		return "admin/user/detail";
 	}
 
 	@GetMapping("users/update/{id}")
-	public String getAdminUserUpdatePage(@PathVariable int id) {
+	public String getAdminUserUpdatePage(@PathVariable int id, Model model) {
+		User dbUser = userService.handleFetchUserById(id).orElse(null);
+
+		if (dbUser == null) {
+			return "redirect:/admin/users";
+		}
+
+		model.addAttribute("tempUser", dbUser);
 		return "admin/user/update";
 	}
 
 	@PostMapping("users/update")
-	public String handleUpdateUser() {
+	public String handleUpdateUser(@ModelAttribute("tempUser") User tempUser) {
+		userService.handleUpdateUser(tempUser);
 		return "redirect:/admin/users";
 	}
 
 	@PostMapping("users/delete/{id}")
 	public String handleDeleteUser(@PathVariable int id) {
+		userService.handleDeleteUserById(id);
 		return "redirect:/admin/users";
 	}
 	// ================== User (End) ======================

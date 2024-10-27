@@ -22,10 +22,8 @@ public class User {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	
-	@OneToOne
-	@JoinColumn(name = "role_id")
-	private Role role;
+
+	private String role;
 
 	@Column(name = "first_name")
 	private String firstName;
@@ -40,6 +38,8 @@ public class User {
 	@Column(name = "phone_number")
 	private String phoneNumber;
 
+	private String avatar;
+
 	@OneToMany(mappedBy = "user")
 	private List<BookReview> bookReviews;
 	
@@ -51,6 +51,18 @@ public class User {
 	@Column(name = "update_at")
 	private LocalDateTime updateAt;
 
+	public User() {
+	}
+
+	public User(String role, String firstName, String lastName, String email, String password, String phoneNumber) {
+		this.role = role;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.email = email;
+		this.password = password;
+		this.phoneNumber = phoneNumber;
+	}
+
 	public int getId() {
 		return id;
 	}
@@ -59,11 +71,11 @@ public class User {
 		this.id = id;
 	}
 
-	public Role getRole() {
+	public String getRole() {
 		return role;
 	}
 
-	public void setRole(Role role) {
+	public void setRole(String role) {
 		this.role = role;
 	}
 
@@ -107,6 +119,14 @@ public class User {
 		this.phoneNumber = phoneNumber;
 	}
 
+	public List<BookReview> getBookReviews() {
+		return bookReviews;
+	}
+
+	public void setBookReviews(List<BookReview> bookReviews) {
+		this.bookReviews = bookReviews;
+	}
+
 	public LocalDateTime getCreateAt() {
 		return createAt;
 	}
@@ -123,11 +143,28 @@ public class User {
 		this.updateAt = updateAt;
 	}
 
+	public String getAvatar() {
+		return avatar;
+	}
+
+	public void setAvatar(String avatar) {
+		this.avatar = avatar;
+	}
+
 	@Override
 	public String toString() {
-		return "User [id=" + id + ", role=" + role + ", firstName=" + firstName + ", lastName=" + lastName + ", email="
-				+ email + ", password=" + password + ", phoneNumber=" + phoneNumber + ", createAt=" + createAt
-				+ ", updateAt=" + updateAt + "]";
+		return "User{" +
+				"id=" + id +
+				", role='" + role + '\'' +
+				", firstName='" + firstName + '\'' +
+				", lastName='" + lastName + '\'' +
+				", email='" + email + '\'' +
+				", password='" + password + '\'' +
+				", phoneNumber='" + phoneNumber + '\'' +
+				", avatar='" + avatar + '\'' +
+				", bookReviews=" + bookReviews +
+				", createAt=" + createAt +
+				", updateAt=" + updateAt +
+				'}';
 	}
-	
 }
