@@ -6,14 +6,31 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
 public class AuthController {
-  // ================== Login (Start) ====================
+  // ================== Admin Login (Start) ====================
+  @GetMapping("admin/login")
+  public String getAdminLoginPage() {
+    return "auth/admin-login";
+  }
+
+  @PostMapping("admin/login")
+  public String handleAdminLogin() {
+    return "redirect:/admin/login";
+  }
+  // ================== Admin Login (End) ======================
+
+  // ================== Client Login (Start) ====================
   @GetMapping("login")
   public String getLoginPage() {
     return "auth/login";
   }
-  // ================== Login (End) ======================
 
-  // ================== Register (Start) ====================
+  @PostMapping("login")
+  public String handleLogin() {
+    return "redirect:/login";
+  }
+  // ================== Client Login (End) ======================
+
+  // ================== Client Register (Start) ====================
   @GetMapping("register")
   public String getRegisterPage() {
     return "auth/register";
@@ -23,5 +40,5 @@ public class AuthController {
   public String handleRegister() {
     return "redirect:/login";
   }
-  // ================== Register (End) ======================
+  // ================== Client Register (End) ======================
 }
