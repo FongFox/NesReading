@@ -15,17 +15,17 @@ public class Book {
 	private int id;
 	
 	private String title;
-	
-	@ManyToOne
-	@JoinColumn(name = "author_id")
-	private Author author;
 
-	@Column(name = "other_authors", columnDefinition = "MEDIUMTEXT")
-	private String otherAuthors;
-	
-	@ManyToOne
-	@JoinColumn(name = "book_category_id")
-	private BookCategory bookCategory;
+	@Column(name = "author", columnDefinition = "MEDIUMTEXT")
+	private String author;
+
+	@Column(name = "category")
+	private String category;
+
+	private String publisher;
+
+	@Column(name = "publication_year")
+	private int publicationYear;
 	
 	private double price;
 	
@@ -41,8 +41,11 @@ public class Book {
 	
 	private int status; //0: In stock; 1: Out of stock; 2: Not Available
 
-  @OneToMany(mappedBy = "book")
-  private List<BookReview> bookReviews;
+	@OneToMany(mappedBy = "book")
+	private List<BookReview> bookReviews;
+
+	@Column(name = "image_url")
+	private String imageUrl;
 	
 	@CreationTimestamp
 	@Column(name = "create_at")
@@ -51,6 +54,18 @@ public class Book {
 	@UpdateTimestamp
 	@Column(name = "update_at")
 	private LocalDateTime updateAt;
+
+	//	@ManyToOne
+	//	@JoinColumn(name = "author_id")
+	//	private Author author;
+	//	@Column(name = "other_authors", columnDefinition = "MEDIUMTEXT")
+	//	private String otherAuthors;
+	//	@ManyToOne
+	//	@JoinColumn(name = "book_category_id")
+	//	private BookCategory bookCategory;
+
+	public Book() {
+	}
 
 	public int getId() {
 		return id;
@@ -68,28 +83,36 @@ public class Book {
 		this.title = title;
 	}
 
-	public Author getAuthor() {
+	public String getAuthor() {
 		return author;
 	}
 
-	public void setAuthor(Author author) {
+	public void setAuthor(String author) {
 		this.author = author;
 	}
 
-	public String getOtherAuthors() {
-		return otherAuthors;
+	public String getCategory() {
+		return category;
 	}
 
-	public void setOtherAuthors(String otherAuthors) {
-		this.otherAuthors = otherAuthors;
+	public void setCategory(String category) {
+		this.category = category;
 	}
 
-	public BookCategory getBookCategory() {
-		return bookCategory;
+	public String getPublisher() {
+		return publisher;
 	}
 
-	public void setBookCategory(BookCategory bookCategory) {
-		this.bookCategory = bookCategory;
+	public void setPublisher(String publisher) {
+		this.publisher = publisher;
+	}
+
+	public int getPublicationYear() {
+		return publicationYear;
+	}
+
+	public void setPublicationYear(int publicationYear) {
+		this.publicationYear = publicationYear;
 	}
 
 	public double getPrice() {
@@ -108,20 +131,20 @@ public class Book {
 		this.shortDescription = shortDescription;
 	}
 
-	public String getDetailDescription() {
-		return detailDescription;
-	}
-
-	public void setDetailDescription(String detailDescription) {
-		this.detailDescription = detailDescription;
-	}
-
 	public int getStock() {
 		return stock;
 	}
 
 	public void setStock(int stock) {
 		this.stock = stock;
+	}
+
+	public String getDetailDescription() {
+		return detailDescription;
+	}
+
+	public void setDetailDescription(String detailDescription) {
+		this.detailDescription = detailDescription;
 	}
 
 	public int getSold() {
@@ -148,6 +171,14 @@ public class Book {
 		this.bookReviews = bookReviews;
 	}
 
+	public String getImageUrl() {
+		return imageUrl;
+	}
+
+	public void setImageUrl(String imageUrl) {
+		this.imageUrl = imageUrl;
+	}
+
 	public LocalDateTime getCreateAt() {
 		return createAt;
 	}
@@ -166,11 +197,23 @@ public class Book {
 
 	@Override
 	public String toString() {
-		return "Book [id=" + id + ", title=" + title + ", author=" + author + ", otherAuthors=" + otherAuthors
-				+ ", bookCategory=" + bookCategory + ", price=" + price + ", shortDescription=" + shortDescription
-				+ ", detailDescription=" + detailDescription + ", stock=" + stock + ", sold=" + sold + ", status=" + status
-				+ ", bookReviews=" + bookReviews + ", createAt=" + createAt + ", updateAt=" + updateAt + "]";
+		return "Book{" +
+				"id=" + id +
+				", title='" + title + '\'' +
+				", author='" + author + '\'' +
+				", category='" + category + '\'' +
+				", publisher='" + publisher + '\'' +
+				", publicationYear=" + publicationYear +
+				", price=" + price +
+				", shortDescription='" + shortDescription + '\'' +
+				", detailDescription='" + detailDescription + '\'' +
+				", stock=" + stock +
+				", sold=" + sold +
+				", status=" + status +
+				", bookReviews=" + bookReviews +
+				", imageUrl='" + imageUrl + '\'' +
+				", createAt=" + createAt +
+				", updateAt=" + updateAt +
+				'}';
 	}
-
-
 }
