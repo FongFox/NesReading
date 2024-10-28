@@ -37,6 +37,68 @@
           </ol>
 
           <!-- Todo Here! -->
+          <div class="mt-5">
+            <div class="row">
+              <div class="col-12 mx-auto">
+                <div class="d-flex justify-content-between">
+                  <h3>Books detail</h3>
+                </div>
+                <hr />
+                <!-- <div class="card" style="width: 40%; margin-left: 10%">
+                  <img class="card-img-top" src="/images/product/${product.image}" alt="Card image Cap">
+                </div> -->
+                <div class="card" style="width: 60%;">
+                  <div class="card-header">
+                    Book Information
+                  </div>
+                  <!-- If book null -->
+                  <ul class="list-group list-group-flush" th:if="${dbBooks == null}">
+                    <li class="list-group-item d-none">
+                      Nothing in here!
+                    </li>
+                  </ul>
+                  <!-- If book available -->
+                  <ul class="list-group list-group-flush" th:if="${dbBook != null}">
+                    <li class="list-group-item d-none">
+                      Id: <span th:text="${dbBook.id}"></span>
+                    </li>
+                    <li class="list-group-item">
+                      Category: <span th:text="${#strings.capitalize(dbBook.category.toLowerCase())}"></span>
+                    </li>
+                    <li class="list-group-item">
+                      Title: <span th:text="${dbBook.title}"></span>
+                    </li>
+                    <li class="list-group-item">
+                      Author: <span th:text="${dbBook.author}"></span>
+                    </li>
+                    <li class="list-group-item">
+                      Publisher: <span th:text="${dbBook.publisher}"></span>
+                    </li>
+                    <li class="list-group-item">
+                      Publication Year: <span th:text="${dbBook.publicationYear}"></span>
+                    </li>
+                    <li class="list-group-item">
+                      Short Description: <span th:text="${dbBook.shortDescription}"></span>
+                    </li>
+                    <li class="list-group-item">
+                      Detail Description: <span th:text="${dbBook.detailDescription}"></span>
+                    </li>
+                    <li class="list-group-item">
+                      Price: <span th:text="${#numbers.formatDecimal(dbBook.price, 0, 'COMMA', 0, 'POINT') + ' VND'}"></span>
+                    </li>
+                    <li class="list-group-item">
+                      Stock: <span th:text="${dbBook.stock}"></span>
+                    </li>
+                  </ul>
+                </div>
+                <div class="mt-3 mb-3">
+                  <a th:href="@{/admin/books}" type="button" class="btn btn-outline-success">
+                    Back
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
 
         </div>
       </main>

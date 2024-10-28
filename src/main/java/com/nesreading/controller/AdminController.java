@@ -1,12 +1,11 @@
 package com.nesreading.controller;
 
+import com.nesreading.domain.Book;
 import com.nesreading.domain.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import com.nesreading.service.AuthorService;
-import com.nesreading.service.BookCategoryService;
 import com.nesreading.service.BookService;
 import com.nesreading.service.UserService;
 
@@ -15,15 +14,10 @@ import com.nesreading.service.UserService;
 public class AdminController {
 	private final UserService userService;
 	private final BookService bookService;
-	private final BookCategoryService bookCategoryService;
-	private final AuthorService authorService;
 
-	public AdminController(UserService userService, BookService bookService, BookCategoryService bookCategoryService,
-			AuthorService authorService) {
+	public AdminController(UserService userService, BookService bookService) {
 		this.userService = userService;
 		this.bookService = bookService;
-		this.bookCategoryService = bookCategoryService;
-		this.authorService = authorService;
 	}
 
 	//================== Dashboard (Start) ====================
@@ -89,76 +83,61 @@ public class AdminController {
 	}
 	// ================== User (End) ======================
 
-	// ================== Book Category (Start) ====================
-	@GetMapping("book-categories")
-	public String getAdminBookCategoryViewPage() {
-		return "admin/book-category/view";
-	}
-
-	@GetMapping("book-categories/create")
-	public String getAdminBookCategoryCreatePage() {
-		return "admin/book-category/create";
-	}
-
-	@PostMapping("book-categories/create")
-	public String handleCreateBookCategory() {
-		return "redirect:/admin/book-categories";
-	}
-
-	@GetMapping("book-categories/{id}")
-	public String getAdminBookCategoryDetailPage(@PathVariable int id) {
-		return "admin/book-category/detail";
-	}
-
-	@GetMapping("book-categories/update/{id}")
-	public String getAdminBookCategoryUpdatePage(@PathVariable int id) {
-		return "admin/book-category/update";
-	}
-
-	@PostMapping("book-categories/update")
-	public String handleUpdateBookCategory() {
-		return "redirect:/admin/book-categories";
-	}
-
-	@PostMapping("book-categories/delete/{id}")
-	public String handleDeleteBookCategory(@PathVariable int id) {
-		return "redirect:/admin/book-categories";
-	}
-	// ================== Book Category (End) ======================
-
 	// ================== Book (Start) ====================
 	@GetMapping("books")
-	public String getAdminBookViewPage() {
+	public String getAdminBookViewPage(Model model) {
+		model.addAttribute("bookList", bookService.handleFetchAllBooks());
+
 		return "admin/book/view";
 	}
 
 	@GetMapping("books/create")
-	public String getAdminBookCreatePage() {
+	public String getAdminBookCreatePage(Model model) {
+		model.addAttribute("newBook", new Book());
+
 		return "admin/book/create";
 	}
 
 	@PostMapping("books/create")
-	public String handleCreateBook() {
+	public String handleCreateBook(@ModelAttribute("newBook") Book newBook) {
+		bookService.handleCreateBook(newBook);
+
 		return "redirect:/admin/books";
 	}
 
 	@GetMapping("books/{id}")
-	public String getAdminBookDetailPage(@PathVariable int id) {
+	public String getAdminBookDetailPage(@PathVariable int id, Model model) {
+		if(bookService.handleCheckBookExist(id)) {
+			return "redirect:/admin/books";
+		}
+
+		model.addAttribute("dbBook", bookService.handleFetchBookById(id));
+
 		return "admin/book/detail";
 	}
 
 	@GetMapping("books/update/{id}")
-	public String getAdminBookUpdatePage(@PathVariable int id) {
+	public String getAdminBookUpdatePage(@PathVariable int id, Model model) {
+		if(bookService.handleCheckBookExist(id)) {
+			return "redirect:/admin/books";
+		}
+
+		model.addAttribute("dbBook", bookService.handleFetchBookById(id));
+
 		return "admin/book/update";
 	}
 
 	@PostMapping("books/update")
-	public String handleUpdateBook() {
+	public String handleUpdateBook(@ModelAttribute("tempBook") Book tempBook) {
+//		System.out.println("Test: " + tempBook.toString());
+
 		return "redirect:/admin/books";
 	}
 
 	@PostMapping("books/delete/{id}")
 	public String handleDeleteBook(@PathVariable int id) {
+		bookService.handleDeleteBookById(id);
+
 		return "redirect:/admin/books";
 	}
 	// ================== Book (End) ======================

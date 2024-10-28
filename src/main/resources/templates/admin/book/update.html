@@ -10,6 +10,18 @@
   <title>NesReading (Admin)</title>
   <link th:href="@{https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css}" rel="stylesheet" />
   <link th:href="@{/styles/admin/style.css}" rel="stylesheet" />
+  <!-- JQuery CDN Import -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+  <script>
+    $(document).ready(() => {
+        const bookFile = $("#bookFile");
+        bookFile.change(function (e) {
+            const imgURL = URL.createObjectURL(e.target.files[0]);
+            $("#bookPreview").attr("src", imgURL);
+            $("#bookPreview").css({"display": "block"});
+        });
+    });
+  </script>
 </head>
 
 <body class="sb-nav-fixed">
@@ -37,6 +49,116 @@
           </ol>
 
           <!-- Todo Here! -->
+          <div class="mt-5">
+            <div class="row">
+              <div class="col-md-6 col-12 mx-auto">
+                <h3>Create new Book</h3>
+                <hr/>
+                <form method="post" th:action="@{/admin/books/update}" th:object="${dbBook}" class="row"
+                      enctype="multipart/form-data">
+                  <div class="mb-3 col-12 col-md-12 d-none">
+                    <label class="form-label">Id:</label>
+                    <input type="text" class="form-control" th:field="*{id}"/>
+                  </div>
+                  <div class="mb-3 col-12 col-md-12">
+                    <label class="form-label">Title:</label>
+                    <input type="text" class="form-control" th:field="*{title}"/>
+                  </div>
+                  <div class="mb-3 col-12 col-md-12">
+                    <label class="form-label">Author:</label>
+                    <input type="text" class="form-control" th:field="*{author}"/>
+                  </div>
+                  <div class="mb-3 col-12 col-md-6">
+                    <label class="form-label">Publisher:</label>
+                    <input type="text" class="form-control" th:field="*{publisher}"/>
+                  </div>
+                  <div class="mb-3 col-12 col-md-6">
+                    <label class="form-label">Publication Year:</label>
+                    <input type="number" class="form-control" th:field="*{publicationYear}"/>
+                  </div>
+                  <div class="mb-3 col-12 col-md-12">
+                    <label class="form-label">Short Description:</label>
+                    <input type="text" class="form-control" th:field="*{shortDescription}"/>
+                  </div>
+                  <div class="mb-3 col-12 col-md-12">
+                    <label class="form-label">Detail Description:</label>
+                    <textarea type="text" class="form-control"
+                              th:field="*{detailDescription}"></textarea>
+                  </div>
+                  <div class="mb-3 col-12 col-md-6">
+                    <label class="form-label">Price:</label>
+                    <input type="number" class="form-control" min="0" th:field="*{price}"/>
+                  </div>
+                  <div class="mb-3 col-12 col-md-6">
+                    <label class="form-label">Stock</label>
+                    <input type="number" class="form-control" th:field="*{stock}"/>
+                  </div>
+                  <!-- Avatar field (Start) -->
+                  <div class="mb-3 col-12 col-md-6">
+                    <label for="bookFile" class="form-label">Avatar:</label>
+                    <input class="form-control" type="file" id="bookFile" name="newBookFile"
+                           accept=".png, .jpg, .jpeg"/>
+                  </div>
+                  <!-- Avatar field (End) -->
+                  <div class="mb-3 col-12 col-md-6">
+                    <label class="form-label">Book Category:</label>
+                    <select class="form-select" th:field="*{category}">
+                      <option value="FICTION">Fiction</option>
+                      <option value="NONFICTION">Non-Fiction</option>
+                      <option value="SCIENCE">Science</option>
+                      <option value="HISTORY">History</option>
+                      <option value="BIOGRAPHY">Biography</option>
+                      <option value="CHILDREN">Children's Books</option>
+                      <option value="BUSINESS">Business</option>
+                      <option value="HEALTH">Health</option>
+                      <option value="RELIGION">Religion</option>
+                      <option value="SELFHELP">Self-Help</option>
+                      <option value="HORROR">Horror</option>
+                      <option value="EDUCATION">Education</option>
+                      <option value="COMIC">Comic</option>
+                      <option value="NOVEL">Novel</option>
+                      <option value="LIGHTNOVEL">Light-Novel</option>
+                      <option value="FOOD">Food</option>
+                      <option value="COMEDY">Comedy</option>
+                      <option value="ROMANCE">Romance</option>
+                      <option value="POEM">Poem</option>
+                      <option value="LAW">Law</option>
+                      <option value="SPORT">Sport</option>
+                      <option value="PSYCHOLOGY">Psychology</option>
+                      <option value="PHILOSOPHY">Philosophy</option>
+                      <option value="MEDICAL">Medical</option>
+                      <option value="LITERATURE">Literature</option>
+                      <option value="LANGUAGE">Language</option>
+                      <option value="ANIMAL">Animal</option>
+                      <option value="TRAVEL">Travel</option>
+                      <option value="ART">Art</option>
+                      <option value="TECHNOLOGY">Technology</option>
+                      <option value="MYSTERY">Mystery</option>
+                      <option value="SOFT-SKILL">Soft-Skill</option>
+                    </select>
+                  </div>
+                  <!-- Avatar Preview (Start) -->
+                  <div class="mb-3 col-12">
+                    <img style="max-height: 250px; display: none" alt="book image preview"
+                         id="bookPreview"/>
+                  </div>
+                  <!-- Avatar Preview (End) -->
+                  <div class="col-12 mb-3">
+                    <div class="d-grid">
+                      <button type="submit" class="btn btn-outline-warning">Update</button>
+                    </div>
+                  </div>
+                  <div class="col-12 mb-5">
+                    <div class="d-grid">
+                      <a role="button" class="btn btn-outline-success" th:href="@{/admin/books}">
+                        Back
+                      </a>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
 
         </div>
       </main>
