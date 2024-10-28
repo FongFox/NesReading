@@ -54,25 +54,25 @@ public class AdminController {
 
 	@GetMapping("users/{id}")
 	public String getAdminUserDetailPage(@PathVariable int id, Model model) {
-		User dbUser = userService.handleFetchUserById(id).orElse(null);
-
-		if (dbUser == null) {
+		if(userService.handleCheckExistedUser(id)) {
 			return "redirect:/admin/users";
 		}
 
+		User dbUser = userService.handleFetchUserById(id);
 		model.addAttribute("dbUser", dbUser);
+
 		return "admin/user/detail";
 	}
 
 	@GetMapping("users/update/{id}")
 	public String getAdminUserUpdatePage(@PathVariable int id, Model model) {
-		User dbUser = userService.handleFetchUserById(id).orElse(null);
-
-		if (dbUser == null) {
+		if(userService.handleCheckExistedUser(id)) {
 			return "redirect:/admin/users";
 		}
 
+		User dbUser = userService.handleFetchUserById(id);
 		model.addAttribute("tempUser", dbUser);
+
 		return "admin/user/update";
 	}
 

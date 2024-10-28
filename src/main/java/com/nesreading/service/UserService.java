@@ -1,8 +1,8 @@
 package com.nesreading.service;
 
 import java.util.List;
-import java.util.Optional;
 
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.nesreading.domain.User;
@@ -11,39 +11,53 @@ import com.nesreading.repository.UserRepository;
 @Service
 public class UserService {
     private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
 
-    public UserService(UserRepository userRepository) {
+    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
-    public User handleCreateUser(User newUser) {
-        return this.userRepository.save(newUser);
+    public boolean handleCheckExistedUser(int id) {
+        return !userRepository.existsById(id);
+    }
+
+    public void handleCreateUser(User newUser) {
+        User tempUser = new User(newUser.getRole(), newUser.getFirstName(), newUser.getLastName(), newUser.getEmail(), newUser.getPhoneNumber());
+        tempUser.setPassword(handleConvertHashPassword(newUser.getPassword()));
+
+        this.userRepository.save(tempUser);
     }
 
     public List<User> handleFetchAllUsers() {
         return userRepository.findAll();
     }
 
-    public Optional<User> handleFetchUserById(int id) {
-        return userRepository.findById(id);
+    public User handleFetchUserById(int id) {
+        return userRepository.findById(id).get();
     }
 
     public void handleDeleteUserById(int id) {
         userRepository.deleteById(id);
     }
 
-    public User handleUpdateUser(User tempUser) {
-        User dbUser = userRepository.findById(tempUser.getId()).get();
+    public void handleUpdateUser(User tempUser) {
+        User dbUser = handleFetchUserById(tempUser.getId());
 
         dbUser.setFirstName(tempUser.getFirstName());
         dbUser.setLastName(tempUser.getLastName());
         dbUser.setPhoneNumber(tempUser.getPhoneNumber());
         dbUser.setRole(tempUser.getRole());
 
-        if(!tempUser.getPassword().isEmpty() || !tempUser.getPassword().isBlank()) {
-            dbUser.setPassword(tempUser.getPassword());
+        if(!tempUser.getPassword().isEmpty() && !tempUser.getPassword().isBlank()) {
+            dbUser.setPassword(handleConvertHashPassword(tempUser.getPassword()));
         }
 
-        return userRepository.save(dbUser);
+        userRepository.save(dbUser);
+    }
+
+    // ======================= Security Service ============================
+    public  String handleConvertHashPassword(String userPassword) {
+        return this.passwordEncoder.encode(userPassword);
     }
 }
