@@ -129,8 +129,10 @@ public class AdminController {
 	}
 
 	@PostMapping("books/update")
-	public String handleUpdateBook(@ModelAttribute("tempBook") Book tempBook) {
+	public String handleUpdateBook(@ModelAttribute("tempBook") Book tempBook, @RequestParam("tempBookFile") MultipartFile file) {
 //		System.out.println("Test: " + tempBook.toString());
+
+		bookService.handleUpdateBook(tempBook, file);
 
 		return "redirect:/admin/books";
 	}

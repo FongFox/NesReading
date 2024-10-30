@@ -14,6 +14,7 @@ import java.util.List;
 @Service
 public class UploadService {
     private final ServletContext servletContext;
+    private final String UPLOAD_DIR = "src/main/resources/static/images/";
 
     public UploadService(ServletContext servletContext) {
         this.servletContext = servletContext;
@@ -26,7 +27,7 @@ public class UploadService {
         }
 
         // Root path to resources/static/images
-//        String rootPath = this.servletContext.getRealPath("/resources/static/images");
+//      String rootPath = this.servletContext.getRealPath("/resources/static/images");
         String rootPath = new File("src/main/resources/static/images").getAbsolutePath();
 
         // Check if target folder exists within images
@@ -59,6 +60,26 @@ public class UploadService {
         }
 
         return fileName;
+    }
+
+    public void handleDeleteFile(String fileName, String targetFolder) {
+        String rootPath = new File(UPLOAD_DIR).getAbsolutePath();
+
+        if (!isValidTargetFolder(targetFolder)) {
+            throw new IllegalArgumentException("Invalid target folder: " + targetFolder);
+        }
+
+        File file = new File(rootPath + File.separator + targetFolder + File.separator + fileName);
+
+        if (file.exists()) {
+            if (file.delete()) {
+                System.out.println("Deleted file: " + file.getAbsolutePath());
+            } else {
+                System.err.println("Failed to delete file: " + file.getAbsolutePath());
+            }
+        } else {
+            System.err.println("File not found: " + file.getAbsolutePath());
+        }
     }
 
     // Helper method to validate the target folder
