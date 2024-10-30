@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 import com.nesreading.service.BookService;
 import com.nesreading.service.UserService;
+import org.springframework.web.multipart.MultipartFile;
 
 @Controller
 @RequestMapping("/admin")
@@ -99,8 +100,8 @@ public class AdminController {
 	}
 
 	@PostMapping("books/create")
-	public String handleCreateBook(@ModelAttribute("newBook") Book newBook) {
-		bookService.handleCreateBook(newBook);
+	public String handleCreateBook(@ModelAttribute("newBook") Book newBook, @RequestParam("newBookFile") MultipartFile file) {
+		bookService.handleCreateBook(newBook, file);
 
 		return "redirect:/admin/books";
 	}
