@@ -3,6 +3,7 @@ package com.nesreading.service;
 import com.nesreading.domain.Book;
 import com.nesreading.repository.BookRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,9 +12,11 @@ import java.util.Optional;
 @Service
 public class BookService {
     private final BookRepository bookRepository;
+    private final UploadService uploadService;
 
-    public BookService(BookRepository bookRepository) {
+    public BookService(BookRepository bookRepository, UploadService uploadService) {
         this.bookRepository = bookRepository;
+        this.uploadService = uploadService;
     }
 
     public boolean handleCheckBookExist(int id) {
@@ -32,11 +35,17 @@ public class BookService {
         bookRepository.save(newBook);
     }
 
+    public void handleCreateBook(Book newBook, MultipartFile file) {
+        String bookImage = uploadService.handleSaveUploadFile(file, "book");
+        newBook.setImageUrl(bookImage);
+        bookRepository.save(newBook);
+    }
+
     public void handleDeleteBookById(int id) {
         bookRepository.deleteById(id);
     }
 
-    public void handleUpdateBook(Book tempBook) {
+    public void handleUpdateBook(Book tempBook, MultipartFile file) {
         Book dbBook = handleFetchBookById(tempBook.getId());
 
         dbBook.setTitle(tempBook.getTitle());
@@ -48,6 +57,11 @@ public class BookService {
         dbBook.setPrice(tempBook.getPrice());
         dbBook.setStock(tempBook.getStock());
         dbBook.setCategory(tempBook.getCategory());
+
+        if(!file.isEmpty()) {
+            String bookImage = uploadService.handleSaveUploadFile(file, "book");
+            dbBook.setImageUrl(bookImage);
+        }
 
         bookRepository.save(dbBook);
     }
