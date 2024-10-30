@@ -42,6 +42,12 @@ public class BookService {
     }
 
     public void handleDeleteBookById(int id) {
+        Book tempBook = bookRepository.getReferenceById(id);
+
+        if(tempBook.getImageUrl() != null && !tempBook.getImageUrl().isEmpty()) {
+            uploadService.handleDeleteFile(tempBook.getImageUrl(), "book");
+        }
+
         bookRepository.deleteById(id);
     }
 

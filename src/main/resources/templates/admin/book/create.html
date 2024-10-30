@@ -15,10 +15,11 @@
     <script>
         $(document).ready(() => {
             const bookFile = $("#bookFile");
+            const bookPreview = $("#bookPreview");
             bookFile.change(function (e) {
                 const imgURL = URL.createObjectURL(e.target.files[0]);
-                $("#bookPreview").attr("src", imgURL);
-                $("#bookPreview").css({"display": "block"});
+                bookPreview.attr("src", imgURL);
+                bookPreview.css({"display": "block"});
             });
         });
     </script>
