@@ -1,12 +1,21 @@
 package com.nesreading.controller;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
 
+import com.nesreading.service.BookService;
+import com.nesreading.service.UserService;
+import org.springframework.web.multipart.MultipartFile;
 
 @Controller
 public class ClientController {
+    private final BookService bookService;
+
+    public ClientController(BookService bookService) {
+        this.bookService = bookService;
+    }
+
     // ================== Home (Start) ====================
     @GetMapping("")
     public String getHomePage() {
@@ -16,8 +25,9 @@ public class ClientController {
 
     // ================== Book (Start) ====================
     @GetMapping("shop")
-    public String getBookListPage() {
-      return "client/shop";
+    public String getBookListPage(Model model) {
+        model.addAttribute("bookList", bookService.handleFetchAllBooks());
+        return "client/shop";
     }
 
     @GetMapping("shop/{id}")
