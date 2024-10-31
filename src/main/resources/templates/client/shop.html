@@ -24,35 +24,35 @@
 
 <body>
 
-  <div id="preloader" class="preloader-container">
-    <div class="book">
-      <div class="inner">
-        <div class="left"></div>
-        <div class="middle"></div>
-        <div class="right"></div>
-      </div>
-      <ul>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-      </ul>
-    </div>
-  </div>
+<!--  <div id="preloader" class="preloader-container">-->
+<!--    <div class="book">-->
+<!--      <div class="inner">-->
+<!--        <div class="left"></div>-->
+<!--        <div class="middle"></div>-->
+<!--        <div class="right"></div>-->
+<!--      </div>-->
+<!--      <ul>-->
+<!--        <li></li>-->
+<!--        <li></li>-->
+<!--        <li></li>-->
+<!--        <li></li>-->
+<!--        <li></li>-->
+<!--        <li></li>-->
+<!--        <li></li>-->
+<!--        <li></li>-->
+<!--        <li></li>-->
+<!--        <li></li>-->
+<!--        <li></li>-->
+<!--        <li></li>-->
+<!--        <li></li>-->
+<!--        <li></li>-->
+<!--        <li></li>-->
+<!--        <li></li>-->
+<!--        <li></li>-->
+<!--        <li></li>-->
+<!--      </ul>-->
+<!--    </div>-->
+<!--  </div>-->
 
   <header th:replace="~{layouts/client-layout :: header}"></header>
 
@@ -98,25 +98,28 @@
             </div>
           </div>
 
-          <div class="row product-content product-store">
+          <div class="row product-content product-store" >
 
             <div class="col-lg-3 col-md-4 mb-4" th:if="${bookList == null or bookList.isEmpty()}">
               <p class="bg-primary py-1 px-3 fs-6 text-white rounded-2">Nothing to show here.</p>
             </div>
+
             <div class="col-lg-3 col-md-4 mb-4" th:each="book : ${bookList}">
-              <div class="card position-relative p-4 border rounded-3">
-                <img th:src="@{https://picsum.photos/id/24/845/1206}" class="img-fluid shadow-sm" alt="product item">
-                <h6 class="mt-4 mb-0 fw-bold" th:text="${book.title}"><a th:href="@{/shop/1}"></a></h6>
-                <p class="my-2 me-2 fs-6 text-black-50" th:text="${book.author}"></p>
-                <div class="rating text-warning d-flex align-items-center mb-3">
-                  <i class="fa-solid fa-star"></i>
-                  <i class="fa-solid fa-star"></i>
-                  <i class="fa-solid fa-star"></i>
-                  <i class="fa-solid fa-star"></i>
-                  <i class="fa-solid fa-star"></i>
+              <a th:href="@{/shop/{id}(id=${book.id})}">
+                <div class="card position-relative p-4 border rounded-3">
+                  <img th:src="@{https://picsum.photos/id/24/845/1206}" class="img-fluid shadow-sm" alt="product item">
+                    <h6 class="mt-4 mb-0 fw-bold" th:text="${book.title}"></h6>
+                  <p class="my-2 me-2 fs-6 text-black-50" th:text="${book.author}"></p>
+                  <div class="rating text-warning d-flex align-items-center mb-3">
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                  </div>
+                  <span class="price text-primary fw-bold mb-2 fs-5" th:text="${book.price} + '$'"></span>
                 </div>
-                <span class="price text-primary fw-bold mb-2 fs-5" th:text="${book.author}"></span>
-              </div>
+              </a>
             </div>
 
           </div>
