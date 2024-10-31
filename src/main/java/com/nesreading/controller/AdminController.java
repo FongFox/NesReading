@@ -42,8 +42,8 @@ public class AdminController {
 	}
 
 	@PostMapping("users/create")
-	public String handleCreateUser(@ModelAttribute("newUser") User newUser) {
-		userService.handleCreateUser(newUser);
+	public String handleCreateUser(@ModelAttribute("newUser") User newUser, @RequestParam("newUserFile") MultipartFile file) {
+		userService.handleCreateUser(newUser, file);
 		return "redirect:/admin/users";
 	}
 

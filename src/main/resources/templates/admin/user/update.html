@@ -14,12 +14,19 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
   <script>
     $(document).ready(() => {
-        const avatarFile = $("#avatarFile");
-        avatarFile.change(function (e) {
-            const imgURL = URL.createObjectURL(e.target.files[0]);
-            $("#avatarPreview").attr("src", imgURL);
-            $("#avatarPreview").css({"display": "block"});
-        });
+      const avatarFile = $("#avatarFile");
+      const avatarPreview = $("#avatarPreview");
+      const orgImage = avatarPreview.data("image");
+
+      if (orgImage) {
+          const urlImage = "/images/avatar/" + orgImage;
+          avatarPreview.attr("src", urlImage).css("display", "block");
+      }
+
+      avatarFile.change(function (e) {
+          const imgURL = URL.createObjectURL(e.target.files[0]);
+          avatarPreview.attr("src", imgURL).css("display", "block");
+      });
     });
   </script>
 </head>
@@ -94,7 +101,7 @@
                   </div>
                   <div class="mb-3 col-12">
                     <img style="max-height: 250px; display: none" alt="avatar preview"
-                         id="avatarPreview"/>
+                         id="avatarPreview" th:data-image="${tempUser.avatar}"/>
                   </div>
                   <div class="col-12 mb-3">
                     <div class="d-grid">
