@@ -100,13 +100,13 @@
                                     <label class="form-label">Stock</label>
                                     <input type="number" class="form-control" th:field="*{stock}"/>
                                 </div>
-                                <!-- Avatar field (Start) -->
+                                <!-- Image field (Start) -->
                                 <div class="mb-3 col-12 col-md-6">
                                     <label for="bookFile" class="form-label">Image:</label>
                                     <input class="form-control" type="file" id="bookFile" name="tempBookFile"
                                            accept=".png, .jpg, .jpeg"/>
                                 </div>
-                                <!-- Book field (End) -->
+                                <!-- Image field (End) -->
                                 <div class="mb-3 col-12 col-md-6">
                                     <label class="form-label">Book Category:</label>
                                     <select class="form-select" th:field="*{category}">
@@ -144,12 +144,12 @@
                                         <option value="SOFT-SKILL">Soft-Skill</option>
                                     </select>
                                 </div>
-                                <!-- Avatar Preview (Start) -->
+                                <!-- Image Preview (Start) -->
                                 <div class="mb-3 col-12">
                                     <img style="max-height: 250px; display: none" alt="book image preview"
                                          id="bookPreview" th:data-image="${dbBook.imageUrl}"/>
                                 </div>
-                                <!-- Avatar Preview (End) -->
+                                <!-- Image Preview (End) -->
                                 <div class="col-12 mb-3">
                                     <div class="d-grid">
                                         <button type="submit" class="btn btn-outline-warning">Update</button>

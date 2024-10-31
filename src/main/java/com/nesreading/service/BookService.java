@@ -37,7 +37,11 @@ public class BookService {
 
     public void handleCreateBook(Book newBook, MultipartFile file) {
         String bookImage = uploadService.handleSaveUploadFile(file, "book");
+        
         newBook.setImageUrl(bookImage);
+        newBook.setSold(0);
+        newBook.setStatus(0);
+        
         bookRepository.save(newBook);
     }
 
