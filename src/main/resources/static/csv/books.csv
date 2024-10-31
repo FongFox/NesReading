@@ -1,0 +1,16 @@
+category,title,author,shortDescription,detailDescription,publisher,publicationYear,price,stock,status,sold
+FICTION,The Great Gatsby,F. Scott Fitzgerald,"A story of wealth, love, and tragedy","Set in the Jazz Age on Long Island, The Great Gatsby provides a critical social history of America during the Roaring Twenties.",Scribner,1925,120000,100,0,30
+NONFICTION,Educated,Tara Westover,"A memoir of family, education, and self-discovery","The book details the struggle to survive, break away, and the journey to self-discovery",Turtleback Books,2018,150000,50,0,15
+SCIENCE,A Brief History of Time,Stephen Hawking,"An exploration of time and the universe","Hawking's explanations of fundamental questions about the universe and time itself",Bantam,1988,180000,200,0,100
+HISTORY,Sapiens: A Brief History of Humankind,Yuval Noah Harari,"A journey through human history","The book spans from the Stone Age to the rise of capitalism",Random House,2011,220000,150,0,120
+BIOGRAPHY,Steve Jobs,Walter Isaacson,"The life of Steve Jobs","An in-depth biography based on exclusive interviews with Jobs and his family",Scribner,2011,170000,75,0,35
+CHILDREN,Harry Potter and the Sorcerer's Stone,J.K. Rowling,"A young wizard's journey","The story of a young wizard discovering his magical heritage",Bloomsbury,1997,90000,500,0,400
+BUSINESS,The Lean Startup,Eric Ries,"Building a business efficiently","The book teaches about lean management for startups and businesses",Crown Business,2011,135000,60,0,20
+HEALTH,How Not to Die,Michael Greger MD,"Learn how diet impacts longevity","This book discusses the role of diet and lifestyle in preventing diseases",Flatiron Books,2015,160000,70,0,25
+RELIGION,The Purpose Driven Life,Rick Warren,"Finding life’s purpose","Exploring how to find a fulfilling and meaningful life",Zondervan,2002,110000,120,0,45
+SELFHELP,Atomic Habits,James Clear,"Small habits for major success","How tiny changes in habits can lead to remarkable personal growth",Penguin,2018,150000,80,0,50
+HORROR,It,Stephen King,"A terrifying tale in a small town","The story of a group of kids facing a horrific creature",Doubleday,1986,200000,40,0,10
+EDUCATION,Learning How to Learn,Barbara Oakley,"Techniques for better learning","This book explores techniques for learning more effectively",TarcherPerigee,2018,95000,90,0,40
+COMIC,Spider-Man: Into the Spider-Verse,Various,"A multi-verse adventure of Spider-Man","Spider-Man from multiple dimensions team up against a common threat",Marvel Comics,2019,105000,200,0,150
+NOVEL,Pride and Prejudice,Jane Austen,"Classic novel of manners and marriage","Explores social standings and the complexities of love and relationships",T. Egerton,1813,70000,150,0,80
+LIGHTNOVEL,Overlord,Kugane Maruyama,"An epic tale of a powerful sorcerer","The story of a powerful sorcerer navigating a world of magic",Yen Press,2012,130000,40,0,5
