@@ -7,15 +7,18 @@ import org.springframework.stereotype.Service;
 
 import com.nesreading.domain.User;
 import com.nesreading.repository.UserRepository;
+import org.springframework.web.multipart.MultipartFile;
 
 @Service
 public class UserService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
+    private final UploadService uploadService;
 
-    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder) {
+    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder, UploadService uploadService) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
+        this.uploadService = uploadService;
     }
 
     public boolean handleCheckExistedUser(int id) {
@@ -29,6 +32,15 @@ public class UserService {
         this.userRepository.save(tempUser);
     }
 
+    public void handleCreateUser(User newUser, MultipartFile file) {
+        String avatar = uploadService.handleSaveUploadFile(file, "avatar");
+        User user = new User(newUser.getRole(), newUser.getFirstName(), newUser.getLastName(), newUser.getEmail(), newUser.getPhoneNumber());
+        user.setPassword(handleConvertHashPassword(newUser.getPassword()));
+        user.setAvatar(avatar);
+
+        userRepository.save(user);
+    }
+
     public List<User> handleFetchAllUsers() {
         return userRepository.findAll();
     }
@@ -38,6 +50,12 @@ public class UserService {
     }
 
     public void handleDeleteUserById(int id) {
+        User tempUser = userRepository.getReferenceById(id);
+
+        if(tempUser.getAvatar() != null && !tempUser.getAvatar().isEmpty()) {
+            uploadService.handleDeleteFile(tempUser.getAvatar(), "avatar");
+        }
+
         userRepository.deleteById(id);
     }
 
@@ -51,6 +69,26 @@ public class UserService {
 
         if(!tempUser.getPassword().isEmpty() && !tempUser.getPassword().isBlank()) {
             dbUser.setPassword(handleConvertHashPassword(tempUser.getPassword()));
+        }
+
+        userRepository.save(dbUser);
+    }
+
+    public void handleUpdateUser(User tempUser, MultipartFile file) {
+        User dbUser = handleFetchUserById(tempUser.getId());
+
+        dbUser.setFirstName(tempUser.getFirstName());
+        dbUser.setLastName(tempUser.getLastName());
+        dbUser.setPhoneNumber(tempUser.getPhoneNumber());
+        dbUser.setRole(tempUser.getRole());
+
+        if(!tempUser.getPassword().isEmpty() && !tempUser.getPassword().isBlank()) {
+            dbUser.setPassword(handleConvertHashPassword(tempUser.getPassword()));
+        }
+
+        if(!file.isEmpty()) {
+            String avatar = uploadService.handleSaveUploadFile(file, "avatar");
+            dbUser.setAvatar(avatar);
         }
 
         userRepository.save(dbUser);
