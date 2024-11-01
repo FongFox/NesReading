@@ -31,8 +31,13 @@ public class ClientController {
     }
 
     @GetMapping("shop/{id}")
-    public String getBookDetailPage() {
-      return "client/book-detail";
+    public String getBookDetailPage(@PathVariable int id, Model model) {
+        if(bookService.handleCheckBookExist(id)) {
+            return "redirect:/shop";
+        }
+
+        model.addAttribute("dbBook", bookService.handleFetchBookById(id));
+        return "client/book-detail";
     }
     // ================== Book (End) ======================
 
