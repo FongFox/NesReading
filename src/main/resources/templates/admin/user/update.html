@@ -68,7 +68,11 @@
                   </div>
                   <div class="mb-3 col-12 col-md-6">
                     <label class="form-label">First Name:</label>
-                    <input type="text" class="form-control" th:field="*{firstName}"/>
+                    <input type="text"
+                           th:classappend="${#fields.hasErrors('firstName')} ? 'form-control is-invalid' : 'form-control'"
+                           th:field="*{firstName}" />
+                    <div th:if="${#fields.hasErrors('firstName')}"
+                         th:errors="*{firstName}" th:errorclass="invalid-feedback"></div>
                   </div>
                   <div class="mb-3 col-12 col-md-6">
                     <label class="form-label">Last Name:</label>
@@ -79,7 +83,7 @@
                     <input type="email" class="form-control" th:field="*{email}" readonly/>
                   </div>
                   <div class="mb-3 col-12 col-md-12">
-                    <label class="form-label">Password:</label>
+                    <label class="form-label">New Password:</label>
                     <input type="password" class="form-control" th:field="*{password}" />
                   </div>
                   <div class="mb-3 col-12 col-md-12">
@@ -89,7 +93,7 @@
                   <!-- Avatar field (Start) -->
                   <div class="mb-3 col-12 col-md-6">
                     <label for="avatarFile" class="form-label">Avatar:</label>
-                    <input class="form-control" type="file" id="avatarFile" name="newUserFile"
+                    <input class="form-control" type="file" id="avatarFile" name="tempUserFile"
                            accept=".png, .jpg, .jpeg"/>
                   </div>
                   <div class="mb-3 col-12 col-md-6">
