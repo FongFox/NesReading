@@ -5,8 +5,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import com.nesreading.service.BookService;
-import com.nesreading.service.UserService;
-import org.springframework.web.multipart.MultipartFile;
 
 @Controller
 public class ClientController {

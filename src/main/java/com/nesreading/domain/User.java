@@ -3,6 +3,7 @@ package com.nesreading.domain;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import jakarta.validation.constraints.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -26,13 +27,20 @@ public class User {
 	private String role;
 
 	@Column(name = "first_name")
+	@NotNull
+	@Size(min = 2, message = "must be greater than or equal to 2")
 	private String firstName;
 	
 	@Column(name = "last_name")
 	private String lastName;
-	
+
+	@NotNull
+	@Email(message = "Email is not valid", regexp = "^[a-zA-Z0-9_!#$%&'*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$")
+//	@NotEmpty(message = "Email cannot be empty")
 	private String email;
-	
+
+	@NotNull
+	@Size(min = 4, message = "Password must have at least 4 character")
 	private String password;
 	
 	@Column(name = "phone_number")

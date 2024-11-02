@@ -2,13 +2,18 @@ package com.nesreading.controller;
 
 import com.nesreading.domain.Book;
 import com.nesreading.domain.User;
+import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 
 import com.nesreading.service.BookService;
 import com.nesreading.service.UserService;
 import org.springframework.web.multipart.MultipartFile;
+
+import java.util.List;
 
 @Controller
 @RequestMapping("/admin")
@@ -42,8 +47,23 @@ public class AdminController {
 	}
 
 	@PostMapping("users/create")
-	public String handleCreateUser(@ModelAttribute("newUser") User newUser, @RequestParam("newUserFile") MultipartFile file) {
+	public String handleCreateUser(
+			@ModelAttribute("newUser") @Valid User newUser,
+			BindingResult newUserBindingResult,
+			@RequestParam("newUserFile") MultipartFile file
+	) {
+		List<FieldError> errors = newUserBindingResult.getFieldErrors();
+		for (FieldError error : errors ) {
+			System.out.println (">>> " + error.getField() + " - " + error.getDefaultMessage());
+		}
+
+		// validate
+		if (newUserBindingResult.hasErrors()) {
+			return "admin/user/create";
+		}
+
 		userService.handleCreateUser(newUser, file);
+
 		return "redirect:/admin/users";
 	}
 
@@ -72,8 +92,25 @@ public class AdminController {
 	}
 
 	@PostMapping("users/update")
-	public String handleUpdateUser(@ModelAttribute("tempUser") User tempUser) {
-		userService.handleUpdateUser(tempUser);
+	public String handleUpdateUser(
+			@ModelAttribute("tempUser") @Valid User tempUser,
+			BindingResult tempUserBindingResult,
+			@RequestParam("tempUserFile") MultipartFile file
+	) {
+		List<FieldError> errors = tempUserBindingResult.getFieldErrors();
+		for (FieldError error : errors ) {
+			System.out.println (">>> " + error.getField() + " - " + error.getDefaultMessage());
+		}
+
+		// validate
+		if (tempUserBindingResult.hasErrors()) {
+			if (tempUser.getPassword() == null || tempUser.getPassword().isEmpty()) {
+				userService.handleUpdateUser(tempUser, file);
+			} else {
+				return "admin/user/update";
+			}
+		}
+
 		return "redirect:/admin/users";
 	}
 
@@ -100,7 +137,21 @@ public class AdminController {
 	}
 
 	@PostMapping("books/create")
-	public String handleCreateBook(@ModelAttribute("newBook") Book newBook, @RequestParam("newBookFile") MultipartFile file) {
+	public String handleCreateBook(
+			@ModelAttribute("newBook") @Valid Book newBook,
+			BindingResult newBookbindingResult,
+			@RequestParam("newBookFile") MultipartFile file
+	) {
+		List<FieldError> errors = newBookbindingResult.getFieldErrors();
+		for (FieldError error : errors ) {
+			System.out.println (">>> " + error.getField() + " - " + error.getDefaultMessage());
+		}
+
+		// validate
+		if (newBookbindingResult.hasErrors()) {
+			return "admin/book/create";
+		}
+
 		bookService.handleCreateBook(newBook, file);
 
 		return "redirect:/admin/books";
@@ -123,14 +174,26 @@ public class AdminController {
 			return "redirect:/admin/books";
 		}
 
-		model.addAttribute("dbBook", bookService.handleFetchBookById(id));
+		model.addAttribute("tempBook", bookService.handleFetchBookById(id));
 
 		return "admin/book/update";
 	}
 
 	@PostMapping("books/update")
-	public String handleUpdateBook(@ModelAttribute("tempBook") Book tempBook, @RequestParam("tempBookFile") MultipartFile file) {
+	public String handleUpdateBook(
+			@ModelAttribute("tempBook") @Valid Book tempBook,
+			BindingResult tempBookbindingResult,
+			@RequestParam("tempBookFile") MultipartFile file) {
 //		System.out.println("Test: " + tempBook.toString());
+		List<FieldError> errors = tempBookbindingResult.getFieldErrors();
+		for (FieldError error : errors ) {
+			System.out.println (">>> " + error.getField() + " - " + error.getDefaultMessage());
+		}
+
+		// validate
+		if (tempBookbindingResult.hasErrors()) {
+			return "admin/book/update";
+		}
 
 		bookService.handleUpdateBook(tempBook, file);
 

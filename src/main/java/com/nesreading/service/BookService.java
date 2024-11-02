@@ -32,6 +32,7 @@ public class BookService {
     }
 
     public void handleCreateBook(Book newBook) {
+        newBook.setStatus(0);
         bookRepository.save(newBook);
     }
 
