@@ -76,4 +76,25 @@ public class ClientController {
       return "client/contact";
     }
     // ================== Contact (End) ======================
+
+    // ================== Book-Detail (Start) ====================
+    @GetMapping("book-detail")
+    public String getBookdetailPage() {
+        return "client/book-detail";
+    }
+    // ================== Book-Detail (End) ======================
+
+    // ================== Blog (Start) ====================
+    @GetMapping("blog")
+    public String getBlogPage() {
+        return "client/blog";
+    }
+    // ================== Blog (End) ======================
+
+    // ================== Post (Start) ====================
+    @GetMapping("post")
+    public String getPostPage() {
+        return "client/post";
+    }
+    // ================== Post (End) ======================
 }
