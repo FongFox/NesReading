@@ -70,6 +70,13 @@ public class User {
 		this.phoneNumber = phoneNumber;
 	}
 
+	public User(String role, String firstName, String lastName, String email) {
+		this.role = role;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.email = email;
+	}
+
 	public int getId() {
 		return id;
 	}

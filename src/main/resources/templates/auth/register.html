@@ -31,40 +31,64 @@
             <div class="card shadow-lg border-0 rounded-lg mt-5">
                 <div class="card-header"><h3 class="text-center font-weight-light my-4">Register</h3></div>
                 <div class="card-body">
-                    <form>
+                    <form method="post" th:action="@{/register}" th:object="${newUser}">
                         <div class="row mb-3">
                             <div class="col-md-6">
                                 <div class="form-floating mb-3 mb-md-0">
-                                    <input class="form-control" id="inputFirstName" type="text"
-                                           placeholder="Enter your first name"/>
+                                    <input th:classappend="${#fields.hasErrors('firstName')} ? 'form-control is-invalid' : 'form-control'"
+                                           id="inputFirstName"
+                                           type="text"
+                                           placeholder="Enter your first name"
+                                           th:field="*{firstName}"/>
                                     <label for="inputFirstName">First name</label>
+                                    <div th:if="${#fields.hasErrors('firstName')}"
+                                         th:errors="*{firstName}" th:errorclass="invalid-feedback"></div>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-floating">
-                                    <input class="form-control" id="inputLastName" type="text"
-                                           placeholder="Enter your last name"/>
+                                    <input class="form-control"
+                                           id="inputLastName"
+                                           type="text"
+                                           placeholder="Enter your last name"
+                                           th:field="*{lastName}"/>
                                     <label for="inputLastName">Last name</label>
                                 </div>
                             </div>
                         </div>
                         <div class="form-floating mb-3">
-                            <input class="form-control" id="inputEmail" type="email" placeholder="name@example.com"/>
+                            <input th:classappend="${#fields.hasErrors('email')} ? 'form-control is-invalid' : 'form-control'"
+                                   id="inputEmail"
+                                   type="email"
+                                   placeholder="name@example.com"
+                                   th:field="*{email}"/>
                             <label for="inputEmail">Email address</label>
+                            <div th:if="${#fields.hasErrors('email')}"
+                                 th:errors="*{email}" th:errorclass="invalid-feedback"></div>
                         </div>
                         <div class="row mb-3">
                             <div class="col-md-6">
                                 <div class="form-floating mb-3 mb-md-0">
-                                    <input class="form-control" id="inputPassword" type="password"
-                                           placeholder="Create a password"/>
+                                    <input th:classappend="${#fields.hasErrors('password')} ? 'form-control is-invalid' : 'form-control'"
+                                           id="inputPassword"
+                                           type="password"
+                                           placeholder="Create a password"
+                                           th:field="*{password}"/>
                                     <label for="inputPassword">Password</label>
+                                    <div th:if="${#fields.hasErrors('password')}"
+                                         th:errors="*{password}" th:errorclass="invalid-feedback"></div>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-floating mb-3 mb-md-0">
-                                    <input class="form-control" id="inputPasswordConfirm" type="password"
-                                           placeholder="Confirm password"/>
+                                    <input th:classappend="${#fields.hasErrors('confirmPassword')} ? 'form-control is-invalid' : 'form-control'"
+                                           id="inputPasswordConfirm"
+                                           type="password"
+                                           placeholder="Confirm password"
+                                           th:field="*{confirmPassword}"/>
                                     <label for="inputPasswordConfirm">Confirm Password</label>
+                                    <div th:if="${#fields.hasErrors('confirmPassword')}"
+                                         th:errors="*{confirmPassword}" th:errorclass="invalid-feedback"></div>
                                 </div>
                             </div>
                         </div>
@@ -92,50 +116,6 @@
         </div>
     </div>
 </div>
-
-<!--<div class="container mb-5">-->
-<!--    <div class="row justify-content-center">-->
-<!--        <div class="col-lg-5">-->
-<!--            <div class="card shadow-lg border-0 rounded-lg mt-5">-->
-<!--                <div class="card-header"><h3 class="text-center font-weight-light my-4">Login</h3></div>-->
-<!--                <div class="card-body">-->
-<!--                    <form>-->
-<!--                        <div class="form-floating mb-3">-->
-<!--                            <input class="form-control" id="inputEmail" type="email" placeholder="name@example.com" />-->
-<!--                            <label for="inputEmail">Email address</label>-->
-<!--                        </div>-->
-<!--                        <div class="form-floating mb-3">-->
-<!--                            <input class="form-control" id="inputPassword" type="password" placeholder="Password" />-->
-<!--                            <label for="inputPassword">Password</label>-->
-<!--                        </div>-->
-
-<!--                        <div class="col-12">-->
-<!--                            <div class="d-grid">-->
-<!--                                <button type="submit" class="btn btn-outline-primary">Login</button>-->
-<!--                            </div>-->
-<!--                        </div>-->
-
-<!--                        <div class="col-12 mt-3">-->
-<!--                            <div class="d-grid">-->
-<!--                                <a type="button" class="btn btn-outline-primary" th:href="@{/}">-->
-<!--                                    <= Back to Home-->
-<!--                                </a>-->
-<!--                            </div>-->
-<!--                        </div>-->
-
-<!--                        <div class="card-footer text-center py-3 mt-3">-->
-<!--                            <div class="small">-->
-<!--                                <a th:href="@{/register}">Need an account? Sign up!</a>-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                    </form>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--    </div>-->
-<!--</div>-->
-
-<!--    <footer th:replace="~{layouts/client-layout :: footer}"></footer>-->
 
 <script th:src="@{https://use.fontawesome.com/releases/v6.3.0/js/all.js}" crossorigin="anonymous"></script>
 <script th:src="@{/scripts/client/jquery-1.11.0.min.js}"></script>
