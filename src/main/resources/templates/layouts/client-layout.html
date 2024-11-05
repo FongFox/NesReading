@@ -40,7 +40,7 @@
                         <div class="user-items d-flex align-items-center">
                             <ul class="d-flex justify-content-end list-unstyled mb-0">
                                 <li class="pe-3">
-                                    <a th:href="@{/}" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                    <a th:href="@{/login}">
                                         <i class="fa-regular fa-user"></i>
                                     </a>
 
@@ -154,15 +154,12 @@
                                         </div>
                                     </div>
                                 </li> -->
-                                
-                                <li class="cart-dropdown dropdown">
-                                    <a th:href="@{/carts}" class="dropdown-toggle" data-bs-toggle="dropdown" role="button"
-                                       aria-expanded="false">
+
+                                <li class="pe-3">
+                                    <a th:href="@{/carts}">
                                         <i class="fa-solid fa-cart-shopping"></i>
-
-                                        <!-- <span class="fs-6 fw-light">(02)</span> -->
-
                                     </a>
+                                    <span class="fs-6 fw-light">(02)</span>
 
                                     <!-- Modal -->
                                     <!-- <div class="dropdown-menu animate slide dropdown-menu-start dropdown-menu-lg-end p-3">
