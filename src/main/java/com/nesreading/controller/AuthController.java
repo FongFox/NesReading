@@ -17,66 +17,53 @@ import java.util.List;
 
 @Controller
 public class AuthController {
-  private final UserService userService;
-  private final UserMapper userMapper;
+    private final UserService userService;
+    private final UserMapper userMapper;
 
     public AuthController(UserService userService, UserMapper userMapper) {
         this.userService = userService;
         this.userMapper = userMapper;
     }
 
-    // ================== Admin Login (Start) ====================
-  @GetMapping("admin/login")
-  public String getAdminLoginPage() {
-    return "auth/admin-login";
-  }
+    // ================== Login (Start) ====================
+    @GetMapping("login")
+    public String getLoginPage() {
+        return "auth/login";
+    }
+    // ================== Login (End) ======================
 
-  @PostMapping("admin/login")
-  public String handleAdminLogin() {
-    return "redirect:/admin/login";
-  }
-  // ================== Admin Login (End) ======================
+    // ================== Register (Start) ====================
+    @GetMapping("register")
+    public String getRegisterPage(Model model) {
+        model.addAttribute("newUser", new RegisterDTO());
 
-  // ================== Client Login (Start) ====================
-  @GetMapping("login")
-  public String getLoginPage() {
-    return "auth/login";
-  }
-
-  @PostMapping("login")
-  public String handleLogin() {
-    return "redirect:/login";
-  }
-  // ================== Client Login (End) ======================
-
-  // ================== Client Register (Start) ====================
-  @GetMapping("register")
-  public String getRegisterPage(Model model) {
-    model.addAttribute("newUser", new RegisterDTO());
-
-    return "auth/register";
-  }
-  
-  @PostMapping("register")
-  public String handleRegister(
-          @ModelAttribute("newUser") @Valid RegisterDTO registerDTO,
-          BindingResult registerDtoBindingResult
-  ) {
-    List<FieldError> errors = registerDtoBindingResult.getFieldErrors();
-    for (FieldError error : errors ) {
-      System.out.println (">>> " + error.getField() + " - " + error.getDefaultMessage());
+        return "auth/register";
     }
 
-    // validate
-    if (registerDtoBindingResult.hasErrors()) {
-      return "auth/register";
+    @PostMapping("register")
+    public String handleRegister(
+            @ModelAttribute("newUser") @Valid RegisterDTO registerDTO,
+            BindingResult registerDtoBindingResult) {
+        List<FieldError> errors = registerDtoBindingResult.getFieldErrors();
+        for (FieldError error : errors) {
+            System.out.println(">>> " + error.getField() + " - " + error.getDefaultMessage());
+        }
+
+        // validate
+        if (registerDtoBindingResult.hasErrors()) {
+            return "auth/register";
+        }
+
+        User user = userMapper.registerDtoToUser(registerDTO);
+
+        userService.handleCreateUser(user);
+
+        return "redirect:/login";
     }
+    // ================== Register (End) ======================
 
-    User user = userMapper.registerDtoToUser(registerDTO);
-
-    userService.handleCreateUser(user);
-
-    return "redirect:/login";
-  }
-  // ================== Client Register (End) ======================
+    @GetMapping("/access-deny")
+    public String getAccessDenyPage() {
+        return "other/access-deny";
+    }
 }
