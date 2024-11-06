@@ -17,7 +17,7 @@ public class ClientController {
     // ================== Home (Start) ====================
     @GetMapping("")
     public String getHomePage() {
-      return "client/home";
+        return "client/home";
     }
     // ================== Home (End) ======================
 
@@ -30,7 +30,7 @@ public class ClientController {
 
     @GetMapping("shop/{id}")
     public String getBookDetailPage(@PathVariable int id, Model model) {
-        if(bookService.handleCheckBookExist(id)) {
+        if (bookService.handleCheckBookExist(id)) {
             return "redirect:/shop";
         }
 
@@ -42,38 +42,38 @@ public class ClientController {
     // ================== Shopping Cart (Start) ====================
     @GetMapping("carts")
     public String getShoppingCartPage() {
-      return "client/shopping-cart";
+        return "client/shopping-cart";
     }
     // ================== Shopping Cart (End) ======================
 
     // ================== Checkout (Start) ====================
     @GetMapping("checkout")
     public String getCheckoutPage() {
-      return "client/checkout";
+        return "client/checkout";
     }
 
     @PostMapping("checkout")
     public String handleCheckout() {
-      return "redirect:/checkout/success";
+        return "redirect:/checkout/success";
     }
 
     @GetMapping("checkout/success")
     public String getCheckoutSuccessPage() {
-      return "client/checkout-success";
+        return "client/checkout-success";
     }
     // ================== Checkout (End) ======================
-    
+
     // ================== About (Start) ====================
     @GetMapping("about")
     public String getAboutPage() {
-      return "client/about";
+        return "client/about";
     }
     // ================== About (End) ======================
 
     // ================== Contact (Start) ====================
     @GetMapping("contact")
     public String getContactPage() {
-      return "client/contact";
+        return "client/contact";
     }
     // ================== Contact (End) ======================
 
