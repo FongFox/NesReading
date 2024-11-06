@@ -72,18 +72,11 @@
                     </div>
                     Orders
                 </a>
-                <!-- For Inventory -->
-                <!--                <a class="nav-link" th:href="@{/admin}">-->
-                <!--                    <div class="sb-nav-link-icon">-->
-                <!--                        <i class="fa-solid fa-warehouse"></i>-->
-                <!--                    </div>-->
-                <!--                    Inventory-->
-                <!--                </a>-->
             </div>
         </div>
         <div class="sb-sidenav-footer">
             <div class="small">Logged in as:</div>
-            Admin
+            <span th:text="${session.fullName}"></span>
         </div>
     </nav>
 </body>
