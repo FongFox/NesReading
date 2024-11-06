@@ -17,63 +17,69 @@ import org.springframework.security.web.authentication.AuthenticationSuccessHand
 
 @Configuration
 public class SecurityConfiguration {
-    @Bean
-    PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
+        @Bean
+        PasswordEncoder passwordEncoder() {
+                return new BCryptPasswordEncoder();
+        }
 
-    @Bean
-    UserDetailsService userDetailsService(UserService userService) {
-        return new CustomUserDetailsService(userService);
-    }
+        @Bean
+        UserDetailsService userDetailsService(UserService userService) {
+                return new CustomUserDetailsService(userService);
+        }
 
-    @Bean
-    DaoAuthenticationProvider authProvider(
-            PasswordEncoder passwordEncoder,
-            UserDetailsService userDetailsService) {
+        @Bean
+        DaoAuthenticationProvider authProvider(
+                        PasswordEncoder passwordEncoder,
+                        UserDetailsService userDetailsService) {
 
-        DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
-        authProvider.setUserDetailsService(userDetailsService);
-        authProvider.setPasswordEncoder(passwordEncoder);
+                DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
+                authProvider.setUserDetailsService(userDetailsService);
+                authProvider.setPasswordEncoder(passwordEncoder);
 
-        return authProvider;
-    }
+                return authProvider;
+        }
 
-    @Bean
-    AuthenticationSuccessHandler customSuccessHandler(){
-        return new CustomAuthenticationSuccessHandler();
-    }
+        @Bean
+        AuthenticationSuccessHandler customSuccessHandler() {
+                return new CustomAuthenticationSuccessHandler();
+        }
 
-    // spring security v5.7 (above)
-    @Bean
-    SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http
-                .authorizeHttpRequests(authorize -> authorize
-                        .dispatcherTypeMatchers(DispatcherType.FORWARD,
-                                DispatcherType.INCLUDE)
-                        .permitAll()
+        // spring security v5.7 (above)
+        @Bean
+        SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+                http
+                                .authorizeHttpRequests(authorize -> authorize
+                                                // .dispatcherTypeMatchers(DispatcherType.FORWARD,
+                                                // DispatcherType.INCLUDE)
+                                                // .permitAll()
 
-                        .requestMatchers("/", "/shop/**","/about", "/contact", "/login", "/register").permitAll()
-                        .requestMatchers("/styles/**", "/scripts/**", "/images/**", "/csv/**").permitAll()
+                                                .requestMatchers("/admin/**").hasRole("ADMIN")
+                                                .requestMatchers("/carts/**", "/checkout/**").hasRole("USER")
 
-                        .requestMatchers("/admin/**").hasRole("ADMIN")
-                        .requestMatchers("/carts/**", "/checkout/**").hasRole("USER")
+                                                .requestMatchers("/", "/shop/**", "/about", "/contact", "/login",
+                                                                "/register", "/logout")
+                                                .permitAll()
+                                                .requestMatchers("/styles/**", "/scripts/**", "/images/**", "/csv/**")
+                                                .permitAll()
 
-                        .anyRequest().authenticated())
+                                                .anyRequest().authenticated())
 
-                .formLogin(formLogin -> formLogin
-                        .loginPage("/login")
-                        .loginProcessingUrl("/login")
-                        .failureUrl("/login?error")
-                        .successHandler(customSuccessHandler())
-                        .permitAll())
+                                .formLogin(formLogin -> formLogin
+                                                .loginPage("/login")
+                                                .loginProcessingUrl("/login")
+                                                .failureUrl("/login?error")
+                                                .successHandler(customSuccessHandler())
+                                                .permitAll())
 
-                .exceptionHandling(ex -> ex
-                        .accessDeniedPage("/access-deny"))
+                                .logout(logout -> logout
+                                                .logoutUrl("/logout")
+                                                .logoutSuccessUrl("/login?logout")
+                                                .permitAll())
 
-                .logout(logout -> logout.permitAll());
+                                .exceptionHandling(ex -> ex
+                                                .accessDeniedPage("/access-deny"));
 
-        return http.build();
-    }
+                return http.build();
+        }
 
 }
