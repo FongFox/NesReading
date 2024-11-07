@@ -2,12 +2,13 @@ package com.nesreading.service;
 
 import com.nesreading.domain.Book;
 import com.nesreading.repository.BookRepository;
+
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class BookService {
@@ -27,6 +28,18 @@ public class BookService {
         return bookRepository.findAll();
     }
 
+    public Page<Book> handleFetchAllBooks(Pageable pageable) {
+        return bookRepository.findAll(pageable);
+    }
+
+    public List<Book> handleFetchBestSellerBooks() {
+        return bookRepository.findTop8ByOrderBySoldDesc();
+    }
+
+    public List<Book> handleFetchRandomBooks() {
+        return bookRepository.find8RandomBooks();
+    }
+
     public Book handleFetchBookById(int id) {
         return bookRepository.getReferenceById(id);
     }
@@ -38,18 +51,18 @@ public class BookService {
 
     public void handleCreateBook(Book newBook, MultipartFile file) {
         String bookImage = uploadService.handleSaveUploadFile(file, "book");
-        
+
         newBook.setImageUrl(bookImage);
         newBook.setSold(0);
         newBook.setStatus(0);
-        
+
         bookRepository.save(newBook);
     }
 
     public void handleDeleteBookById(int id) {
         Book tempBook = bookRepository.getReferenceById(id);
 
-        if(tempBook.getImageUrl() != null && !tempBook.getImageUrl().isEmpty()) {
+        if (tempBook.getImageUrl() != null && !tempBook.getImageUrl().isEmpty()) {
             uploadService.handleDeleteFile(tempBook.getImageUrl(), "book");
         }
 
@@ -69,7 +82,7 @@ public class BookService {
         dbBook.setStock(tempBook.getStock());
         dbBook.setCategory(tempBook.getCategory());
 
-        if(!file.isEmpty()) {
+        if (!file.isEmpty()) {
             String bookImage = uploadService.handleSaveUploadFile(file, "book");
             dbBook.setImageUrl(bookImage);
         }
