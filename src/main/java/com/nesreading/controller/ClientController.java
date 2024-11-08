@@ -7,6 +7,7 @@ import java.util.stream.IntStream;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -34,17 +35,56 @@ public class ClientController {
 
     // ================== Book (Start) ====================
     @GetMapping("shop")
-    public String getBookListPage(Model model, @RequestParam("page") int page) {
-        Pageable pageable = PageRequest.of(page - 1, 20);
-        Page<Book> bookListPage = bookService.handleFetchAllBooks(pageable);
+    public String getBookListPage(
+            Model model,
+            @RequestParam(name = "page") int page,
+            @RequestParam(name = "title", required = false) String title,
+            @RequestParam(name = "author", required = false) String author,
+            @RequestParam(name = "minPrice", required = false) Double minPrice,
+            @RequestParam(name = "maxPrice", required = false) Double maxPrice,
+            @RequestParam(name = "sort", required = false) String sort) {
+        String sortOption = sort == null ? "titleAsc" : sort;
+        Sort sortOrder;
+        switch (sortOption) {
+            case "titleAsc":
+                sortOrder = Sort.by("title").ascending();
+                break;
+            case "titleDesc":
+                sortOrder = Sort.by("title").descending();
+                break;
+            case "priceAsc":
+                sortOrder = Sort.by("price").ascending();
+                break;
+            case "priceDesc":
+                sortOrder = Sort.by("price").descending();
+                break;
+            default:
+                sortOrder = Sort.unsorted();
+                break;
+        }
+
+        if (title != null && title.isEmpty()) title = null;
+        if (author != null && author.isEmpty()) author = null;
+        Double minPriceValue = (minPrice != null && !minPrice.isNaN()) ? Double.valueOf(minPrice) : null;
+        Double maxPriceValue = (maxPrice != null && !maxPrice.isNaN()) ? Double.valueOf(maxPrice) : null;
+        
+        Pageable pageable = PageRequest.of(page - 1, 20, sortOrder);
+        Page<Book> bookListPage;
+
+        if (title != null || author != null || minPrice != null || maxPrice != null) {
+            bookListPage = bookService.handleFetchFilteredBook(pageable, title, author, minPrice, maxPrice);
+        } else {
+            bookListPage = bookService.handleFetchAllBooks(pageable);
+        }
+
         List<Book> bookList = bookListPage.getContent();
         int bookListTotalPage = bookListPage.getTotalPages();
 
         model.addAttribute("bookList", bookList);
         model.addAttribute("currentPage", page);
         model.addAttribute("totalPages", bookListTotalPage);
-        model.addAttribute("range",
-                IntStream.rangeClosed(1, bookListTotalPage).boxed().collect(Collectors.toList()));
+        model.addAttribute("range", IntStream.rangeClosed(1, bookListTotalPage).boxed().collect(Collectors.toList()));
+        model.addAttribute("sort", sort); // Truyền giá trị sort vào model để Thymeleaf sử dụng
 
         return "client/shop";
     }
