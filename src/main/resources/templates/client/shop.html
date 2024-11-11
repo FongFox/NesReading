@@ -117,6 +117,12 @@
                     <i class="fa-solid fa-star"></i>
                   </div>
                   <span class="price text-primary fw-bold mb-2 fs-5" th:text="${book.price} + 'VND'"></span>
+                  <form th:action="@{/add-to-cart}" method="post">
+                    <input type="hidden" name="bookId" th:value="${book.id}" />
+                    <label for="quantity">Quantity:</label>
+                    <input type="number" name="quantity" value="1" min="1" />
+                    <button type="submit">Add to Cart</button>
+                </form>
                 </div>
               </a>
             </div>

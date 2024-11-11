@@ -4,6 +4,7 @@ import com.nesreading.domain.Book;
 import com.nesreading.repository.BookRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,6 +12,7 @@ import java.util.Optional;
 
 @Service
 public class BookService {
+    @Autowired
     private final BookRepository bookRepository;
     private final UploadService uploadService;
 
@@ -29,6 +31,10 @@ public class BookService {
 
     public Book handleFetchBookById(int id) {
         return bookRepository.getReferenceById(id);
+    }
+
+    public Book findBookById(int bookId) {
+        return bookRepository.findById(bookId).orElse(null);
     }
 
     public void handleCreateBook(Book newBook) {
