@@ -31,7 +31,7 @@
                                 <a class="nav-link me-4" th:href="@{/}">Home</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link me-4" th:href="@{/shop}">Shop</a>
+                                <a class="nav-link me-4" th:href="@{/shop(page=${1})}">Shop</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link me-4" th:href="@{/about}">About</a>
@@ -54,6 +54,16 @@
                                         <i class="fa-regular fa-user"></i>
                                     </a>
                                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                                        <li class="d-flex align-items-center flex-column" style="min-width: 300px;">
+                                            <img style="width: 150px; height: 150px; border-radius: 50%; overflow: hidden;"
+                                                th:src="${session.avatar != null ? '../images/avatar/' + session.avatar : 'https://picsum.photos/id/91/200/300'}" />
+                                            <div class="text-center my-3">
+                                                <span th:text="${session.fullName}"></span>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <hr class="dropdown-divider">
+                                        </li>
                                         <li>
                                             <form th:action="@{/logout}" method="post">
                                                 <button class="dropdown-item" type="submit">Logout</button>
@@ -79,9 +89,10 @@
                             <div class="footer-menu">
                                 <img th:src="@{/images/logo/main-logo.png}" alt="logo" class="img-fluid mb-2">
                                 <p>
-                                    Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-                                    Perspiciatis pariatur explicabo, earum laboriosam ducimus sapiente numquam nulla
-                                    reprehenderit.
+                                    NesReading is not just a place to buy books,
+                                    it’s a space that connects readers with authors,
+                                    creating curated book options that cater to
+                                    individual needs and personal styles.
                                 </p>
                                 <div class="social-links">
                                     <ul class="d-flex list-unstyled">
@@ -134,11 +145,11 @@
                                 <h5 class="widget-title text-capitalize pb-2">Contact Us</h5>
                                 <p>
                                     Do you have any queries or suggestions?
-                                    <a th:href="@{/mailto:}" class="text-decoration-underline">yourinfo@gmail.com</a>
+                                    <a th:href="@{/mailto:}" class="text-decoration-underline">support.nesreading@gmail.com</a>
                                 </p>
                                 <p>
                                     If you need support? Just give us a call.
-                                    <a th:href="@{/}" class="text-decoration-underline">+55 111 222 333 44</a>
+                                    <a th:href="@{/}" class="text-decoration-underline"> +8493 327 8628</a>
                                 </p>
                             </div>
                         </div>

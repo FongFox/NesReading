@@ -23,111 +23,30 @@
 </head>
 
 <body>
-
-<!--  <div id="preloader" class="preloader-container">-->
-<!--    <div class="book">-->
-<!--      <div class="inner">-->
-<!--        <div class="left"></div>-->
-<!--        <div class="middle"></div>-->
-<!--        <div class="right"></div>-->
-<!--      </div>-->
-<!--      <ul>-->
-<!--        <li></li>-->
-<!--        <li></li>-->
-<!--        <li></li>-->
-<!--        <li></li>-->
-<!--        <li></li>-->
-<!--        <li></li>-->
-<!--        <li></li>-->
-<!--        <li></li>-->
-<!--        <li></li>-->
-<!--        <li></li>-->
-<!--        <li></li>-->
-<!--        <li></li>-->
-<!--        <li></li>-->
-<!--        <li></li>-->
-<!--        <li></li>-->
-<!--        <li></li>-->
-<!--        <li></li>-->
-<!--        <li></li>-->
-<!--      </ul>-->
-<!--    </div>-->
-<!--  </div>-->
-
   <header th:replace="~{layouts/client-layout :: header}"></header>
 
-  <!-- Banner -->
-  <section id="billboard" class="position-relative d-flex align-items-center py-5 bg-light-gray"
-    style="background-image: url(images/default/banner-image-bg-1.jpg); background-size: cover; background-repeat: no-repeat; background-position: center; height: 800px;">
-    <div class="position-absolute end-0 pe-0 pe-xxl-5 me-0 me-xxl-5 swiper-next main-slider-button-next">
-      <i class="bi bi-caret-right chevron-back-circle d-flex justify-content-center align-items-center p-2"
-        style="font-size: 80px;"></i>
-    </div>
-    <div class="position-absolute start-0 ps-0 ps-xxl-5 ms-0 ms-xxl-5 swiper-prev main-slider-button-prev">
-      <i class="bi bi-caret-left chevron-back-circle d-flex justify-content-center align-items-center p-2"
-        style="font-size: 80px;"></i>
-    </div>
-
-    <div class="swiper main-swiper">
-      <div class="swiper-wrapper d-flex align-items-center">
-        <div class="swiper-slide">
-          <div class="container">
-            <div class="row d-flex flex-column-reverse flex-md-row align-items-center">
-              <div class="col-md-5 offset-md-1 mt-5 mt-md-0 text-center text-md-start">
-                <div class="banner-content">
-                  <h2>The Fine Print Book Collection</h2>
-                  <p>Best Offer Save 30%. Grab it now!</p>
-                  <a th:href="shop.html" class="btn mt-3">Shop Collection</a>
-                </div>
-              </div>
-              <div class="col-md-6 text-center">
-                <div class="image-holder">
-                  <img th:src="@{images/banner/banner-image2.png}" class="img-fluid" alt="banner">
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="swiper-slide">
-          <div class="container">
-            <div class="row d-flex flex-column-reverse flex-md-row align-items-center">
-              <div class="col-md-5 offset-md-1 mt-5 mt-md-0 text-center text-md-start">
-                <div class="banner-content">
-                  <h2>How Innovation works</h2>
-                  <p>Discount available. Grab it now!</p>
-                  <a th:href="shop.html" class="btn mt-3">Shop Product</a>
-                </div>
-              </div>
-              <div class="col-md-6 text-center">
-                <div class="image-holder">
-                  <img th:src="@{images/banner/banner-image1.png}" class="img-fluid" alt="banner">
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="swiper-slide">
-          <div class="container">
-            <div class="row d-flex flex-column-reverse flex-md-row align-items-center">
-              <div class="col-md-5 offset-md-1 mt-5 mt-md-0 text-center text-md-start">
-                <div class="banner-content">
-                  <h2>Your Heart is the Sea</h2>
-                  <p>Limited stocks available. Grab it now!</p>
-                  <a th:href="shop.html" class="btn mt-3">Shop Collection</a>
-                </div>
-              </div>
-              <div class="col-md-6 text-center">
-                <div class="image-holder">
-                  <img th:src="@{images/banner/banner-image.png}" class="img-fluid" alt="banner">
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+  <!-- Carousel -->
+  <div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel">
+    <div class="carousel-inner" >
+      <div class="carousel-item active" data-bs-interval="5000">
+        <img th:src="@{images/default/banner_65cf61a00b255.jpg}" width="2330" height="559.2" class="img-fluid" alt="banner">
+      </div>
+      <div class="carousel-item" data-bs-interval="5000">
+        <img th:src="@{images/default/banner_65cf61a94e84b.jpg}" width="2330" height="559.2" class="img-fluid" alt="banner">
+      </div>
+      <div class="carousel-item" data-bs-interval="5000">
+        <img th:src="@{images/default/banner_65cf618f58a33.jpg}" width="2330" height="559.2" class="img-fluid" alt="banner">
       </div>
     </div>
-
-  </section>
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Next</span>
+    </button>
+  </div>
 
   <!-- Best Selling Item -->
   <section id="best-selling-items" class="position-relative padding-large">
@@ -150,314 +69,21 @@
 
       <div class="swiper best-selling-swiper">
         <div class="swiper-wrapper">
-
-          <!-- Product Slide -->
-          <div class="swiper-slide">
-            <div class="card position-relative p-4 border rounded-3">
-              <!-- <div class="position-absolute">
-                              <p class="bg-primary py-1 px-3 fs-6 text-white rounded-2">10% off</p>
-                            </div> -->
-              <img th:src="@{https://picsum.photos/id/24/845/1206}" class="img-fluid shadow-sm" alt="product item">
-              <h6 class="mt-4 mb-0 fw-bold"><a th:href="@{/shop/1}">House of Sky Breath</a></h6>
-              <!-- <div class="review-content d-flex">
-              </div> -->
-              <p class="my-2 me-2 fs-6 text-black-50">Lauren Asher</p>
-              <div class="mb-2 rating text-warning d-flex align-items-center">
-                <i class="fa-solid fa-star"></i>
-                <i class="fa-solid fa-star"></i>
-                <i class="fa-solid fa-star"></i>
-                <i class="fa-solid fa-star"></i>
-                <i class="fa-solid fa-star"></i>
-              </div>
-              <span class="price text-primary fw-bold mb-2 fs-5">$870</span>
-
-              <!-- <div class="card-concern position-absolute start-0 end-0 d-flex gap-2">
-                <button type="button" th:href="@{/}" class="btn btn-dark" data-bs-toggle="tooltip"
-                  data-bs-placement="top" data-bs-title="Tooltip on top">
-                  <i class="fa-solid fa-cart-shopping"></i>
-                </button>
-                <a th:href="@{/}" class="btn btn-dark">
-                  <span>
-                    <i class="fa-solid fa-heart"></i>
-                  </span>
-                </a>
-              </div> -->
-
-            </div>
+          <div class="swiper-slide" th:if="${bestSellerBookList == null or bestSellerBookList.isEmpty()}">
+            <div class="alert alert-danger" role="alert">Nothing in this list!</div>
           </div>
           <!-- Product Slide -->
-          <div class="swiper-slide">
+          <div class="swiper-slide" th:each="bestSellerBook : ${bestSellerBookList}">
             <div class="card position-relative p-4 border rounded-3">
-              <!-- <div class="position-absolute">
-                                        <p class="bg-primary py-1 px-3 fs-6 text-white rounded-2">10% off</p>
-                                      </div> -->
               <img th:src="@{https://picsum.photos/id/24/845/1206}" class="img-fluid shadow-sm" alt="product item">
-              <h6 class="mt-4 mb-0 fw-bold"><a th:href="@{/shop/1}">House of Sky Breath</a></h6>
-              <!-- <div class="review-content d-flex">
-                        </div> -->
-              <p class="my-2 me-2 fs-6 text-black-50">Lauren Asher</p>
-              <div class="mb-2 rating text-warning d-flex align-items-center">
-                <i class="fa-solid fa-star"></i>
-                <i class="fa-solid fa-star"></i>
-                <i class="fa-solid fa-star"></i>
-                <i class="fa-solid fa-star"></i>
-                <i class="fa-solid fa-star"></i>
-              </div>
-              <span class="price text-primary fw-bold mb-2 fs-5">$870</span>
-
-              <!-- <div class="card-concern position-absolute start-0 end-0 d-flex gap-2">
-                          <button type="button" th:href="@{/}" class="btn btn-dark" data-bs-toggle="tooltip"
-                            data-bs-placement="top" data-bs-title="Tooltip on top">
-                            <i class="fa-solid fa-cart-shopping"></i>
-                          </button>
-                          <a th:href="@{/}" class="btn btn-dark">
-                            <span>
-                              <i class="fa-solid fa-heart"></i>
-                            </span>
-                          </a>
-                        </div> -->
-
+              <h6 class="mt-4 mb-0 fw-bold">
+                <a th:href="@{/shop/{id}(id=${bestSellerBook.id})}" th:text="${bestSellerBook.title}"></a>
+              </h6>
+              <p class="my-2 me-2 fs-6 text-black-50" th:text="${bestSellerBook.author}"></p>
+              <span class="price text-primary fw-bold mb-2 fs-5"
+                th:text="${#numbers.formatDecimal(bestSellerBook.price, 0, 'COMMA', 0, 'POINT') + ' VND'}"></span>
             </div>
           </div>
-          <!-- Product Slide -->
-          <div class="swiper-slide">
-            <div class="card position-relative p-4 border rounded-3">
-              <!-- <div class="position-absolute">
-                                        <p class="bg-primary py-1 px-3 fs-6 text-white rounded-2">10% off</p>
-                                      </div> -->
-              <img th:src="@{https://picsum.photos/id/24/845/1206}" class="img-fluid shadow-sm" alt="product item">
-              <h6 class="mt-4 mb-0 fw-bold"><a th:href="@{/shop/1}">House of Sky Breath</a></h6>
-              <!-- <div class="review-content d-flex">
-                        </div> -->
-              <p class="my-2 me-2 fs-6 text-black-50">Lauren Asher</p>
-              <div class="mb-2 rating text-warning d-flex align-items-center">
-                <i class="fa-solid fa-star"></i>
-                <i class="fa-solid fa-star"></i>
-                <i class="fa-solid fa-star"></i>
-                <i class="fa-solid fa-star"></i>
-                <i class="fa-solid fa-star"></i>
-              </div>
-              <span class="price text-primary fw-bold mb-2 fs-5">$870</span>
-
-              <!-- <div class="card-concern position-absolute start-0 end-0 d-flex gap-2">
-                          <button type="button" th:href="@{/}" class="btn btn-dark" data-bs-toggle="tooltip"
-                            data-bs-placement="top" data-bs-title="Tooltip on top">
-                            <i class="fa-solid fa-cart-shopping"></i>
-                          </button>
-                          <a th:href="@{/}" class="btn btn-dark">
-                            <span>
-                              <i class="fa-solid fa-heart"></i>
-                            </span>
-                          </a>
-                        </div> -->
-
-            </div>
-          </div>
-          <!-- Product Slide -->
-          <div class="swiper-slide">
-            <div class="card position-relative p-4 border rounded-3">
-              <!-- <div class="position-absolute">
-                                        <p class="bg-primary py-1 px-3 fs-6 text-white rounded-2">10% off</p>
-                                      </div> -->
-              <img th:src="@{https://picsum.photos/id/24/845/1206}" class="img-fluid shadow-sm" alt="product item">
-              <h6 class="mt-4 mb-0 fw-bold"><a th:href="@{/shop/1}">House of Sky Breath</a></h6>
-              <!-- <div class="review-content d-flex">
-                        </div> -->
-              <p class="my-2 me-2 fs-6 text-black-50">Lauren Asher</p>
-              <div class="mb-2 rating text-warning d-flex align-items-center">
-                <i class="fa-solid fa-star"></i>
-                <i class="fa-solid fa-star"></i>
-                <i class="fa-solid fa-star"></i>
-                <i class="fa-solid fa-star"></i>
-                <i class="fa-solid fa-star"></i>
-              </div>
-              <span class="price text-primary fw-bold mb-2 fs-5">$870</span>
-
-              <!-- <div class="card-concern position-absolute start-0 end-0 d-flex gap-2">
-                          <button type="button" th:href="@{/}" class="btn btn-dark" data-bs-toggle="tooltip"
-                            data-bs-placement="top" data-bs-title="Tooltip on top">
-                            <i class="fa-solid fa-cart-shopping"></i>
-                          </button>
-                          <a th:href="@{/}" class="btn btn-dark">
-                            <span>
-                              <i class="fa-solid fa-heart"></i>
-                            </span>
-                          </a>
-                        </div> -->
-
-            </div>
-          </div>
-          <!-- Product Slide -->
-          <div class="swiper-slide">
-            <div class="card position-relative p-4 border rounded-3">
-              <!-- <div class="position-absolute">
-                                        <p class="bg-primary py-1 px-3 fs-6 text-white rounded-2">10% off</p>
-                                      </div> -->
-              <img th:src="@{https://picsum.photos/id/24/845/1206}" class="img-fluid shadow-sm" alt="product item">
-              <h6 class="mt-4 mb-0 fw-bold"><a th:href="@{/shop/1}">House of Sky Breath</a></h6>
-              <!-- <div class="review-content d-flex">
-                        </div> -->
-              <p class="my-2 me-2 fs-6 text-black-50">Lauren Asher</p>
-              <div class="mb-2 rating text-warning d-flex align-items-center">
-                <i class="fa-solid fa-star"></i>
-                <i class="fa-solid fa-star"></i>
-                <i class="fa-solid fa-star"></i>
-                <i class="fa-solid fa-star"></i>
-                <i class="fa-solid fa-star"></i>
-              </div>
-              <span class="price text-primary fw-bold mb-2 fs-5">$870</span>
-
-              <!-- <div class="card-concern position-absolute start-0 end-0 d-flex gap-2">
-                          <button type="button" th:href="@{/}" class="btn btn-dark" data-bs-toggle="tooltip"
-                            data-bs-placement="top" data-bs-title="Tooltip on top">
-                            <i class="fa-solid fa-cart-shopping"></i>
-                          </button>
-                          <a th:href="@{/}" class="btn btn-dark">
-                            <span>
-                              <i class="fa-solid fa-heart"></i>
-                            </span>
-                          </a>
-                        </div> -->
-
-            </div>
-          </div>
-          <!-- Product Slide -->
-          <div class="swiper-slide">
-            <div class="card position-relative p-4 border rounded-3">
-              <!-- <div class="position-absolute">
-                                        <p class="bg-primary py-1 px-3 fs-6 text-white rounded-2">10% off</p>
-                                      </div> -->
-              <img th:src="@{https://picsum.photos/id/24/845/1206}" class="img-fluid shadow-sm" alt="product item">
-              <h6 class="mt-4 mb-0 fw-bold"><a th:href="@{/shop/1}">House of Sky Breath</a></h6>
-              <!-- <div class="review-content d-flex">
-                        </div> -->
-              <p class="my-2 me-2 fs-6 text-black-50">Lauren Asher</p>
-              <div class="mb-2 rating text-warning d-flex align-items-center">
-                <i class="fa-solid fa-star"></i>
-                <i class="fa-solid fa-star"></i>
-                <i class="fa-solid fa-star"></i>
-                <i class="fa-solid fa-star"></i>
-                <i class="fa-solid fa-star"></i>
-              </div>
-              <span class="price text-primary fw-bold mb-2 fs-5">$870</span>
-
-              <!-- <div class="card-concern position-absolute start-0 end-0 d-flex gap-2">
-                          <button type="button" th:href="@{/}" class="btn btn-dark" data-bs-toggle="tooltip"
-                            data-bs-placement="top" data-bs-title="Tooltip on top">
-                            <i class="fa-solid fa-cart-shopping"></i>
-                          </button>
-                          <a th:href="@{/}" class="btn btn-dark">
-                            <span>
-                              <i class="fa-solid fa-heart"></i>
-                            </span>
-                          </a>
-                        </div> -->
-
-            </div>
-          </div>
-          <!-- Product Slide -->
-          <div class="swiper-slide">
-            <div class="card position-relative p-4 border rounded-3">
-              <!-- <div class="position-absolute">
-                                        <p class="bg-primary py-1 px-3 fs-6 text-white rounded-2">10% off</p>
-                                      </div> -->
-              <img th:src="@{https://picsum.photos/id/24/845/1206}" class="img-fluid shadow-sm" alt="product item">
-              <h6 class="mt-4 mb-0 fw-bold"><a th:href="@{/shop/1}">House of Sky Breath</a></h6>
-              <!-- <div class="review-content d-flex">
-                        </div> -->
-              <p class="my-2 me-2 fs-6 text-black-50">Lauren Asher</p>
-              <div class="mb-2 rating text-warning d-flex align-items-center">
-                <i class="fa-solid fa-star"></i>
-                <i class="fa-solid fa-star"></i>
-                <i class="fa-solid fa-star"></i>
-                <i class="fa-solid fa-star"></i>
-                <i class="fa-solid fa-star"></i>
-              </div>
-              <span class="price text-primary fw-bold mb-2 fs-5">$870</span>
-
-              <!-- <div class="card-concern position-absolute start-0 end-0 d-flex gap-2">
-                          <button type="button" th:href="@{/}" class="btn btn-dark" data-bs-toggle="tooltip"
-                            data-bs-placement="top" data-bs-title="Tooltip on top">
-                            <i class="fa-solid fa-cart-shopping"></i>
-                          </button>
-                          <a th:href="@{/}" class="btn btn-dark">
-                            <span>
-                              <i class="fa-solid fa-heart"></i>
-                            </span>
-                          </a>
-                        </div> -->
-
-            </div>
-          </div>
-          <!-- Product Slide -->
-          <div class="swiper-slide">
-            <div class="card position-relative p-4 border rounded-3">
-              <!-- <div class="position-absolute">
-                                        <p class="bg-primary py-1 px-3 fs-6 text-white rounded-2">10% off</p>
-                                      </div> -->
-              <img th:src="@{https://picsum.photos/id/24/845/1206}" class="img-fluid shadow-sm" alt="product item">
-              <h6 class="mt-4 mb-0 fw-bold"><a th:href="@{/shop/1}">House of Sky Breath</a></h6>
-              <!-- <div class="review-content d-flex">
-                        </div> -->
-              <p class="my-2 me-2 fs-6 text-black-50">Lauren Asher</p>
-              <div class="mb-2 rating text-warning d-flex align-items-center">
-                <i class="fa-solid fa-star"></i>
-                <i class="fa-solid fa-star"></i>
-                <i class="fa-solid fa-star"></i>
-                <i class="fa-solid fa-star"></i>
-                <i class="fa-solid fa-star"></i>
-              </div>
-              <span class="price text-primary fw-bold mb-2 fs-5">$870</span>
-
-              <!-- <div class="card-concern position-absolute start-0 end-0 d-flex gap-2">
-                          <button type="button" th:href="@{/}" class="btn btn-dark" data-bs-toggle="tooltip"
-                            data-bs-placement="top" data-bs-title="Tooltip on top">
-                            <i class="fa-solid fa-cart-shopping"></i>
-                          </button>
-                          <a th:href="@{/}" class="btn btn-dark">
-                            <span>
-                              <i class="fa-solid fa-heart"></i>
-                            </span>
-                          </a>
-                        </div> -->
-
-            </div>
-          </div>
-          <!-- Product Slide -->
-          <div class="swiper-slide">
-            <div class="card position-relative p-4 border rounded-3">
-              <!-- <div class="position-absolute">
-                                        <p class="bg-primary py-1 px-3 fs-6 text-white rounded-2">10% off</p>
-                                      </div> -->
-              <img th:src="@{https://picsum.photos/id/24/845/1206}" class="img-fluid shadow-sm" alt="product item">
-              <h6 class="mt-4 mb-0 fw-bold"><a th:href="@{/shop/1}">House of Sky Breath</a></h6>
-              <!-- <div class="review-content d-flex">
-                        </div> -->
-              <p class="my-2 me-2 fs-6 text-black-50">Lauren Asher</p>
-              <div class="mb-2 rating text-warning d-flex align-items-center">
-                <i class="fa-solid fa-star"></i>
-                <i class="fa-solid fa-star"></i>
-                <i class="fa-solid fa-star"></i>
-                <i class="fa-solid fa-star"></i>
-                <i class="fa-solid fa-star"></i>
-              </div>
-              <span class="price text-primary fw-bold mb-2 fs-5">$870</span>
-
-              <!-- <div class="card-concern position-absolute start-0 end-0 d-flex gap-2">
-                          <button type="button" th:href="@{/}" class="btn btn-dark" data-bs-toggle="tooltip"
-                            data-bs-placement="top" data-bs-title="Tooltip on top">
-                            <i class="fa-solid fa-cart-shopping"></i>
-                          </button>
-                          <a th:href="@{/}" class="btn btn-dark">
-                            <span>
-                              <i class="fa-solid fa-heart"></i>
-                            </span>
-                          </a>
-                        </div> -->
-
-            </div>
-          </div>
-
         </div>
       </div>
     </div>
@@ -480,314 +106,21 @@
       </div>
       <div class="swiper featured-swiper">
         <div class="swiper-wrapper">
-
-          <!-- Product Slide -->
-          <div class="swiper-slide">
-            <div class="card position-relative p-4 border rounded-3">
-              <!-- <div class="position-absolute">
-                              <p class="bg-primary py-1 px-3 fs-6 text-white rounded-2">10% off</p>
-                            </div> -->
-              <img th:src="@{https://picsum.photos/id/24/845/1206}" class="img-fluid shadow-sm" alt="product item">
-              <h6 class="mt-4 mb-0 fw-bold"><a th:href="@{/shop/1}">House of Sky Breath</a></h6>
-              <!-- <div class="review-content d-flex">
-              </div> -->
-              <p class="my-2 me-2 fs-6 text-black-50">Lauren Asher</p>
-              <div class="mb-2 rating text-warning d-flex align-items-center">
-                <i class="fa-solid fa-star"></i>
-                <i class="fa-solid fa-star"></i>
-                <i class="fa-solid fa-star"></i>
-                <i class="fa-solid fa-star"></i>
-                <i class="fa-solid fa-star"></i>
-              </div>
-              <span class="price text-primary fw-bold mb-2 fs-5">$870</span>
-
-              <!-- <div class="card-concern position-absolute start-0 end-0 d-flex gap-2">
-                <button type="button" th:href="@{/}" class="btn btn-dark" data-bs-toggle="tooltip"
-                  data-bs-placement="top" data-bs-title="Tooltip on top">
-                  <i class="fa-solid fa-cart-shopping"></i>
-                </button>
-                <a th:href="@{/}" class="btn btn-dark">
-                  <span>
-                    <i class="fa-solid fa-heart"></i>
-                  </span>
-                </a>
-              </div> -->
-
-            </div>
+          <div class="swiper-slide" th:if="${featureBookList == null or featureBookList.isEmpty()}">
+            <div class="alert alert-danger" role="alert">Nothing in this list!</div>
           </div>
           <!-- Product Slide -->
-          <div class="swiper-slide">
+          <div class="swiper-slide" th:each="featureBook : ${featureBookList}">
             <div class="card position-relative p-4 border rounded-3">
-              <!-- <div class="position-absolute">
-                                        <p class="bg-primary py-1 px-3 fs-6 text-white rounded-2">10% off</p>
-                                      </div> -->
               <img th:src="@{https://picsum.photos/id/24/845/1206}" class="img-fluid shadow-sm" alt="product item">
-              <h6 class="mt-4 mb-0 fw-bold"><a th:href="@{/shop/1}">House of Sky Breath</a></h6>
-              <!-- <div class="review-content d-flex">
-                        </div> -->
-              <p class="my-2 me-2 fs-6 text-black-50">Lauren Asher</p>
-              <div class="mb-2 rating text-warning d-flex align-items-center">
-                <i class="fa-solid fa-star"></i>
-                <i class="fa-solid fa-star"></i>
-                <i class="fa-solid fa-star"></i>
-                <i class="fa-solid fa-star"></i>
-                <i class="fa-solid fa-star"></i>
-              </div>
-              <span class="price text-primary fw-bold mb-2 fs-5">$870</span>
-
-              <!-- <div class="card-concern position-absolute start-0 end-0 d-flex gap-2">
-                          <button type="button" th:href="@{/}" class="btn btn-dark" data-bs-toggle="tooltip"
-                            data-bs-placement="top" data-bs-title="Tooltip on top">
-                            <i class="fa-solid fa-cart-shopping"></i>
-                          </button>
-                          <a th:href="@{/}" class="btn btn-dark">
-                            <span>
-                              <i class="fa-solid fa-heart"></i>
-                            </span>
-                          </a>
-                        </div> -->
-
+              <h6 class="mt-4 mb-0 fw-bold">
+                <a th:href="@{/shop/1}" th:text="${featureBook.title}"></a>
+              </h6>
+              <p class="my-2 me-2 fs-6 text-black-50" th:text="${featureBook.author}"></p>
+              <span class="price text-primary fw-bold mb-2 fs-5"
+                th:text="${#numbers.formatDecimal(featureBook.price, 0, 'COMMA', 0, 'POINT') + ' VND'}"></span>
             </div>
           </div>
-          <!-- Product Slide -->
-          <div class="swiper-slide">
-            <div class="card position-relative p-4 border rounded-3">
-              <!-- <div class="position-absolute">
-                                        <p class="bg-primary py-1 px-3 fs-6 text-white rounded-2">10% off</p>
-                                      </div> -->
-              <img th:src="@{https://picsum.photos/id/24/845/1206}" class="img-fluid shadow-sm" alt="product item">
-              <h6 class="mt-4 mb-0 fw-bold"><a th:href="@{/shop/1}">House of Sky Breath</a></h6>
-              <!-- <div class="review-content d-flex">
-                        </div> -->
-              <p class="my-2 me-2 fs-6 text-black-50">Lauren Asher</p>
-              <div class="mb-2 rating text-warning d-flex align-items-center">
-                <i class="fa-solid fa-star"></i>
-                <i class="fa-solid fa-star"></i>
-                <i class="fa-solid fa-star"></i>
-                <i class="fa-solid fa-star"></i>
-                <i class="fa-solid fa-star"></i>
-              </div>
-              <span class="price text-primary fw-bold mb-2 fs-5">$870</span>
-
-              <!-- <div class="card-concern position-absolute start-0 end-0 d-flex gap-2">
-                          <button type="button" th:href="@{/}" class="btn btn-dark" data-bs-toggle="tooltip"
-                            data-bs-placement="top" data-bs-title="Tooltip on top">
-                            <i class="fa-solid fa-cart-shopping"></i>
-                          </button>
-                          <a th:href="@{/}" class="btn btn-dark">
-                            <span>
-                              <i class="fa-solid fa-heart"></i>
-                            </span>
-                          </a>
-                        </div> -->
-
-            </div>
-          </div>
-          <!-- Product Slide -->
-          <div class="swiper-slide">
-            <div class="card position-relative p-4 border rounded-3">
-              <!-- <div class="position-absolute">
-                                        <p class="bg-primary py-1 px-3 fs-6 text-white rounded-2">10% off</p>
-                                      </div> -->
-              <img th:src="@{https://picsum.photos/id/24/845/1206}" class="img-fluid shadow-sm" alt="product item">
-              <h6 class="mt-4 mb-0 fw-bold"><a th:href="@{/shop/1}">House of Sky Breath</a></h6>
-              <!-- <div class="review-content d-flex">
-                        </div> -->
-              <p class="my-2 me-2 fs-6 text-black-50">Lauren Asher</p>
-              <div class="mb-2 rating text-warning d-flex align-items-center">
-                <i class="fa-solid fa-star"></i>
-                <i class="fa-solid fa-star"></i>
-                <i class="fa-solid fa-star"></i>
-                <i class="fa-solid fa-star"></i>
-                <i class="fa-solid fa-star"></i>
-              </div>
-              <span class="price text-primary fw-bold mb-2 fs-5">$870</span>
-
-              <!-- <div class="card-concern position-absolute start-0 end-0 d-flex gap-2">
-                          <button type="button" th:href="@{/}" class="btn btn-dark" data-bs-toggle="tooltip"
-                            data-bs-placement="top" data-bs-title="Tooltip on top">
-                            <i class="fa-solid fa-cart-shopping"></i>
-                          </button>
-                          <a th:href="@{/}" class="btn btn-dark">
-                            <span>
-                              <i class="fa-solid fa-heart"></i>
-                            </span>
-                          </a>
-                        </div> -->
-
-            </div>
-          </div>
-          <!-- Product Slide -->
-          <div class="swiper-slide">
-            <div class="card position-relative p-4 border rounded-3">
-              <!-- <div class="position-absolute">
-                                        <p class="bg-primary py-1 px-3 fs-6 text-white rounded-2">10% off</p>
-                                      </div> -->
-              <img th:src="@{https://picsum.photos/id/24/845/1206}" class="img-fluid shadow-sm" alt="product item">
-              <h6 class="mt-4 mb-0 fw-bold"><a th:href="@{/shop/1}">House of Sky Breath</a></h6>
-              <!-- <div class="review-content d-flex">
-                        </div> -->
-              <p class="my-2 me-2 fs-6 text-black-50">Lauren Asher</p>
-              <div class="mb-2 rating text-warning d-flex align-items-center">
-                <i class="fa-solid fa-star"></i>
-                <i class="fa-solid fa-star"></i>
-                <i class="fa-solid fa-star"></i>
-                <i class="fa-solid fa-star"></i>
-                <i class="fa-solid fa-star"></i>
-              </div>
-              <span class="price text-primary fw-bold mb-2 fs-5">$870</span>
-
-              <!-- <div class="card-concern position-absolute start-0 end-0 d-flex gap-2">
-                          <button type="button" th:href="@{/}" class="btn btn-dark" data-bs-toggle="tooltip"
-                            data-bs-placement="top" data-bs-title="Tooltip on top">
-                            <i class="fa-solid fa-cart-shopping"></i>
-                          </button>
-                          <a th:href="@{/}" class="btn btn-dark">
-                            <span>
-                              <i class="fa-solid fa-heart"></i>
-                            </span>
-                          </a>
-                        </div> -->
-
-            </div>
-          </div>
-          <!-- Product Slide -->
-          <div class="swiper-slide">
-            <div class="card position-relative p-4 border rounded-3">
-              <!-- <div class="position-absolute">
-                                        <p class="bg-primary py-1 px-3 fs-6 text-white rounded-2">10% off</p>
-                                      </div> -->
-              <img th:src="@{https://picsum.photos/id/24/845/1206}" class="img-fluid shadow-sm" alt="product item">
-              <h6 class="mt-4 mb-0 fw-bold"><a th:href="@{/shop/1}">House of Sky Breath</a></h6>
-              <!-- <div class="review-content d-flex">
-                        </div> -->
-              <p class="my-2 me-2 fs-6 text-black-50">Lauren Asher</p>
-              <div class="mb-2 rating text-warning d-flex align-items-center">
-                <i class="fa-solid fa-star"></i>
-                <i class="fa-solid fa-star"></i>
-                <i class="fa-solid fa-star"></i>
-                <i class="fa-solid fa-star"></i>
-                <i class="fa-solid fa-star"></i>
-              </div>
-              <span class="price text-primary fw-bold mb-2 fs-5">$870</span>
-
-              <!-- <div class="card-concern position-absolute start-0 end-0 d-flex gap-2">
-                          <button type="button" th:href="@{/}" class="btn btn-dark" data-bs-toggle="tooltip"
-                            data-bs-placement="top" data-bs-title="Tooltip on top">
-                            <i class="fa-solid fa-cart-shopping"></i>
-                          </button>
-                          <a th:href="@{/}" class="btn btn-dark">
-                            <span>
-                              <i class="fa-solid fa-heart"></i>
-                            </span>
-                          </a>
-                        </div> -->
-
-            </div>
-          </div>
-          <!-- Product Slide -->
-          <div class="swiper-slide">
-            <div class="card position-relative p-4 border rounded-3">
-              <!-- <div class="position-absolute">
-                                        <p class="bg-primary py-1 px-3 fs-6 text-white rounded-2">10% off</p>
-                                      </div> -->
-              <img th:src="@{https://picsum.photos/id/24/845/1206}" class="img-fluid shadow-sm" alt="product item">
-              <h6 class="mt-4 mb-0 fw-bold"><a th:href="@{/shop/1}">House of Sky Breath</a></h6>
-              <!-- <div class="review-content d-flex">
-                        </div> -->
-              <p class="my-2 me-2 fs-6 text-black-50">Lauren Asher</p>
-              <div class="mb-2 rating text-warning d-flex align-items-center">
-                <i class="fa-solid fa-star"></i>
-                <i class="fa-solid fa-star"></i>
-                <i class="fa-solid fa-star"></i>
-                <i class="fa-solid fa-star"></i>
-                <i class="fa-solid fa-star"></i>
-              </div>
-              <span class="price text-primary fw-bold mb-2 fs-5">$870</span>
-
-              <!-- <div class="card-concern position-absolute start-0 end-0 d-flex gap-2">
-                          <button type="button" th:href="@{/}" class="btn btn-dark" data-bs-toggle="tooltip"
-                            data-bs-placement="top" data-bs-title="Tooltip on top">
-                            <i class="fa-solid fa-cart-shopping"></i>
-                          </button>
-                          <a th:href="@{/}" class="btn btn-dark">
-                            <span>
-                              <i class="fa-solid fa-heart"></i>
-                            </span>
-                          </a>
-                        </div> -->
-
-            </div>
-          </div>
-          <!-- Product Slide -->
-          <div class="swiper-slide">
-            <div class="card position-relative p-4 border rounded-3">
-              <!-- <div class="position-absolute">
-                                        <p class="bg-primary py-1 px-3 fs-6 text-white rounded-2">10% off</p>
-                                      </div> -->
-              <img th:src="@{https://picsum.photos/id/24/845/1206}" class="img-fluid shadow-sm" alt="product item">
-              <h6 class="mt-4 mb-0 fw-bold"><a th:href="@{/shop/1}">House of Sky Breath</a></h6>
-              <!-- <div class="review-content d-flex">
-                        </div> -->
-              <p class="my-2 me-2 fs-6 text-black-50">Lauren Asher</p>
-              <div class="mb-2 rating text-warning d-flex align-items-center">
-                <i class="fa-solid fa-star"></i>
-                <i class="fa-solid fa-star"></i>
-                <i class="fa-solid fa-star"></i>
-                <i class="fa-solid fa-star"></i>
-                <i class="fa-solid fa-star"></i>
-              </div>
-              <span class="price text-primary fw-bold mb-2 fs-5">$870</span>
-
-              <!-- <div class="card-concern position-absolute start-0 end-0 d-flex gap-2">
-                          <button type="button" th:href="@{/}" class="btn btn-dark" data-bs-toggle="tooltip"
-                            data-bs-placement="top" data-bs-title="Tooltip on top">
-                            <i class="fa-solid fa-cart-shopping"></i>
-                          </button>
-                          <a th:href="@{/}" class="btn btn-dark">
-                            <span>
-                              <i class="fa-solid fa-heart"></i>
-                            </span>
-                          </a>
-                        </div> -->
-
-            </div>
-          </div>
-          <!-- Product Slide -->
-          <div class="swiper-slide">
-            <div class="card position-relative p-4 border rounded-3">
-              <!-- <div class="position-absolute">
-                                        <p class="bg-primary py-1 px-3 fs-6 text-white rounded-2">10% off</p>
-                                      </div> -->
-              <img th:src="@{https://picsum.photos/id/24/845/1206}" class="img-fluid shadow-sm" alt="product item">
-              <h6 class="mt-4 mb-0 fw-bold"><a th:href="@{/shop/1}">House of Sky Breath</a></h6>
-              <!-- <div class="review-content d-flex">
-                        </div> -->
-              <p class="my-2 me-2 fs-6 text-black-50">Lauren Asher</p>
-              <div class="mb-2 rating text-warning d-flex align-items-center">
-                <i class="fa-solid fa-star"></i>
-                <i class="fa-solid fa-star"></i>
-                <i class="fa-solid fa-star"></i>
-                <i class="fa-solid fa-star"></i>
-                <i class="fa-solid fa-star"></i>
-              </div>
-              <span class="price text-primary fw-bold mb-2 fs-5">$870</span>
-
-              <!-- <div class="card-concern position-absolute start-0 end-0 d-flex gap-2">
-                          <button type="button" th:href="@{/}" class="btn btn-dark" data-bs-toggle="tooltip"
-                            data-bs-placement="top" data-bs-title="Tooltip on top">
-                            <i class="fa-solid fa-cart-shopping"></i>
-                          </button>
-                          <a th:href="@{/}" class="btn btn-dark">
-                            <span>
-                              <i class="fa-solid fa-heart"></i>
-                            </span>
-                          </a>
-                        </div> -->
-
-            </div>
-          </div>
-
         </div>
       </div>
     </div>
@@ -950,7 +283,7 @@
     integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
     crossorigin="anonymous"></script>
   <script th:src="@{https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js}"></script>
-  <script th:src="@{/scripts/client/script.js}"></script>
+  <script type="text/javascript" th:src="@{/scripts/client/script.js}"></script>
 </body>
 
 </html>
