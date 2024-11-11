@@ -101,10 +101,15 @@ public class ClientController {
     // ================== Book (End) ======================
 
     // ================== Shopping Cart (Start) ====================
-    @GetMapping("carts")
-    public String getShoppingCartPage() {
-        return "client/shopping-cart";
-    }
+    // @GetMapping("carts")
+    // public String getShoppingCartPage() {
+    //   return "client/shopping-cart";
+    // }
+
+    // @PostMapping("add-book-to-cart/{id}")
+    // public String addBookToCart(@PathVariable long id) {
+    //   return "redirect:/shop";
+    // }
     // ================== Shopping Cart (End) ======================
 
     // ================== Checkout (Start) ====================

@@ -103,18 +103,26 @@
                         <p class="bg-danger text-white p-3 rounded-2 text-center">No books found.</p>
                     </div>
 
-                    <div class="col-lg-3 col-md-4 mb-4" th:each="book : ${bookList}">
-                        <a th:href="@{/shop/{id}(id=${book.id})}">
-                            <div class="card position-relative p-4 border rounded-3">
-                                <img th:src="@{https://picsum.photos/id/24/845/1206}" class="img-fluid shadow-sm"
-                                     alt="product item">
-                                <h6 class="mt-4 mb-0 fw-bold" th:text="${book.title}"></h6>
-                                <p class="my-2 me-2 fs-6 text-black-50" th:text="${book.author}"></p>
-                                <span class="price text-primary fw-bold mb-2 fs-5"
-                                      th:text="${#numbers.formatDecimal(book.price, 0, 'COMMA', 0, 'POINT') + ' VND'}"></span>
-                            </div>
-                        </a>
-                    </div>
+            <div class="col-lg-3 col-md-4 mb-4" th:each="book : ${bookList}">
+              <a th:href="@{/shop/{id}(id=${book.id})}">
+                <div class="card position-relative p-4 border rounded-3">
+                  <img th:src="@{https://picsum.photos/id/24/845/1206}" class="img-fluid shadow-sm" alt="product item">
+                    <h6 class="mt-4 mb-0 fw-bold" th:text="${book.title}"></h6>
+                  <p class="my-2 me-2 fs-6 text-black-50" th:text="${book.author}"></p>
+                  <div class="rating text-warning d-flex align-items-center mb-3">
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                  </div>
+                  <span class="price text-primary fw-bold mb-2 fs-5" th:text="${book.price} + 'VND'"></span>
+                  <form th:action="@{/add-to-cart}" method="post">
+                    <input type="hidden" name="bookId" th:value="${book.id}" />
+                    <label for="quantity">Quantity:</label>
+                    <input type="number" name="quantity" value="1" min="1" />
+                    <button type="submit">Add to Cart</button>
+                  </form>
                 </div>
 
                 <nav class="py-5" aria-label="Page navigation" th:if="${bookList != null and !bookList.isEmpty()}">
