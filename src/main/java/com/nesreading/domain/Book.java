@@ -75,15 +75,6 @@ public class Book implements Serializable {
 	@Column(name = "update_at")
 	private LocalDateTime updateAt;
 
-	//	@ManyToOne
-	//	@JoinColumn(name = "author_id")
-	//	private Author author;
-	//	@Column(name = "other_authors", columnDefinition = "MEDIUMTEXT")
-	//	private String otherAuthors;
-	//	@ManyToOne
-	//	@JoinColumn(name = "book_category_id")
-	//	private BookCategory bookCategory;
-
 	public Book() {
 	}
 

@@ -1,45 +1,66 @@
-# NesReadingAdmin (Admin Dashboard)
+# NesReadingAlternative
 
-## I. Ghi Chú Thư Mục Chung
+NesReadingAlternative is a web application project for online book sales, providing features for book management, shopping cart, and checkout. The project is developed with Spring Boot and follows the MVC architecture.
 
-### 1. Ghi Chú Cấu Trúc Thư Mục (Tổng Quan)
+## Features
 
-- src:
-  
-  - main:
-    
-    - java:
-      
-      - com/admin/nesreading:
-        
-        - config (Cấu hình ứng dụng)
-        
-        - domain (Các class JPA Entity)
-        
-        - repository (Các interface JPA repository)
-        
-        - service { Các lớp service (chứa logic nghiệp vụ) }
-        
-        - web (controller):
-          
-          - rest (Controller cho API REST)
-          
-          - mvc  {Controller cho giao diện MVC (cho Thymeleaf)}
-    
-    - resources:
-      
-      - i18n (Các file đa ngôn ngữ)
-      
-      - templates (Thư mục chứa các file Thymeleaf):
-        
-        - layouts {Các layout dùng chung (ví dụ header, footer)}
-        
-        - pages {Các trang giao diện (ví dụ: home.html, user.html)}
-      
-      - static (Tài nguyên tĩnh như CSS, JS, hình ảnh)
-  
-  - test (Chứa các file test)
+- **View Book List**: Users can browse through the available books.
+- **Add to Cart**: Allows users to add books to their shopping cart.
+- **Checkout**: Enables users to complete their purchase via the shopping cart.
+- **Book Recommendations**: Integrated AI-based feature to suggest books to users.
 
+## Project Structure
 
+- `controller`: Contains controller classes for handling HTTP requests and processing page-specific logic.
+- `service`: Contains business logic classes to manage data operations.
+- `repository`: Contains interfaces for database connections, using JPA for data querying.
+- `dto`: Defines Data Transfer Objects (DTOs) used between various layers in the project.
+- `validation`: Validates user input data.
+- `specification`: Contains data search filters (if applicable).
 
-## II. Khác
+## Installation
+
+### Requirements
+
+- **Java 17** or higher
+- **Maven** for dependency management
+
+### Installation Guide
+
+1. Clone this repository:
+   ```bash
+   git clone <repository-link>
+   cd NesReadingAlternative
+   ```
+
+2. Install dependencies:
+   ```bash
+   mvn install
+   ```
+
+3. Configure the database (if necessary):
+  - Check the `application.properties` file in the `src/main/resources` directory to adjust database connection settings.
+
+4. Run the application:
+   ```bash
+   mvn spring-boot:run
+   ```
+
+The application will run on `http://localhost:8080`.
+
+## Usage Guide
+
+1. **Access the homepage** to view the book list.
+2. **Add books to the cart** by clicking the "Add to Cart" button.
+3. **Checkout** by going to the cart and clicking "Checkout."
+
+## Contribution
+
+If you’d like to contribute, please fork the repository, create a new branch for your changes, and open a pull request.
+
+## License
+
+This project is licensed under the MIT License.
+```
+
+Replace `<repository-link>` with the actual link to your repository. This documentation should provide a clear and concise guide in English for users and reviewers.
