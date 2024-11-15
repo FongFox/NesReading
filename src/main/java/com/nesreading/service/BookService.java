@@ -9,11 +9,13 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 
 @Service
 public class BookService {
+    @Autowired
     private final BookRepository bookRepository;
     private final UploadService uploadService;
     private final BookSpecification bookSpecification;
@@ -54,6 +56,10 @@ public class BookService {
 
     public Book handleFetchBookById(int id) {
         return bookRepository.getReferenceById(id);
+    }
+
+    public Book findBookById(int bookId) {
+        return bookRepository.findById(bookId).orElse(null);
     }
 
     public void handleCreateBook(Book newBook) {
