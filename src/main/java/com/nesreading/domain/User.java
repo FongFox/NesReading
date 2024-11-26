@@ -49,6 +49,12 @@ public class User {
 
 	@OneToMany(mappedBy = "user")
 	private List<BookReview> bookReviews;
+
+	@OneToOne(mappedBy = "user")
+	private Cart cart;
+
+	@OneToMany(mappedBy = "user")
+	private List<Order> orders;
 	
 	@CreationTimestamp
 	@Column(name = "create_at")
