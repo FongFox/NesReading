@@ -3,16 +3,9 @@ package com.nesreading.domain;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
-
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "orders")
@@ -37,6 +30,10 @@ public class Order {
 	private double totalPrice;
 	
 	private int status; //0: Pending; 1: Shipping; 2: Completed; 3: Canceled
+
+	@ManyToOne
+	@JoinColumn(name = "user_id")
+	private User user;
 	
 	@CreationTimestamp
 	@Column(name = "create_at")
