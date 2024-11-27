@@ -63,11 +63,16 @@ public class ClientController {
                 break;
         }
 
-        if (title != null && title.isEmpty()) title = null;
-        if (author != null && author.isEmpty()) author = null;
-        Double minPriceValue = (minPrice != null && !minPrice.isNaN()) ? Double.valueOf(minPrice) : null;
-        Double maxPriceValue = (maxPrice != null && !maxPrice.isNaN()) ? Double.valueOf(maxPrice) : null;
-        
+        if (title != null && title.isEmpty())
+            title = null;
+        if (author != null && author.isEmpty())
+            author = null;
+
+        Double minPriceValue = (minPrice != null && !minPrice.isNaN() && minPrice >= 0) ? Double.valueOf(minPrice)
+                : 0;
+        Double maxPriceValue = (maxPrice != null && !maxPrice.isNaN() && maxPrice >= 0) ? Double.valueOf(maxPrice)
+                : 100000;
+
         Pageable pageable = PageRequest.of(page - 1, 20, sortOrder);
         Page<Book> bookListPage;
 
@@ -103,12 +108,12 @@ public class ClientController {
     // ================== Shopping Cart (Start) ====================
     // @GetMapping("carts")
     // public String getShoppingCartPage() {
-    //   return "client/shopping-cart";
+    // return "client/shopping-cart";
     // }
 
     // @PostMapping("add-book-to-cart/{id}")
     // public String addBookToCart(@PathVariable long id) {
-    //   return "redirect:/shop";
+    // return "redirect:/shop";
     // }
     // ================== Shopping Cart (End) ======================
 
