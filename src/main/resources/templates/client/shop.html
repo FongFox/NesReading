@@ -103,19 +103,42 @@
 
                     <nav class="py-5" aria-label="Page navigation" th:if="${bookList != null and !bookList.isEmpty()}">
                         <ul class="pagination justify-content-center gap-4">
+                            <!-- Prev Page -->
                             <li class="page-item" th:classappend="${currentPage == 1} ? 'disabled'">
-                                <a class="page-link" th:href="@{/shop(page=${currentPage - 1})}"
-                                    th:disabled="${currentPage == 1}">Prev</a>
+                                <a class="page-link" th:href="@{/shop(page=${currentPage - 1},
+                                                  title=${title != null ? title : null},
+                                                  author=${author != null ? author : null},
+                                                  minPrice=${minPrice != null ? minPrice : null},
+                                                  maxPrice=${maxPrice != null ? maxPrice : null},
+                                                  sort=${sort != null ? sort : null})}"
+                                    th:disabled="${currentPage == 1}">
+                                    Prev
+                                </a>
                             </li>
 
+                            <!-- Page Numbers -->
                             <li class="page-item" th:each="i : ${range}"
                                 th:classappend="${i == currentPage} ? 'active'">
-                                <a class="page-link" th:href="@{/shop(page=${i})}" th:text="${i}"></a>
+                                <a class="page-link" th:href="@{/shop(page=${i},
+                                                  title=${title != null ? title : null},
+                                                  author=${author != null ? author : null},
+                                                  minPrice=${minPrice != null ? minPrice : null},
+                                                  maxPrice=${maxPrice != null ? maxPrice : null},
+                                                  sort=${sort != null ? sort : null})}" th:text="${i}">
+                                </a>
                             </li>
 
+                            <!-- Next Page -->
                             <li class="page-item" th:classappend="${currentPage == totalPages} ? 'disabled'">
-                                <a class="page-link" th:href="@{/shop(page=${currentPage + 1})}"
-                                    th:disabled="${currentPage == totalPages}">Next</a>
+                                <a class="page-link" th:href="@{/shop(page=${currentPage + 1},
+                                                  title=${title != null ? title : null},
+                                                  author=${author != null ? author : null},
+                                                  minPrice=${minPrice != null ? minPrice : null},
+                                                  maxPrice=${maxPrice != null ? maxPrice : null},
+                                                  sort=${sort != null ? sort : null})}"
+                                    th:disabled="${currentPage == totalPages}">
+                                    Next
+                                </a>
                             </li>
                         </ul>
                     </nav>
@@ -147,13 +170,12 @@
                                 <div class="row">
                                     <div class="col-12 mb-3 input-group">
                                         <input class="form-control" name="minPrice" type="number" placeholder="0 VND"
-                                            aria-label="Min Price" min="0" value="0" step="1000">
+                                            aria-label="Min Price" min="0" step="1000">
                                         <span class="input-group-text" id="basic-addon2">Min</span>
                                     </div>
                                     <div class="col-12 input-group">
                                         <input class="form-control" name="maxPrice" type="number"
-                                            placeholder="100,000 VND" aria-label="Max Price" min="0" value="100000"
-                                            step="1000">
+                                            placeholder="100,000 VND" aria-label="Max Price" min="0" step="1000">
                                         <span class="input-group-text" id="basic-addon3">Max</span>
                                     </div>
                                 </div>

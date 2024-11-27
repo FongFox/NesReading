@@ -37,18 +37,25 @@ public class ClientController {
     @GetMapping("shop")
     public String getBookListPage(
             Model model,
-            @RequestParam(name = "page") int page,
+            @RequestParam(name = "page", defaultValue = "1") int page,
             @RequestParam(name = "title", required = false) String title,
             @RequestParam(name = "author", required = false) String author,
             @RequestParam(name = "minPrice", required = false) Double minPrice,
             @RequestParam(name = "maxPrice", required = false) Double maxPrice,
             @RequestParam(name = "sort", required = false) String sort) {
-        String sortOption = sort == null ? "titleAsc" : sort;
+
+        // Xử lý các giá trị rỗng hoặc null
+        if (title != null && title.isEmpty())
+            title = null;
+        if (author != null && author.isEmpty())
+            author = null;
+        Double minPriceValue = (minPrice != null && minPrice > 0) ? minPrice : null;
+        Double maxPriceValue = (maxPrice != null && maxPrice > 0) ? maxPrice : null;
+
+        // Xử lý sắp xếp
+        String sortOption = (sort != null && !sort.isEmpty()) ? sort : "titleAsc";
         Sort sortOrder;
         switch (sortOption) {
-            case "titleAsc":
-                sortOrder = Sort.by("title").ascending();
-                break;
             case "titleDesc":
                 sortOrder = Sort.by("title").descending();
                 break;
@@ -59,37 +66,35 @@ public class ClientController {
                 sortOrder = Sort.by("price").descending();
                 break;
             default:
-                sortOrder = Sort.unsorted();
+                sortOrder = Sort.by("title").ascending();
                 break;
         }
-
-        if (title != null && title.isEmpty())
-            title = null;
-        if (author != null && author.isEmpty())
-            author = null;
-
-        Double minPriceValue = (minPrice != null && !minPrice.isNaN() && minPrice >= 0) ? Double.valueOf(minPrice)
-                : 0;
-        Double maxPriceValue = (maxPrice != null && !maxPrice.isNaN() && maxPrice >= 0) ? Double.valueOf(maxPrice)
-                : 100000;
 
         Pageable pageable = PageRequest.of(page - 1, 20, sortOrder);
         Page<Book> bookListPage;
 
-        if (title != null || author != null || minPrice != null || maxPrice != null) {
-            bookListPage = bookService.handleFetchFilteredBook(pageable, title, author, minPrice, maxPrice);
+        // Gọi hàm lọc hoặc lấy tất cả sách
+        if (title != null || author != null || minPriceValue != null || maxPriceValue != null) {
+            bookListPage = bookService.handleFetchFilteredBook(pageable, title, author, minPriceValue, maxPriceValue);
         } else {
             bookListPage = bookService.handleFetchAllBooks(pageable);
         }
 
-        List<Book> bookList = bookListPage.getContent();
-        int bookListTotalPage = bookListPage.getTotalPages();
-
-        model.addAttribute("bookList", bookList);
+        // Đưa vào model nếu có giá trị hợp lệ
+        model.addAttribute("bookList", bookListPage.getContent());
         model.addAttribute("currentPage", page);
-        model.addAttribute("totalPages", bookListTotalPage);
-        model.addAttribute("range", IntStream.rangeClosed(1, bookListTotalPage).boxed().collect(Collectors.toList()));
-        model.addAttribute("sort", sort); // Truyền giá trị sort vào model để Thymeleaf sử dụng
+        model.addAttribute("totalPages", bookListPage.getTotalPages());
+        model.addAttribute("range",
+                IntStream.rangeClosed(1, bookListPage.getTotalPages()).boxed().collect(Collectors.toList()));
+        model.addAttribute("sort", sortOption);
+        if (title != null)
+            model.addAttribute("title", title);
+        if (author != null)
+            model.addAttribute("author", author);
+        if (minPriceValue != null)
+            model.addAttribute("minPrice", minPriceValue);
+        if (maxPriceValue != null)
+            model.addAttribute("maxPrice", maxPriceValue);
 
         return "client/shop";
     }
