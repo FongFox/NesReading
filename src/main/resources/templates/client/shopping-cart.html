@@ -52,7 +52,7 @@
                                 <div class="d-flex align-items-center gap-2">
                                     <img th:src="${item.book.imageUrl}" alt="cart-img" class="img-fluid border rounded-3" style="width: 80px; height: auto;">
                                     <div>
-                                        <h5><a th:href="@{/book-detail/{id}(id=${item.book.id})}" th:text="${item.book.title}">Book Title</a></h5>
+                                        <h5><a th:href="@{/shop/{id}(id=${item.book.id})}" th:text="${item.book.title}">Book Title</a></h5>
                                         <div class="text-primary fw-light" th:text="${item.price}">$0.00</div>
                                     </div>
                                 </div>
@@ -79,7 +79,6 @@
                 <!-- Thông báo nếu giỏ hàng trống -->
                 <div th:if="${cart.cartItems.size() == 0}" class="text-center my-4">
                     <h4>Your cart is empty.</h4>
-                    <a th:href="@{/shop}" class="btn btn-primary mt-3">Continue Shopping</a>
                 </div>
 
                 <!-- Cart Totals -->
@@ -96,8 +95,11 @@
                         </tr>
                     </table>
                     <div class="button-wrap d-flex gap-3">
-                        <a th:href="@{/shop}" class="btn btn-secondary">Continue Shopping</a>
-                        <a th:href="@{/checkout}" class="btn btn-primary">Proceed to Checkout</a>
+                        <a th:href="@{/shop(page=${1})}" class="btn btn-secondary">Continue Shopping</a>
+                        <form th:action="@{/order-now-bulk}" method="post" class="d-inline">
+                            <button type="submit" class="btn">Proceed To Checkout</button>
+                        </form>
+
                     </div>
                 </div>
             </div>
