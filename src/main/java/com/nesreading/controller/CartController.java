@@ -22,13 +22,20 @@ public class CartController {
     public String addToCart(@RequestParam("bookId") int bookId,
                             @RequestParam("quantity") int quantity,
                             HttpSession session) {
-        cartService.addToCart(bookId, quantity, session);
+        cartService.addBookToCart(bookId, quantity, session);
         return "redirect:/view-cart";
     }
 
+    // Phương thức xóa danh mục hàng theo id của nó
     @GetMapping("/cart/remove-item")
     public String removeItem(@RequestParam("itemId") int itemId, HttpSession session) {
-        cartService.removeItemFromCart(itemId, session);
+        try {
+            System.out.println("Cart before removal: " + cartService.getCart(session).getCartItems());
+            cartService.removeItemFromCart(itemId, session);
+            System.out.println("Cart after removal: " + cartService.getCart(session).getCartItems());
+        } catch (IllegalArgumentException e) {
+            session.setAttribute("error", e.getMessage()); // Optional error handling
+        }
         return "redirect:/view-cart";
     }
 
@@ -38,6 +45,18 @@ public class CartController {
         model.addAttribute("cart", cartService.getCart(session));
         return "/client/shopping-cart";
     }
+
+    @PostMapping("/order-now-bulk")
+    public String proceedToCheckout(HttpSession session, Model model) {
+        Cart cart = cartService.getCart(session);
+
+        // Pass all cart items
+        model.addAttribute("cartItems", cart.getCartItems());
+        model.addAttribute("totalPrice", cart.getTotalPrice());
+        model.addAttribute("isSingleBook", false); // Flag to indicate cart checkout
+        return "client/checkout";
+    }
+
 
     // Đảm bảo giỏ hàng luôn có sẵn trong model
     @ModelAttribute("cart")
