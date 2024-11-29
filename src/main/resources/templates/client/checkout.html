@@ -20,6 +20,42 @@
     <link rel="preconnect" th:href="@{https://fonts.gstatic.com}" crossorigin>
     <link th:href="@{https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap}"
           rel="stylesheet">
+
+    <!--Also hard coded-->
+    <style>
+        .cart-items-section {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 5px;
+            box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .cart-items-section h3 {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .table {
+            margin-bottom: 0;
+            font-size: 0.9rem;
+        }
+
+        .table th, .table td {
+            text-align: center;
+            vertical-align: middle;
+        }
+
+        .total-section h5 {
+            margin-top: 15px;
+            font-size: 1.25rem;
+        }
+
+        .total-section .text-primary {
+            color: #007bff !important;
+        }
+
+    </style>
+
 </head>
 <body>
 <header th:replace="~{layouts/client-layout :: header}"></header>
@@ -98,34 +134,64 @@
                         </div>
                     </div>
 
-                    <div class="cart-totals padding-medium pb-0">
-                        <h3 class="mb-3">Cart Totals</h3>
-                        <div class="total-price pb-3">
-                            <table cellspacing="0" class="table text-capitalize">
-                                <tbody>
-                                <tr class="subtotal pt-2 pb-2 border-top border-bottom">
+                    <!-- Cart Items Section -->
+                    <div class="cart-items-section mb-4">
+                        <h3 class="mb-4">Your Cart Items</h3>
+
+                        <!-- Single Item Checkout -->
+                        <div th:if="${isSingleItem}">
+                            <table class="table table-bordered">
+                                <thead class="table-light">
+                                <tr>
+                                    <th>Book</th>
+                                    <th>Quantity</th>
+                                    <th>Price</th>
                                     <th>Subtotal</th>
-                                    <td data-title="Subtotal">
-                        <span class="price-amount amount text-primary ps-5 fw-light">
-                          <bdi>
-                            <span class="price-currency-symbol">$</span>2,400.00
-                          </bdi>
-                        </span>
-                                    </td>
                                 </tr>
-                                <tr class="order-total pt-2 pb-2 border-bottom">
-                                    <th>Total</th>
-                                    <td data-title="Total">
-                        <span class="price-amount amount text-primary ps-5 fw-light">
-                          <bdi>
-                            <span class="price-currency-symbol">$</span>2,400.00</bdi>
-                        </span>
-                                    </td>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td th:text="${selectedBook}"></td> <!-- Dynamic Book Title -->
+                                    <td th:text="${quantity}"></td> <!-- Dynamic Quantity -->
+                                    <td th:text="${selectedBook.price} + ' VND'"></td> <!-- Dynamic Price -->
+                                    <td th:text="${totalPrice} + ' VND'"></td> <!-- Dynamic Subtotal -->
                                 </tr>
                                 </tbody>
                             </table>
                         </div>
-                        <div class="list-group">
+
+                        <table class="table table-bordered">
+                            <thead class="table-light">
+                            <tr>
+                                <th>Book</th>
+                                <th>Quantity</th>
+                                <th>Price</th>
+                                <th>Subtotal</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <!-- Iterate through cart items -->
+                            <tr th:each="item : ${cartItems}">
+                                <td th:text="${item.book.title}"></td> <!-- Dynamic Book Title -->
+                                <td th:text="${item.quantity}">1</td> <!-- Dynamic Quantity -->
+                                <td th:text="${item.price} + ' VND'"></td> <!-- Dynamic Price -->
+                                <td th:text="${item.getTotalPrice()} + ' VND'"></td> <!-- Dynamic Subtotal -->
+                            </tr>
+                            </tbody>
+                        </table>
+                        <div class="total-section mt-3">
+                            <h5 class="text-end">
+                                <span>Total: </span>
+                                <span th:text="${totalPrice} + ' VND'" class="text-primary fw-bold"></span> <!-- Dynamic Total Price -->
+                            </h5>
+                        </div>
+                    </div>
+
+                    <div th:if="${#lists.isEmpty(cartItems)}" class="alert alert-warning">
+                        Your cart is empty. Please add some items.
+                    </div>
+
+                    <div class="list-group">
                             <label class="list-group-item d-flex gap-2 border-0">
                                 <input class="form-check-input flex-shrink-0" type="radio" name="listGroupRadios"
                                        id="listGroupRadios1" value="" checked>
