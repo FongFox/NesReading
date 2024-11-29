@@ -1,9 +1,13 @@
 package com.nesreading.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
+import com.nesreading.domain.Cart;
+import com.nesreading.domain.CartItem;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -14,13 +18,16 @@ import org.springframework.web.bind.annotation.*;
 
 import com.nesreading.domain.Book;
 import com.nesreading.service.BookService;
+import com.nesreading.service.CartService;
 
 @Controller
 public class ClientController {
     private final BookService bookService;
+    private final CartService cartService;
 
-    public ClientController(BookService bookService) {
+    public ClientController(BookService bookService, CartService cartService) {
         this.bookService = bookService;
+        this.cartService = cartService;
     }
 
     // ================== Home (Start) ====================
@@ -113,20 +120,38 @@ public class ClientController {
     // ================== Shopping Cart (End) ======================
 
     // ================== Checkout (Start) ====================
-    @GetMapping("checkout")
-    public String getCheckoutPage() {
+    @GetMapping("add-to-cart")
+    public String addToCart(
+            @RequestParam("bookId") int bookId,
+            @RequestParam("quantity") int quantity,
+            HttpSession session) {
+        try {
+            cartService.addBookToCart(bookId, quantity, session);
+            return "redirect:/shop";
+        } catch (IllegalArgumentException e) {
+            // Handle errors such as book not found or insufficient stock
+            session.setAttribute("error", e.getMessage());
+            return "redirect:/shop";
+        }
+    }
+
+    // For N amount of only one type of book
+    @PostMapping("order-now")
+    public String orderNow(
+            @RequestParam("bookId") int bookId,
+            @RequestParam("quantity") int quantity,
+            Model model) {
+        Book book = bookService.handleFetchBookById(bookId);
+        double totalPrice = book.getPrice() * quantity;
+
+        // Pass only the selected book and quantity
+        model.addAttribute("selectedBook", book.getTitle());
+        model.addAttribute("quantity", quantity);
+        model.addAttribute("totalPrice", totalPrice);
+        model.addAttribute("isSingleBook", true); // Flag to indicate single book order
         return "client/checkout";
     }
 
-    @PostMapping("checkout")
-    public String handleCheckout() {
-        return "redirect:/checkout/success";
-    }
-
-    @GetMapping("checkout/success")
-    public String getCheckoutSuccessPage() {
-        return "client/checkout-success";
-    }
     // ================== Checkout (End) ======================
 
     // ================== About (Start) ====================
