@@ -101,4 +101,14 @@ public class Cart implements Serializable {
                                    .mapToDouble(item -> item.getPrice() * item.getQuantity())
                                    .sum();
     }
+
+    @Override
+    public String toString() {
+        return "Cart{" +
+                "id=" + id +
+                ", totalPrice=" + totalPrice +
+                ", cartItems=" + cartItems +
+                '}';
+    }
+
 }
