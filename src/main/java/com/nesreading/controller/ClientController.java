@@ -121,6 +121,8 @@ public class ClientController {
     public String addToCart(@RequestParam("bookId") int bookId,
                             @RequestParam("quantity") int quantity,
                             HttpSession session) {
+        System.out.println("Received bookId: " + bookId);
+        System.out.println("Received quantity: " + quantity);
         cartService.addBookToCart(bookId, quantity, session);
         return "/client/shopping-cart";
     }
@@ -144,20 +146,6 @@ public class ClientController {
     // ================== Shopping Cart (End) ======================
 
     // ================== Checkout (Start) ====================
-    // @GetMapping("add-to-cart")
-    // public String addToCart(
-    //         @RequestParam("bookId") int bookId,
-    //         @RequestParam("quantity") int quantity,
-    //         HttpSession session) {
-    //     try {
-    //         cartService.addBookToCart(bookId, quantity, session);
-    //         return "redirect:/shop";
-    //     } catch (IllegalArgumentException e) {
-    //         // Handle errors such as book not found or insufficient stock
-    //         session.setAttribute("error", e.getMessage());
-    //         return "redirect:/shop";
-    //     }
-    // }
 
     // For N amount of only one type of book
     @PostMapping("order-now")
@@ -188,7 +176,7 @@ public class ClientController {
         // Pass all cart items
         model.addAttribute("cartItems", cart.getCartItems());
         model.addAttribute("totalPrice", cart.getTotalPrice());
-        model.addAttribute("isSingleBook", false); // Flag to indicate single book order
+        model.addAttribute("isSingleItem", false); // Flag to indicate single book order
         return "client/checkout";
     }
 
