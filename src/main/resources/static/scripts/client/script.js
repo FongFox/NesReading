@@ -205,4 +205,20 @@
       preloader.classList.add("hide-preloader");
     });
 
+    $(document).ready(function () {
+        // Toggle chat visibility
+        const chatButton = document.getElementById("chat-button");
+        const chatContainer = document.getElementById("chat-container");
+
+        chatButton.addEventListener("click", () => {
+            // Kiểm tra trạng thái hiện tại của khung chat
+            if (chatContainer.style.display === "block") {
+                chatContainer.style.display = "none"; // Đóng chat
+            } else {
+                chatContainer.style.display = "block"; // Mở chat
+            }
+        });
+    });
+
+
 })(jQuery);
