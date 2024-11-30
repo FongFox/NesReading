@@ -1,40 +1,60 @@
 package com.nesreading.domain;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.List;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.DecimalMin;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 @Entity
 @Table(name = "books")
-public class Book {
+public class Book implements Serializable {
+	private static final long serialVersionUID = 1L;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	
+
+	@NotNull
+	@Size(min = 1, message = "Title can not be blank.")
 	private String title;
 
 	@Column(name = "author", columnDefinition = "MEDIUMTEXT")
+	@NotNull
+	@Size(min = 1, message = "Author can not be blank.")
 	private String author;
 
 	@Column(name = "category")
 	private String category;
 
+	@NotNull
+	@Size(min = 1, message = "Publisher can not be blank.")
 	private String publisher;
 
 	@Column(name = "publication_year")
+	@Min(value = 1, message = "Publication Year must larger than 0")
 	private int publicationYear;
-	
+
+	@DecimalMin(value = "0", inclusive = false, message = "Price must larger than 0")
 	private double price;
 	
 	@Column(name = "short_description")
+	@NotNull
+	@Size(min = 1, message = "Short Description can not be blank.")
 	private String shortDescription;
 	
 	@Column(name = "detail_description", columnDefinition = "MEDIUMTEXT")
+	@NotNull
+	@Size(min = 1, message = "Detail Description can not be blank.")
 	private String detailDescription;
-	
+
+	@Min(value = 1, message = "Publication Year must larger than 0")
 	private int stock;
 	
 	private int sold;
@@ -54,15 +74,6 @@ public class Book {
 	@UpdateTimestamp
 	@Column(name = "update_at")
 	private LocalDateTime updateAt;
-
-	//	@ManyToOne
-	//	@JoinColumn(name = "author_id")
-	//	private Author author;
-	//	@Column(name = "other_authors", columnDefinition = "MEDIUMTEXT")
-	//	private String otherAuthors;
-	//	@ManyToOne
-	//	@JoinColumn(name = "book_category_id")
-	//	private BookCategory bookCategory;
 
 	public Book() {
 	}

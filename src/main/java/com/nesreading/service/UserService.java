@@ -94,6 +94,13 @@ public class UserService {
         userRepository.save(dbUser);
     }
 
+    public boolean handleCheckEmailExisted(String email) {
+        return userRepository.existsByEmail(email);
+    }
+
+    public User handleFetchUserByEmail(String email) {
+        return userRepository.findByEmail(email);
+    }
     // ======================= Security Service ============================
     public  String handleConvertHashPassword(String userPassword) {
         return this.passwordEncoder.encode(userPassword);

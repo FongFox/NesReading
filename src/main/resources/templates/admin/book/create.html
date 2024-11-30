@@ -59,36 +59,67 @@
                                   enctype="multipart/form-data">
                                 <div class="mb-3 col-12 col-md-12">
                                     <label class="form-label">Title:</label>
-                                    <input type="text" class="form-control" th:field="*{title}"/>
+                                    <input type="text"
+                                           th:classappend="${#fields.hasErrors('title')} ? 'form-control is-invalid' : 'form-control'"
+                                           th:field="*{title}"/>
+                                    <div th:if="${#fields.hasErrors('title')}"
+                                         th:errors="*{title}" th:errorclass="invalid-feedback"></div>
                                 </div>
                                 <div class="mb-3 col-12 col-md-12">
                                     <label class="form-label">Author:</label>
-                                    <input type="text" class="form-control" th:field="*{author}"/>
+                                    <input type="text"
+                                           th:classappend="${#fields.hasErrors('author')} ? 'form-control is-invalid' : 'form-control'"
+                                           th:field="*{author}"/>
+                                    <div th:if="${#fields.hasErrors('author')}"
+                                         th:errors="*{author}" th:errorclass="invalid-feedback"></div>
                                 </div>
                                 <div class="mb-3 col-12 col-md-6">
                                     <label class="form-label">Publisher:</label>
-                                    <input type="text" class="form-control" th:field="*{publisher}"/>
+                                    <input type="text"
+                                           th:classappend="${#fields.hasErrors('publisher')} ? 'form-control is-invalid' : 'form-control'"
+                                           th:field="*{publisher}"/>
+                                    <div th:if="${#fields.hasErrors('publisher')}"
+                                         th:errors="*{publisher}" th:errorclass="invalid-feedback"></div>
                                 </div>
                                 <div class="mb-3 col-12 col-md-6">
                                     <label class="form-label">Publication Year:</label>
-                                    <input type="number" class="form-control" th:field="*{publicationYear}"/>
+                                    <input type="number"
+                                           th:classappend="${#fields.hasErrors('publicationYear')} ? 'form-control is-invalid' : 'form-control'"
+                                           th:field="*{publicationYear}"/>
+                                    <div th:if="${#fields.hasErrors('publicationYear')}"
+                                         th:errors="*{publicationYear}" th:errorclass="invalid-feedback"></div>
                                 </div>
                                 <div class="mb-3 col-12 col-md-12">
                                     <label class="form-label">Short Description:</label>
-                                    <input type="text" class="form-control" th:field="*{shortDescription}"/>
+                                    <input type="text"
+                                           th:classappend="${#fields.hasErrors('shortDescription')} ? 'form-control is-invalid' : 'form-control'"
+                                           th:field="*{shortDescription}"/>
+                                    <div th:if="${#fields.hasErrors('shortDescription')}"
+                                         th:errors="*{shortDescription}" th:errorclass="invalid-feedback"></div>
                                 </div>
                                 <div class="mb-3 col-12 col-md-12">
                                     <label class="form-label">Detail Description:</label>
-                                    <textarea type="text" class="form-control"
+                                    <textarea type="text"
+                                              th:classappend="${#fields.hasErrors('detailDescription')} ? 'form-control is-invalid' : 'form-control'"
                                               th:field="*{detailDescription}"></textarea>
+                                    <div th:if="${#fields.hasErrors('detailDescription')}"
+                                         th:errors="*{detailDescription}" th:errorclass="invalid-feedback"></div>
                                 </div>
                                 <div class="mb-3 col-12 col-md-6">
                                     <label class="form-label">Price:</label>
-                                    <input type="number" class="form-control" min="0" th:field="*{price}"/>
+                                    <input type="number"
+                                           th:classappend="${#fields.hasErrors('price')} ? 'form-control is-invalid' : 'form-control'"
+                                           min="0" th:field="*{price}"/>
+                                    <div th:if="${#fields.hasErrors('price')}"
+                                         th:errors="*{price}" th:errorclass="invalid-feedback"></div>
                                 </div>
                                 <div class="mb-3 col-12 col-md-6">
-                                    <label class="form-label">Stock</label>
-                                    <input type="number" class="form-control" th:field="*{stock}"/>
+                                    <label class="form-label">Stock: </label>
+                                    <input type="number"
+                                           th:classappend="${#fields.hasErrors('stock')} ? 'form-control is-invalid' : 'form-control'"
+                                           th:field="*{stock}"/>
+                                    <div th:if="${#fields.hasErrors('stock')}"
+                                         th:errors="*{stock}" th:errorclass="invalid-feedback"></div>
                                 </div>
                                 <!-- Image field (Start) -->
                                 <div class="mb-3 col-12 col-md-6">

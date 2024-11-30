@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <title>NesReadinge</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="author" content="">
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+
+    <!--  Link CDN || CSS/JS Source  -->
+    <link rel="stylesheet" th:href="@{https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css}"
+          integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" th:href="@{/styles/client/style.css}">
+    <link rel="stylesheet" th:href="@{https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css}" />
+    <link rel="preconnect" th:href="@{https://fonts.googleapis.com}">
+    <link rel="preconnect" th:href="@{https://fonts.gstatic.com}" crossorigin>
+    <link th:href="@{https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap}"
+          rel="stylesheet">
+</head>
+<body>
+
+<header th:replace="~{layouts/client-layout :: header}"></header>
+
+<div class="search-popup">
+    <div class="search-popup-container">
+
+        <form role="search" method="get" class="search-form" action="">
+            <input type="search" id="search-form" class="search-field" placeholder="Type and press enter" value="" name="s" />
+            <button type="submit" class="search-submit"><svg class="search"><use th:href="@{#search}"></use></svg></button>
+        </form>
+
+        <h5 class="cat-list-title">Browse Categories</h5>
+
+        <ul class="cat-list">
+            <li class="cat-list-item">
+                <a th:href="@{/}" title="Romance">Romance</a>
+            </li>
+            <li class="cat-list-item">
+                <a th:href="@{/}" title="Thriller">Thriller</a>
+            </li>
+            <li class="cat-list-item">
+                <a th:href="@{/}" title="Sci-fi">Sci-fi</a>
+            </li>
+            <li class="cat-list-item">
+                <a th:href="@{/}" title="Cooking">Cooking</a>
+            </li>
+            <li class="cat-list-item">
+                <a th:href="@{/}" title="Health">Health</a>
+            </li>
+            <li class="cat-list-item">
+                <a th:href="@{/}" title="Lifestyle">Lifestyle</a>
+            </li>
+            <li class="cat-list-item">
+                <a th:href="@{/}" title="Fiction">Fiction</a>
+            </li>
+        </ul>
+
+    </div>
+</div>
+
+<section class="hero-section position-relative padding-large"
+         style="background-image: url(../images/default/banner-image-bg-1.jpg); background-size: cover; background-repeat: no-repeat; background-position: center; height: 400px;">
+    <div class="hero-content">
+        <div class="container">
+            <div class="row">
+                <div class="text-center">
+                    <h1>Contact</h1>
+                    <div class="breadcrumbs">
+              <span class="item">
+                <a th:href="@{/}">Home > </a>
+              </span>
+                        <span class="item text-decoration-underline">Contact</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="contact-us padding-large">
+    <div class="container">
+        <div class="row">
+            <div class="contact-info col-lg-6 pb-3">
+                <h3>Contact info</h3>
+                <p class="mb-5">Strengthening stability with harmony and moving forward with a steady posture, calmly overcoming all challenges.</p>
+                <div class="page-content d-flex flex-wrap">
+                    <div class="col-lg-6 col-sm-12">
+                        <div class="content-box text-dark pe-4 mb-5">
+                            <h5 class="fw-bold">Office</h5>
+                            <div class="contact-address pt-3">
+                                <p><i class="fa-solid fa-location-dot"></i> 08 Nguyen Van Trang, Ben Thanh Ward, District 1, Ho Chi Minh City</p>
+                            </div>
+                            <div class="contact-number">
+                                <p>
+                                    <i class="fa-solid fa-phone"></i>
+                                    <a th:href="@{#}">093 327 8628</a>
+                                </p>
+                            </div>
+                            <div class="email-address">
+                                <p>
+                                    <i class="fa-solid fa-envelope"></i>
+                                    <a th:href="@{#}">support.nesreading@gmail.com</a>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-sm-12">
+                        <div class="content-box">
+                            <h5 class="fw-bold">Management</h5>
+                            <div class="contact-address pt-3">
+                                <p><i class="fa-solid fa-location-dot"></i> 7/1 Thanh Thai, Ward 14, District 10, Ho Chi Minh City</p>
+                            </div>
+                            <div class="contact-number">
+                                <p>
+                                    <i class="fa-solid fa-phone"></i>
+                                    <a th:href="@{#}">093 348 5628</a>
+                                </p>
+                            </div>
+                            <div class="email-address">
+                                <p>
+                                    <i class="fa-solid fa-envelope"></i>
+                                    <a th:href="@{#}">admin.nesreading@gmail.com</a>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="inquiry-item col-lg-6">
+                <h3>Any questions?</h3>
+                <p class="mb-5">Use the form below to get in touch with us.</p>
+
+                <form id="form" class="d-flex gap-3 flex-wrap">
+                    <div class="w-100 d-flex gap-3">
+                        <div class="w-50">
+                            <input type="text" name="name" placeholder="Write your name here *" class="form-control w-100">
+                        </div>
+                        <div class="w-50">
+                            <input type="text" name="email" placeholder="Write your email here *" class="form-control w-100">
+                        </div>
+                    </div>
+                    <div class="w-100">
+                        <input type="text" name="phone" placeholder="Phone number" class="form-control w-100">
+                    </div>
+                    <div class="w-100">
+                        <input type="text" name="subject" placeholder="Write your subject here" class="form-control w-100">
+                    </div>
+                    <div class="w-100">
+                        <textarea placeholder="Write your message here *" class="form-control w-100"></textarea>
+                    </div>
+                    <button type="submit" name="submit" class="btn my-3">Submit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<section id="our-store" class="padding-large pt-0">
+    <div class="container">
+        <div class="row d-flex flex-wrap align-items-center">
+            <div class="col-lg-6">
+                <div class="image-holder mb-5">
+                    <img th:src="@{images/default/single-image2.jpg}" alt="our-store" class="img-fluid">
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="locations-wrap ms-lg-5">
+                    <div class="display-header">
+                        <h3>Our stores</h3>
+                        <p class="mb-5">You can also directly buy products from our stores.</p>
+                    </div>
+                    <div class="location-content d-flex flex-wrap">
+                        <div class="col-lg-6 col-sm-12">
+                            <div class="content-box text-dark pe-4 mb-5">
+                                <h5 class="fw-bold">Ho Chi Minh</h5>
+                                <div class="contact-address pt-3">
+                                    <p><i class="fa-solid fa-location-dot"></i> 366 Phan Van Tri, Ward 5, Go Vap District, HCM City</p>
+                                </div>
+                                <div class="contact-number">
+                                    <p>
+                                        <i class="fa-solid fa-phone"></i>
+                                        <a th:href="@{#}">028 7309 1991</a>
+                                    </p>
+                                </div>
+                                <div class="email-address">
+                                    <p>
+                                        <i class="fa-solid fa-envelope"></i>
+                                        <a th:href="@{#}">hcm.nesreading@gmail.com</a>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-sm-12">
+                            <div class="content-box">
+                                <h5 class="fw-bold">Ha Noi</h5>
+                                <div class="contact-address pt-3">
+                                    <p><i class="fa-solid fa-location-dot"></i> 194 Hue Ward, Bui Thi Xuan, Hai Ba Trung Street, Hanoi City</p>
+                                </div>
+                                <div class="contact-number">
+                                    <p>
+                                        <i class="fa-solid fa-phone"></i>
+                                        <a th:href="@{#}">024 6269 9393</a>
+                                    </p>
+                                </div>
+                                <div class="email-address">
+                                    <p>
+                                        <i class="fa-solid fa-envelope"></i>
+                                        <a th:href="@{#}">hn.nesreading@gmail.com</a>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-sm-12">
+                            <div class="content-box text-dark pe-4 mb-5">
+                                <h5 class="fw-bold">Da Nang</h5>
+                                <div class="contact-address pt-3">
+                                    <p><i class="fa-solid fa-location-dot"></i> 153 Phan Chau Trinh Street, Hai Chau Ward, Da Nang City</p>
+                                </div>
+                                <div class="contact-number">
+                                    <p>
+                                        <i class="fa-solid fa-phone"></i>
+                                        <a th:href="@{#}">0236 381 7017</a>
+                                    </p>
+                                </div>
+                                <div class="email-address">
+                                    <p>
+                                        <i class="fa-solid fa-envelope"></i>
+                                        <a th:href="@{#}">dn.nesreading@gmail.com</a>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-sm-12">
+                            <div class="content-box">
+                                <h5 class="fw-bold">Vung Tau</h5>
+                                <div class="contact-address pt-3">
+                                    <p><i class="fa-solid fa-location-dot"></i> 36 Nguyen Thai Hoc Street, Ward 9, Ba Ria - Vung Tau City</p>
+                                </div>
+                                <div class="contact-number">
+                                    <p>
+                                        <i class="fa-solid fa-phone"></i>
+                                        <a th:href="@{#}">0254 3849 266</a>
+                                    </p>
+                                </div>
+                                <div class="email-address">
+                                    <p>
+                                        <i class="fa-solid fa-envelope"></i>
+                                        <a th:href="@{#}">vt.nesreading@gmail.com</a>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Customer reviews -->
+<section id="customers-reviews" class="position-relative padding-large"
+         style="background-image: url(../images/default/banner-image-bg.jpg); background-size: cover; background-repeat: no-repeat; background-position: center; height: 600px;">
+    <div class="container offset-md-3 col-md-6">
+        <div class="position-absolute top-50 end-0 pe-0 pe-xxl-5 me-0 me-xxl-5 swiper-next testimonial-button-next">
+            <i class="fa-solid fa-angle-right d-flex justify-content-center align-items-center p-2"
+               style="font-size: 80px;"></i>
+        </div>
+        <div class="position-absolute top-50 start-0 ps-0 ps-xxl-5 ms-0 ms-xxl-5 swiper-prev testimonial-button-prev">
+            <i class="fa-solid fa-angle-left d-flex justify-content-center align-items-center p-2"
+               style="font-size: 80px;"></i>
+        </div>
+        <div class="section-title mb-4 text-center">
+            <h3 class="mb-4">Customers reviews</h3>
+        </div>
+        <div class="swiper testimonial-swiper ">
+            <div class="swiper-wrapper">
+                <div class="swiper-slide">
+                    <div class="card position-relative text-left p-5 border rounded-3">
+                        <blockquote>"I stumbled upon this bookstore while visiting the city, and it instantly became my favorite
+                            spot. The cozy atmosphere, friendly staff, and wide selection of books make every visit a delight!"
+                        </blockquote>
+                        <div class="rating text-warning d-flex align-items-center">
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                        </div>
+                        <h5 class="mt-1 fw-normal">Emma Chamberlin</h5>
+                    </div>
+                </div>
+                <div class="swiper-slide">
+                    <div class="card position-relative text-left p-5 border rounded-3">
+                        <blockquote>"As an avid reader, I'm always on the lookout for new releases, and this bookstore never
+                            disappoints. They always have the latest titles, and their recommendations have introduced me to some
+                            incredible reads!"</blockquote>
+                        <div class="rating text-warning d-flex align-items-center">
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                        </div>
+                        <h5 class="mt-1 fw-normal">Thomas John</h5>
+                    </div>
+                </div>
+                <div class="swiper-slide">
+                    <div class="card position-relative text-left p-5 border rounded-3">
+                        <blockquote>"I ordered a few books online from this store, and I was impressed by the quick delivery and
+                            careful packaging. It's clear that they prioritize customer satisfaction, and I'll definitely be
+                            shopping here again!"</blockquote>
+                        <div class="rating text-warning d-flex align-items-center">
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                        </div>
+                        <h5 class="mt-1 fw-normal">Kevin Bryan</h5>
+                    </div>
+                </div>
+                <div class="swiper-slide">
+                    <div class="card position-relative text-left p-5 border rounded-3">
+                        <blockquote>“I stumbled upon this tech store while searching for a new laptop, and I couldn't be happier
+                            with my experience! The staff was incredibly knowledgeable and guided me through the process of choosing
+                            the perfect device for my needs. Highly recommended!”</blockquote>
+                        <div class="rating text-warning d-flex align-items-center">
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                        </div>
+                        <h5 class="mt-1 fw-normal">Stevin</h5>
+                    </div>
+                </div>
+                <div class="swiper-slide">
+                    <div class="card position-relative text-left p-5 border rounded-3">
+                        <blockquote>“I stumbled upon this tech store while searching for a new laptop, and I couldn't be happier
+                            with my experience! The staff was incredibly knowledgeable and guided me through the process of choosing
+                            the perfect device for my needs. Highly recommended!”</blockquote>
+                        <div class="rating text-warning d-flex align-items-center">
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                        </div>
+                        <h5 class="mt-1 fw-normal">Roman</h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<hr>
+<footer th:replace="~{layouts/client-layout :: footer}"></footer>
+<script th:src="@{https://use.fontawesome.com/releases/v6.3.0/js/all.js}" crossorigin="anonymous"></script>
+<script th:src="@{/scripts/client/jquery-1.11.0.min.js}"></script>
+<script th:src="@{https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js}"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
+<script th:src="@{https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js}"></script>
+<script type="text/javascript" th:src="@{/scripts/client/script.js}"></script>
+</body>
+</html>

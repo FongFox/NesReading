@@ -2,13 +2,13 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
-  <meta charset="utf-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-  <meta name="description" content="" />
-  <meta name="author" content="" />
-  <title>NesReading (Admin)</title>
-  <link th:href="@{https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css}" rel="stylesheet" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="format-detection" content="telephone=no">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="author" content="">
+  <meta name="keywords" content="">
+  <meta name="description" content="">
   <link th:href="@{/styles/admin/style.css}" rel="stylesheet" />
 </head>
 
@@ -84,7 +84,8 @@
                       Detail Description: <span th:text="${dbBook.detailDescription}"></span>
                     </li>
                     <li class="list-group-item">
-                      Price: <span th:text="${#numbers.formatDecimal(dbBook.price, 0, 'COMMA', 0, 'POINT') + ' VND'}"></span>
+                      Price: <span
+                        th:text="${#numbers.formatDecimal(dbBook.price, 0, 'COMMA', 0, 'POINT') + ' VND'}"></span>
                     </li>
                     <li class="list-group-item">
                       Stock: <span th:text="${dbBook.stock}"></span>
