@@ -1,24 +1,27 @@
 package com.nesreading.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-import com.nesreading.domain.Cart;
-import com.nesreading.domain.CartItem;
-import jakarta.servlet.http.HttpSession;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.nesreading.domain.Book;
+import com.nesreading.domain.Cart;
 import com.nesreading.service.BookService;
 import com.nesreading.service.CartService;
+
+import jakarta.servlet.http.HttpSession;
 
 @Controller
 public class ClientController {
@@ -108,39 +111,57 @@ public class ClientController {
     // ================== Book (End) ======================
 
     // ================== Shopping Cart (Start) ====================
-    // @GetMapping("carts")
-    // public String getShoppingCartPage() {
-    //   return "client/shopping-cart";
-    // }
+    @GetMapping("/cart")
+    public String viewCart(HttpSession session, Model model) {
+        model.addAttribute("cart", cartService.getCart(session));
+        return "/client/shopping-cart";
+    }
+    
+    @PostMapping("/add-to-cart")
+    public String addToCart(@RequestParam("bookId") int bookId,
+                            @RequestParam("quantity") int quantity,
+                            HttpSession session) {
+        cartService.addBookToCart(bookId, quantity, session);
+        return "redirect:/view-cart";
+    }
 
-    // @PostMapping("add-book-to-cart/{id}")
-    // public String addBookToCart(@PathVariable long id) {
-    //   return "redirect:/shop";
-    // }
+    @GetMapping("/cart/remove-item")
+    public String removeItem(@RequestParam("itemId") int itemId, HttpSession session) {
+        try {
+            System.out.println("Cart before removal: " + cartService.getCart(session).getCartItems());
+            cartService.removeItemFromCart(itemId, session);
+            System.out.println("Cart after removal: " + cartService.getCart(session).getCartItems());
+        } catch (IllegalArgumentException e) {
+            session.setAttribute("error", e.getMessage()); // Optional error handling
+        }
+        return "redirect:/view-cart";
+    }
+
+    @ModelAttribute("cart")
+    public Cart getCart(HttpSession session) {
+        return cartService.getCart(session);
+    }
     // ================== Shopping Cart (End) ======================
 
     // ================== Checkout (Start) ====================
-    @GetMapping("add-to-cart")
-    public String addToCart(
-            @RequestParam("bookId") int bookId,
-            @RequestParam("quantity") int quantity,
-            HttpSession session) {
-        try {
-            cartService.addBookToCart(bookId, quantity, session);
-            return "redirect:/shop";
-        } catch (IllegalArgumentException e) {
-            // Handle errors such as book not found or insufficient stock
-            session.setAttribute("error", e.getMessage());
-            return "redirect:/shop";
-        }
-    }
+    // @GetMapping("add-to-cart")
+    // public String addToCart(
+    //         @RequestParam("bookId") int bookId,
+    //         @RequestParam("quantity") int quantity,
+    //         HttpSession session) {
+    //     try {
+    //         cartService.addBookToCart(bookId, quantity, session);
+    //         return "redirect:/shop";
+    //     } catch (IllegalArgumentException e) {
+    //         // Handle errors such as book not found or insufficient stock
+    //         session.setAttribute("error", e.getMessage());
+    //         return "redirect:/shop";
+    //     }
+    // }
 
     // For N amount of only one type of book
     @PostMapping("order-now")
-    public String orderNow(
-            @RequestParam("bookId") int bookId,
-            @RequestParam("quantity") int quantity,
-            Model model) {
+    public String orderNow(@RequestParam("bookId") int bookId, @RequestParam("quantity") int quantity, Model model) {
         Book book = bookService.handleFetchBookById(bookId);
         double totalPrice = book.getPrice() * quantity;
 
@@ -149,6 +170,17 @@ public class ClientController {
         model.addAttribute("quantity", quantity);
         model.addAttribute("totalPrice", totalPrice);
         model.addAttribute("isSingleBook", true); // Flag to indicate single book order
+        return "client/checkout";
+    }
+
+    @PostMapping("/order-now-bulk")
+    public String proceedToCheckout(HttpSession session, Model model) {
+        Cart cart = cartService.getCart(session);
+
+        // Pass all cart items
+        model.addAttribute("cartItems", cart.getCartItems());
+        model.addAttribute("totalPrice", cart.getTotalPrice());
+        model.addAttribute("isSingleBook", false); // Flag to indicate cart checkout
         return "client/checkout";
     }
 
@@ -170,7 +202,7 @@ public class ClientController {
 
     // ================== Book-Detail (Start) ====================
     @GetMapping("book-detail")
-    public String getBookdetailPage() {
+    public String getBookDetailPage() {
         return "client/book-detail";
     }
     // ================== Book-Detail (End) ======================
