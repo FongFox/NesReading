@@ -138,8 +138,28 @@
                     <div class="cart-items-section mb-4">
                         <h3 class="mb-4">Your Cart Items</h3>
 
+
                         <!-- Single Item Checkout -->
                         <div th:if="${isSingleItem}">
+                            <table class="table table-bordered">
+                                <thead class="table-light">
+                                <tr>
+                                    <th>Book</th>
+                                    <th>Quantity</th>
+                                    <th>Subtotal</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td th:text="${selectedBook}"></td> <!-- Dynamic Book Title -->
+                                    <td th:text="${quantity}"></td> <!-- Dynamic Quantity -->
+                                    <td th:text="${totalPrice} + ' VND'"></td> <!-- Dynamic Subtotal -->
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div th:if="${!isSingleItem}">
                             <table class="table table-bordered">
                                 <thead class="table-light">
                                 <tr>
@@ -150,35 +170,17 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr>
-                                    <td th:text="${selectedBook}"></td> <!-- Dynamic Book Title -->
-                                    <td th:text="${quantity}"></td> <!-- Dynamic Quantity -->
-                                    <td th:text="${selectedBook.price} + ' VND'"></td> <!-- Dynamic Price -->
-                                    <td th:text="${totalPrice} + ' VND'"></td> <!-- Dynamic Subtotal -->
+                                <!-- Iterate through cart items -->
+                                <tr th:each="item : ${cartItems}">
+                                    <td th:text="${item.book.title}"></td> <!-- Dynamic Book Title -->
+                                    <td th:text="${item.quantity}">1</td> <!-- Dynamic Quantity -->
+                                    <td th:text="${item.price} + ' VND'"></td> <!-- Dynamic Price -->
+                                    <td th:text="${item.getTotalPrice()} + ' VND'"></td> <!-- Dynamic Subtotal -->
                                 </tr>
                                 </tbody>
                             </table>
                         </div>
 
-                        <table class="table table-bordered">
-                            <thead class="table-light">
-                            <tr>
-                                <th>Book</th>
-                                <th>Quantity</th>
-                                <th>Price</th>
-                                <th>Subtotal</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <!-- Iterate through cart items -->
-                            <tr th:each="item : ${cartItems}">
-                                <td th:text="${item.book.title}"></td> <!-- Dynamic Book Title -->
-                                <td th:text="${item.quantity}">1</td> <!-- Dynamic Quantity -->
-                                <td th:text="${item.price} + ' VND'"></td> <!-- Dynamic Price -->
-                                <td th:text="${item.getTotalPrice()} + ' VND'"></td> <!-- Dynamic Subtotal -->
-                            </tr>
-                            </tbody>
-                        </table>
                         <div class="total-section mt-3">
                             <h5 class="text-end">
                                 <span>Total: </span>
@@ -187,7 +189,7 @@
                         </div>
                     </div>
 
-                    <div th:if="${#lists.isEmpty(cartItems)}" class="alert alert-warning">
+                    <div th:if="${#lists.isEmpty(cartItems) && !isSingleItem}" class="alert alert-warning">
                         Your cart is empty. Please add some items.
                     </div>
 

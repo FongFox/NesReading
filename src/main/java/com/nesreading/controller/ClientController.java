@@ -117,12 +117,12 @@ public class ClientController {
         return "/client/shopping-cart";
     }
     
-    @PostMapping("/add-to-cart")
+    @PostMapping("add-to-cart")
     public String addToCart(@RequestParam("bookId") int bookId,
                             @RequestParam("quantity") int quantity,
                             HttpSession session) {
         cartService.addBookToCart(bookId, quantity, session);
-        return "redirect:/view-cart";
+        return "/client/shopping-cart";
     }
 
     @GetMapping("/cart/remove-item")
@@ -134,7 +134,7 @@ public class ClientController {
         } catch (IllegalArgumentException e) {
             session.setAttribute("error", e.getMessage()); // Optional error handling
         }
-        return "redirect:/view-cart";
+        return "/client/shopping-cart";
     }
 
     @ModelAttribute("cart")
@@ -161,26 +161,34 @@ public class ClientController {
 
     // For N amount of only one type of book
     @PostMapping("order-now")
-    public String orderNow(@RequestParam("bookId") int bookId, @RequestParam("quantity") int quantity, Model model) {
+    public String orderNow(
+            @RequestParam("bookId") int bookId,
+            @RequestParam("quantity") int quantity,
+            Model model) {
+        System.out.println("Received bookId: " + bookId);
+        System.out.println("Received quantity: " + quantity);
+
         Book book = bookService.handleFetchBookById(bookId);
         double totalPrice = book.getPrice() * quantity;
 
-        // Pass only the selected book and quantity
+        // Add data to the model
         model.addAttribute("selectedBook", book.getTitle());
         model.addAttribute("quantity", quantity);
         model.addAttribute("totalPrice", totalPrice);
-        model.addAttribute("isSingleBook", true); // Flag to indicate single book order
+        model.addAttribute("isSingleItem", true);
+
         return "client/checkout";
     }
 
-    @PostMapping("/order-now-bulk")
+    // For the entire shopping cart
+    @PostMapping("order-now-bulk")
     public String proceedToCheckout(HttpSession session, Model model) {
         Cart cart = cartService.getCart(session);
 
         // Pass all cart items
         model.addAttribute("cartItems", cart.getCartItems());
         model.addAttribute("totalPrice", cart.getTotalPrice());
-        model.addAttribute("isSingleBook", false); // Flag to indicate cart checkout
+        model.addAttribute("isSingleBook", false); // Flag to indicate single book order
         return "client/checkout";
     }
 

@@ -165,19 +165,20 @@
                             </span>
                         </div>
 
-                    </div>
-                    <div class="action-buttons my-3 d-flex flex-wrap gap-3">
-                        <form th:action="@{/add-to-cart}" method="post" class="d-inline">
-                            <input type="hidden" name="bookId" th:value="${dbBook.id}"/>
-                            <input type="hidden" name="quantity" id="hidden-quantity" value="1"/>
-                            <button type="submit" class="btn btn-dark">Add to Cart</button>
-                        </form>
-                        <form th:action="@{/order-now}" method="post" class="d-inline">
-                            <input type="hidden" name="bookId" th:value="${dbBook.id}"/>
-                            <input type="hidden" name="quantity" id="hidden-quantity" value="1"/>
-                            <button type="submit" class="btn">Order Now</button>
-                        </form>
-                    </div>
+                    <!-- Form for Add to Cart -->
+                    <form th:action="@{/add-to-cart}" method="post" class="d-inline">
+                        <input type="hidden" name="bookId" th:value="${dbBook.id}" />
+                        <input type="hidden" name="quantity" id="hidden-quantity" value="1" />
+                        <button type="submit" class="btn btn-dark">Add to Cart</button>
+                    </form>
+
+                    <!-- Form for Order Now -->
+                    <form th:action="@{/order-now}" method="post" class="d-inline">
+                        <input type="hidden" name="bookId" th:value="${dbBook.id}" />
+                        <input type="hidden" name="quantity" id="hidden-quantity" value="1" />
+                        <button type="submit" class="btn">Order Now</button>
+                    </form>
+
 
                 </div>
                 <hr>
@@ -441,6 +442,19 @@
     document.addEventListener('DOMContentLoaded', () => {
         const quantityInput = document.getElementById('quantity'); // Visible input
         const hiddenQuantity = document.getElementById('hidden-quantity'); // Hidden input for form submission
+
+    const syncQuantity = () => {
+        hiddenQuantity.value = quantityInput.value;
+    };
+
+    // Synchronize on user input
+    quantityInput.addEventListener('input', syncQuantity);
+
+    // Synchronize on form submission
+    document.querySelectorAll('form').forEach(form => {
+        form.addEventListener('submit', syncQuantity);
+    });
+
 
         // Button to decrease quantity
         document.querySelector('.quantity-left-minus').addEventListener('click', () => {
