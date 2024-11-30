@@ -77,7 +77,7 @@ public class ClientController {
         if (author != null && author.isEmpty()) author = null;
         Double minPriceValue = (minPrice != null && !minPrice.isNaN()) ? Double.valueOf(minPrice) : null;
         Double maxPriceValue = (maxPrice != null && !maxPrice.isNaN()) ? Double.valueOf(maxPrice) : null;
-        
+
         Pageable pageable = PageRequest.of(page - 1, 20, sortOrder);
         Page<Book> bookListPage;
 
@@ -116,7 +116,7 @@ public class ClientController {
         model.addAttribute("cart", cartService.getCart(session));
         return "/client/shopping-cart";
     }
-    
+
     @PostMapping("add-to-cart")
     public String addToCart(@RequestParam("bookId") int bookId,
                             @RequestParam("quantity") int quantity,

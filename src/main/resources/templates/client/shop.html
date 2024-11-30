@@ -88,14 +88,6 @@
                                 <span class="price text-primary fw-bold mb-2 fs-5"
                                       th:text="${#numbers.formatDecimal(book.price, 0, 'COMMA', 0, 'POINT') + ' VND'}">
                                 </span>
-<!--                                    <form th:action="@{/add-to-cart}" method="post" class="mt-2">-->
-<!--                                        <input type="hidden" name="bookId" th:value="${book.id}" />-->
-<!--                                        <div class="input-group mb-3">-->
-<!--                                            <label for="quantity" class="form-label">Quantity:</label>-->
-<!--                                            <input type="number" name="quantity" value="1" min="1" class="form-control" />-->
-<!--                                        </div>-->
-<!--                                        <button type="submit" class="btn btn-primary w-100">Add to Cart</button>-->
-<!--                                    </form>-->
                             </div>
                         </a>
                     </div>
@@ -122,6 +114,7 @@
                 </nav>
             </main>
 
+            <!--Filter options-->
             <aside class="col-md-3">
                 <div class="card p-3" style="box-shadow: var(--bs-box-shadow);">
                     <h5 class="text-center" style="color: var(--primary-color);">Search & Filter</h5>
@@ -168,126 +161,6 @@
         </div>
     </div>
 </div>
-
-<!-- Customer reviews -->
-<section id="customers-reviews" class="position-relative padding-large"
-         style="background-image: url(images/default/banner-image-bg.jpg); background-size: cover; background-repeat: no-repeat; background-position: center; height: 600px;">
-    <div class="container offset-md-3 col-md-6">
-        <div class="position-absolute top-50 end-0 pe-0 pe-xxl-5 me-0 me-xxl-5 swiper-next testimonial-button-next">
-            <i class="fa-solid fa-angle-right d-flex justify-content-center align-items-center p-2"
-               style="font-size: 80px;"></i>
-        </div>
-        <div
-                class="position-absolute top-50 start-0 ps-0 ps-xxl-5 ms-0 ms-xxl-5 swiper-prev testimonial-button-prev">
-            <i class="fa-solid fa-angle-left d-flex justify-content-center align-items-center p-2"
-               style="font-size: 80px;"></i>
-        </div>
-        <div class="section-title mb-4 text-center">
-            <h3 class="mb-4">Customers reviews</h3>
-        </div>
-        <div class="swiper testimonial-swiper ">
-            <div class="swiper-wrapper">
-                <div class="swiper-slide">
-                    <div class="card position-relative text-left p-5 border rounded-3">
-                        <blockquote>"I stumbled upon this bookstore while visiting the city, and it instantly became
-                            my
-                            favorite
-                            spot. The cozy atmosphere, friendly staff, and wide selection of books make every visit
-                            a
-                            delight!"
-                        </blockquote>
-                        <div class="rating text-warning d-flex align-items-center">
-                            <i class="fa-solid fa-star"></i>
-                            <i class="fa-solid fa-star"></i>
-                            <i class="fa-solid fa-star"></i>
-                            <i class="fa-solid fa-star"></i>
-                            <i class="fa-solid fa-star"></i>
-                        </div>
-                        <h5 class="mt-1 fw-normal">Emma Chamberlin</h5>
-                    </div>
-                </div>
-                <div class="swiper-slide">
-                    <div class="card position-relative text-left p-5 border rounded-3">
-                        <blockquote>"As an avid reader, I'm always on the lookout for new releases, and this
-                            bookstore
-                            never
-                            disappoints. They always have the latest titles, and their recommendations have
-                            introduced
-                            me to some
-                            incredible reads!"
-                        </blockquote>
-                        <div class="rating text-warning d-flex align-items-center">
-                            <i class="fa-solid fa-star"></i>
-                            <i class="fa-solid fa-star"></i>
-                            <i class="fa-solid fa-star"></i>
-                            <i class="fa-solid fa-star"></i>
-                            <i class="fa-solid fa-star"></i>
-                        </div>
-                        <h5 class="mt-1 fw-normal">Thomas John</h5>
-                    </div>
-                </div>
-                <div class="swiper-slide">
-                    <div class="card position-relative text-left p-5 border rounded-3">
-                        <blockquote>"I ordered a few books online from this store, and I was impressed by the quick
-                            delivery and
-                            careful packaging. It's clear that they prioritize customer satisfaction, and I'll
-                            definitely be
-                            shopping here again!"
-                        </blockquote>
-                        <div class="rating text-warning d-flex align-items-center">
-                            <i class="fa-solid fa-star"></i>
-                            <i class="fa-solid fa-star"></i>
-                            <i class="fa-solid fa-star"></i>
-                            <i class="fa-solid fa-star"></i>
-                            <i class="fa-solid fa-star"></i>
-                        </div>
-                        <h5 class="mt-1 fw-normal">Kevin Bryan</h5>
-                    </div>
-                </div>
-                <div class="swiper-slide">
-                    <div class="card position-relative text-left p-5 border rounded-3">
-                        <blockquote>“I stumbled upon this tech store while searching for a new laptop, and I
-                            couldn't be
-                            happier
-                            with my experience! The staff was incredibly knowledgeable and guided me through the
-                            process
-                            of choosing
-                            the perfect device for my needs. Highly recommended!”
-                        </blockquote>
-                        <div class="rating text-warning d-flex align-items-center">
-                            <i class="fa-solid fa-star"></i>
-                            <i class="fa-solid fa-star"></i>
-                            <i class="fa-solid fa-star"></i>
-                            <i class="fa-solid fa-star"></i>
-                            <i class="fa-solid fa-star"></i>
-                        </div>
-                        <h5 class="mt-1 fw-normal">Stevin</h5>
-                    </div>
-                </div>
-                <div class="swiper-slide">
-                    <div class="card position-relative text-left p-5 border rounded-3">
-                        <blockquote>“I stumbled upon this tech store while searching for a new laptop, and I
-                            couldn't be
-                            happier
-                            with my experience! The staff was incredibly knowledgeable and guided me through the
-                            process
-                            of choosing
-                            the perfect device for my needs. Highly recommended!”
-                        </blockquote>
-                        <div class="rating text-warning d-flex align-items-center">
-                            <i class="fa-solid fa-star"></i>
-                            <i class="fa-solid fa-star"></i>
-                            <i class="fa-solid fa-star"></i>
-                            <i class="fa-solid fa-star"></i>
-                            <i class="fa-solid fa-star"></i>
-                        </div>
-                        <h5 class="mt-1 fw-normal">Roman</h5>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
 
 <footer th:replace="~{layouts/client-layout :: footer}"></footer>
 

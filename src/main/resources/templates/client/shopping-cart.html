@@ -52,20 +52,20 @@
                                 <div class="d-flex align-items-center gap-2">
                                     <img th:src="${item.book.imageUrl}" alt="cart-img" class="img-fluid border rounded-3" style="width: 80px; height: auto;">
                                     <div>
-                                        <h5><a th:href="@{/shop/{id}(id=${item.book.id})}" th:text="${item.book.title}">Book Title</a></h5>
-                                        <div class="text-primary fw-light" th:text="${item.price}">$0.00</div>
+                                        <h5><a th:href="@{/shop/{id}(id=${item.book.id})}" th:text="${item.book.title}"></a></h5>
+                                        <div class="text-primary fw-light" th:text="${#numbers.formatDecimal(item.price, 0, 'COMMA', 0, 'POINT') + ' VND'}"></div>
                                     </div>
                                 </div>
                             </div>
                             
                             <!-- Quantity -->
                             <div class="col-lg-3 col-md-3">
-                                <input type="number" th:value="${item.quantity}" min="1" max="100" class="form-control text-center">
+                                <span class="text-primary fs-5" th:text="${item.quantity}"></span>
                             </div>
                             
                             <!-- Subtotal -->
                             <div class="col-lg-3 col-md-3">
-                                <span class="text-primary fs-5" th:text="${item.getTotalPrice()}">$0.00</span>
+                                <span class="text-primary fs-5" th:text="${#numbers.formatDecimal(item.getTotalPrice(), 0, 'COMMA', 0, 'POINT') + ' VND'}"></span>
                             </div>
 
                             <!-- Action (Remove) -->
@@ -87,11 +87,11 @@
                     <table class="table">
                         <tr class="border-top border-bottom">
                             <th>Subtotal</th>
-                            <td class="text-primary ps-5 fw-light" th:text="${cart.totalPrice}">0.00</td>
+                            <td class="text-primary ps-5 fw-light" th:text="${#numbers.formatDecimal(cart.totalPrice, 0, 'COMMA', 0, 'POINT') + ' VND'}">0.00</td>
                         </tr>
                         <tr class="border-bottom">
                             <th>Total</th>
-                            <td class="text-primary ps-5 fw-light" th:text="${cart.totalPrice}">0.00</td>
+                            <td class="text-primary ps-5 fw-light" th:text="${#numbers.formatDecimal(cart.totalPrice, 0, 'COMMA', 0, 'POINT') + ' VND'}">0.00</td>
                         </tr>
                     </table>
                     <div class="button-wrap d-flex gap-3">
