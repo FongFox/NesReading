@@ -18,8 +18,8 @@
     <link rel="preconnect" th:href="@{https://fonts.gstatic.com}" crossorigin>
     <link th:href="@{https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap}"
           rel="stylesheet">
-
 </head>
+
 <body>
 
 <header th:replace="~{layouts/client-layout :: header}"></header>
@@ -28,8 +28,13 @@
     <div class="search-popup-container">
 
         <form role="search" method="get" class="search-form" action="">
-            <input type="search" id="search-form" class="search-field" placeholder="Type and press enter" value="" name="s" />
-            <button type="submit" class="search-submit"><svg class="search"><use th:href="@{#search}"></use></svg></button>
+            <input type="search" id="search-form" class="search-field" placeholder="Type and press enter" value=""
+                   name="s" />
+            <button type="submit" class="search-submit">
+                <svg class="search">
+                    <use th:href="@{#search}"></use>
+                </svg>
+            </button>
         </form>
 
         <h5 class="cat-list-title">Browse Categories</h5>
@@ -61,7 +66,6 @@
     </div>
 </div>
 
-
 <section class="hero-section position-relative padding-large"
          style="background-image: url(../images/default/banner-image-bg-1.jpg); background-size: cover; background-repeat: no-repeat; background-position: center; height: 400px;">
     <div class="hero-content">
@@ -70,9 +74,9 @@
                 <div class="text-center">
                     <h1>Book Detail</h1>
                     <div class="breadcrumbs">
-              <span class="item">
-                <a th:href="@{/}">Home > </a>
-              </span>
+                            <span class="item">
+                                <a th:href="@{/}">Home > </a>
+                            </span>
                         <span class="item text-decoration-underline">Book Detail</span>
                     </div>
                 </div>
@@ -89,195 +93,127 @@
                     <div class="swiper thumb-swiper w-50">
                         <div class="swiper-wrapper d-flex flex-wrap gap-3 align-content-start">
                             <div class="swiper-slide bg-white">
-                                <img src="/images/book-detail/product-thumbnail-1.png" alt="product-thumb" class="img-fluid border rounded-3">
+                                <img src="/images/book-detail/product-thumbnail-1.png" alt="product-thumb"
+                                     class="img-fluid border rounded-3">
                             </div>
                             <div class="swiper-slide bg-white">
-                                <img src="/images/book-detail/product-thumbnail-2.png" alt="product-thumb" class="img-fluid border rounded-3">
+                                <img src="/images/book-detail/product-thumbnail-2.png" alt="product-thumb"
+                                     class="img-fluid border rounded-3">
                             </div>
                             <div class="swiper-slide bg-white">
-                                <img src="/images/book-detail/product-thumbnail-3.png" alt="product-thumb" class="img-fluid border rounded-3">
+                                <img src="/images/book-detail/product-thumbnail-3.png" alt="product-thumb"
+                                     class="img-fluid border rounded-3">
                             </div>
                         </div>
                     </div>
                     <div class="swiper large-swiper border rounded-3 overflow-hidden">
                         <div class="swiper-wrapper">
                             <div class="swiper-slide bg-white">
-                                <img src="/images/book-detail/product-large-1.png" alt="single-product" class="img-fluid">
+                                <img src="/images/book-detail/product-large-1.png" alt="single-product"
+                                     class="img-fluid">
                             </div>
                             <div class="swiper-slide bg-white">
-                                <img src="/images/book-detail/product-large-2.png" alt="single-product" class="img-fluid">
+                                <img src="/images/book-detail/product-large-2.png" alt="single-product"
+                                     class="img-fluid">
                             </div>
                             <div class="swiper-slide bg-white">
-                                <img src="/images/book-detail/product-large-3.png" alt="single-product" class="img-fluid">
+                                <img src="/images/book-detail/product-large-3.png" alt="single-product"
+                                     class="img-fluid">
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+
             <div class="col-lg-6">
                 <div class="product-info ps-lg-5 pt-3 pt-lg-0">
-                    <div class="element-header" >
+                    <div class="element-header">
                         <h1 class="product-title" th:text="${dbBook.title}"></h1>
                         <div class="product-price d-flex align-items-center mt-2">
-                            <span class="fs-2 fw-light text-primary me-2" th:text="${#numbers.formatDecimal(dbBook.price, 0, 'COMMA', 0, 'POINT') + ' VND'}"></span>
-                            <del >300,000 VND</del>
+                                <span class="fs-2 fw-light text-primary me-2"
+                                      th:text="${#numbers.formatDecimal(dbBook.price, 0, 'COMMA', 0, 'POINT') + ' VND'}"></span>
+                            <del>300,000 VND</del>
                         </div>
                     </div>
                     <br th:text="${dbBook.shortDescription}"> </br>
 
                     <hr>
-                               <div class="swatch product-select" data-option-index="1">
-                                   <h4 class="item-title text-decoration-underline text-capitalize">Stocks</h4>
-                                   <ul class="select-list list-unstyled d-flex mb-0">
-                                       <li th:text="${dbBook.stock}"></li>
-                                   </ul>
-                               </div>
-                               <div class="product-quantity my-3">
-                                   <div class="stock-button-wrap mt-2 d-flex flex-wrap align-items-center">
-                                       <div class="product-quantity">
-                                           <div class="input-group product-qty align-items-center" style="max-width: 150px;">
-                               <span class="input-group-btn">
-                                 <button type="button" class="bg-white shadow border rounded-3 fw-light quantity-left-minus" data-type="minus" data-field="">
-                                   <i width="16" height="16" class="fa-solid fa-minus"></i>
-                                 </button>
-                               </span>
-                                               <input type="text" id="quantity" name="quantity" class="form-control bg-white shadow border rounded-3 py-2 mx-2 input-number text-center" value="1" min="1" max="100" required>
-                                               <span class="input-group-btn">
-                                 <button type="button" class="bg-white shadow border rounded-3 fw-light quantity-right-plus" data-type="plus" data-field="">
-                                     <i width="16" height="16" class="fa-solid fa-plus"></i>
-                                 </button>
-                               </span>
-                                           </div>
-                                       </div>
-                                   </div>
-                               </div>
-                               <div class="action-buttons my-3 d-flex flex-wrap gap-3">
-                                   <a th:href="@{/}" class="btn">Order now</a>
-                                   <a th:href="@{/}" class="btn btn-dark">Add to cart</a>
-                               </div>
-                           </div>
-                           <hr>
-                           <div class="meta-product my-3">
-                               <div class="meta-item d-flex mb-1">
-                                   <span class="fw-medium me-2">SKU:</span>
-                                   <ul class="select-list list-unstyled d-flex mb-0">
-                                       <li data-value="S" class="select-item">1223</li>
-                                   </ul>
-                               </div>
-                               <div class="meta-item d-flex mb-1">
-                                   <span class="fw-medium me-2">Category:</span>
-                                   <ul class="select-list list-unstyled d-flex mb-0">
-                                       <li data-value="S" class="select-item">
-                                           <a th:href="@{/}">Romance</a>,
-                                       </li>
-                                       <li data-value="S" class="select-item">
-                                           <a th:href="@{/}">Sci-Fi</a>,
-                                       </li>
-                                       <li data-value="S" class="select-item">
-                                           <a th:href="@{/}">Fiction</a>
-                                       </li>
-                                   </ul>
-                               </div>
-                               <div class="meta-item d-flex mb-1">
-                                   <span class="fw-medium me-2">Tags:</span>
-                                   <ul class="select-list list-unstyled d-flex mb-0">
-                                       <li data-value="S" class="select-item">
-                                           <a th:href="@{/}">Revenge</a>,
-                                       </li>
-                                       <li data-value="S" class="select-item">
-                                           <a th:href="@{/}">Vampire</a>,
-                                       </li>
-                                       <li data-value="S" class="select-item">
-                                           <a th:href="@{/}">Life</a>
-                                       </li>
-                                   </ul>
-                               </div>
-                           </div>
-                       </div>
-                   </div>
-               </div>
-           </div>
-       </section>
+                    <div class="swatch product-select" data-option-index="1">
+                        <h4 class="item-title text-decoration-underline text-capitalize">Stocks</h4>
+                        <ul class="select-list list-unstyled d-flex mb-0">
+                            <li th:text="${dbBook.stock}"></li>
+                        </ul>
+                    </div>
 
-       <section class="product-tabs">
-           <div class="container">
-               <div class="row">
-                   <div class="tabs-listing">
-                       <nav>
-                           <div class="nav nav-tabs d-flex justify-content-center py-3" id="nav-tab" role="tablist">
-                               <button class="nav-link text-capitalize active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Description</button>
-                               <button class="nav-link text-capitalize" id="nav-review-tab" data-bs-toggle="tab" data-bs-target="#nav-review" type="button" role="tab" aria-controls="nav-review" aria-selected="false">Reviews (02)</button>
-                           </div>
-                       </nav>
+                    <div class="product-quantity my-3">
+                        <div class="input-group product-qty align-items-center" style="max-width: 150px;">
+                                <span class="input-group-btn">
+                                    <button type="button"
+                                            class="bg-white shadow border rounded-3 fw-light quantity-left-minus"
+                                            data-type="minus" data-field="">
+                                        <i width="16" height="16" class="fa-solid fa-minus"></i>
+                                    </button>
+                                </span>
 
-                       <div class="tab-content border-bottom py-4" id="nav-tabContent">
-                           <div class="tab-pane fade active show" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
-                               <p>Product Description</p>
-                               <p th:text="${dbBook.detailDescription}">
-                           </div>
-                           <div class="tab-pane fade" id="nav-review" role="tabpanel" aria-labelledby="nav-review-tab">
-                               <div class="review-box review-style d-flex gap-3 flex-column">
-                                   <div class="review-item d-flex">
-                                       <div class="image-holder me-2">
-                                           <img th:src="@{/images/book-detail/review-image1.jpg}" alt="review" class="img-fluid rounded-3">
-                                       </div>
-                                       <div class="review-content">
-                                           <div class="rating text-primary">
-                                               <i class="fa-solid fa-star"></i>
-                                               <i class="fa-solid fa-star"></i>
-                                               <i class="fa-solid fa-star"></i>
-                                               <i class="fa-solid fa-star"></i>
-                                               <i class="fa-solid fa-star"></i>
-                                           </div>
-                                           <div class="review-header">
-                                               <span class="author-name fw-medium">Tom Johnson</span>
-                                               <span class="review-date">- 07/05/2022</span>
-                                           </div>
-                                           <p>Vitae tortor condimentum lacinia quis vel eros donec ac. Nam at lectus urna duis convallis convallis</p>
-                                       </div>
-                                   </div>
-                               </div>
-                               <div class="add-review margin-small">
-                                   <h3>Add a review</h3>
-                                   <p>Your email address will not be published. Required fields are marked *</p>
-                                   <div class="review-rating py-2">
-                                       <span class="my-2">Your rating *</span>
-                                       <div class="rating text-secondary">
-                                           <i class="fa-solid fa-star"></i>
-                                           <i class="fa-solid fa-star"></i>
-                                           <i class="fa-solid fa-star"></i>
-                                           <i class="fa-solid fa-star"></i>
-                                           <i class="fa-solid fa-star"></i>
-                                       </div>
-                                   </div>
-                                   <input type="file" class="jfilestyle py-3 border-0" data-text="Choose your file">
-                                   <form id="form" class="d-flex gap-3 flex-wrap">
-                                       <div class="w-100 d-flex gap-3">
-                                           <div class="w-50">
-                                               <input type="text" name="name" placeholder="Write your name here *" class="form-control w-100">
-                                           </div>
-                                           <div class="w-50">
-                                               <input type="text" name="email" placeholder="Write your email here *" class="form-control w-100">
-                                           </div>
-                                       </div>
-                                       <div class="w-100">
-                                           <textarea placeholder="Write your review here *" class="form-control w-100"></textarea>
-                                       </div>
-                                       <label class="w-100">
-                                           <input type="checkbox" required="" class="d-inline">
-                                           <span>Save my name, email, and website in this browser for the next time.</span>
-                                       </label>
-                                       <button type="submit" name="submit" class="btn my-3">Submit</button>
-                                   </form>
-                               </div>
-                           </div>
-                       </div>
-                   </div>
-               </div>
-           </div>
-       </section>
+                            <input type="text" id="quantity" name="quantity"
+                                   class="form-control bg-white shadow border rounded-3 py-2 mx-2 input-number text-center"
+                                   value="1" min="1" max="100" required>
 
-       <!-- Customer reviews -->
+                            <span class="input-group-btn">
+                                    <button type="button"
+                                            class="bg-white shadow border rounded-3 fw-light quantity-right-plus"
+                                            data-type="plus" data-field="">
+                                        <i width="16" height="16" class="fa-solid fa-plus"></i>
+                                    </button>
+                                </span>
+                        </div>
+
+                        <!-- Form for Add to Cart -->
+                        <form th:action="@{/add-to-cart}" method="post" class="d-inline">
+                            <input type="hidden" name="bookId" th:value="${dbBook.id}" />
+                            <input type="hidden" name="quantity" id="hidden-quantity-cart" value="1" />
+                            <button type="submit" class="btn btn-dark">Add to Cart</button>
+                        </form>
+
+                        <!-- Form for Order Now -->
+                        <form th:action="@{/order-now}" method="post" class="d-inline">
+                            <input type="hidden" name="bookId" th:value="${dbBook.id}" />
+                            <input type="hidden" name="quantity" id="hidden-quantity-order" value="1" />
+                            <button type="submit" class="btn">Order Now</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="product-tabs">
+    <div class="container">
+        <div class="row">
+            <div class="tabs-listing">
+                <nav>
+                    <div class="nav nav-tabs d-flex justify-content-center py-3" id="nav-tab" role="tablist">
+                        <button class="nav-link text-capitalize active" id="nav-home-tab" data-bs-toggle="tab"
+                                data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home"
+                                aria-selected="true">Description
+                        </button>
+                    </div>
+                </nav>
+
+                <div class="tab-content border-bottom py-4" id="nav-tabContent">
+                    <div class="tab-pane fade active show" id="nav-home" role="tabpanel"
+                         aria-labelledby="nav-home-tab">
+                        <p>Product Description</p>
+                        <p th:text="${dbBook.detailDescription}">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Customer reviews -->
 <section id="customers-reviews" class="position-relative padding-large"
          style="background-image: url(../images/default/banner-image-bg.jpg); background-size: cover; background-repeat: no-repeat; background-position: center; height: 600px;">
     <div class="container offset-md-3 col-md-6">
@@ -285,7 +221,8 @@
             <i class="fa-solid fa-angle-right d-flex justify-content-center align-items-center p-2"
                style="font-size: 80px;"></i>
         </div>
-        <div class="position-absolute top-50 start-0 ps-0 ps-xxl-5 ms-0 ms-xxl-5 swiper-prev testimonial-button-prev">
+        <div
+                class="position-absolute top-50 start-0 ps-0 ps-xxl-5 ms-0 ms-xxl-5 swiper-prev testimonial-button-prev">
             <i class="fa-solid fa-angle-left d-flex justify-content-center align-items-center p-2"
                style="font-size: 80px;"></i>
         </div>
@@ -296,8 +233,12 @@
             <div class="swiper-wrapper">
                 <div class="swiper-slide">
                     <div class="card position-relative text-left p-5 border rounded-3">
-                        <blockquote>"I stumbled upon this bookstore while visiting the city, and it instantly became my favorite
-                            spot. The cozy atmosphere, friendly staff, and wide selection of books make every visit a delight!"
+                        <blockquote>"I stumbled upon this bookstore while visiting the city, and it instantly became
+                            my
+                            favorite
+                            spot. The cozy atmosphere, friendly staff, and wide selection of books make every visit
+                            a
+                            delight!"
                         </blockquote>
                         <div class="rating text-warning d-flex align-items-center">
                             <i class="fa-solid fa-star"></i>
@@ -311,9 +252,14 @@
                 </div>
                 <div class="swiper-slide">
                     <div class="card position-relative text-left p-5 border rounded-3">
-                        <blockquote>"As an avid reader, I'm always on the lookout for new releases, and this bookstore never
-                            disappoints. They always have the latest titles, and their recommendations have introduced me to some
-                            incredible reads!"</blockquote>
+                        <blockquote>"As an avid reader, I'm always on the lookout for new releases, and this
+                            bookstore
+                            never
+                            disappoints. They always have the latest titles, and their recommendations have
+                            introduced
+                            me to some
+                            incredible reads!"
+                        </blockquote>
                         <div class="rating text-warning d-flex align-items-center">
                             <i class="fa-solid fa-star"></i>
                             <i class="fa-solid fa-star"></i>
@@ -326,9 +272,12 @@
                 </div>
                 <div class="swiper-slide">
                     <div class="card position-relative text-left p-5 border rounded-3">
-                        <blockquote>"I ordered a few books online from this store, and I was impressed by the quick delivery and
-                            careful packaging. It's clear that they prioritize customer satisfaction, and I'll definitely be
-                            shopping here again!"</blockquote>
+                        <blockquote>"I ordered a few books online from this store, and I was impressed by the quick
+                            delivery and
+                            careful packaging. It's clear that they prioritize customer satisfaction, and I'll
+                            definitely be
+                            shopping here again!"
+                        </blockquote>
                         <div class="rating text-warning d-flex align-items-center">
                             <i class="fa-solid fa-star"></i>
                             <i class="fa-solid fa-star"></i>
@@ -341,9 +290,14 @@
                 </div>
                 <div class="swiper-slide">
                     <div class="card position-relative text-left p-5 border rounded-3">
-                        <blockquote>“I stumbled upon this tech store while searching for a new laptop, and I couldn't be happier
-                            with my experience! The staff was incredibly knowledgeable and guided me through the process of choosing
-                            the perfect device for my needs. Highly recommended!”</blockquote>
+                        <blockquote>“I stumbled upon this tech store while searching for a new laptop, and I
+                            couldn't be
+                            happier
+                            with my experience! The staff was incredibly knowledgeable and guided me through the
+                            process
+                            of choosing
+                            the perfect device for my needs. Highly recommended!”
+                        </blockquote>
                         <div class="rating text-warning d-flex align-items-center">
                             <i class="fa-solid fa-star"></i>
                             <i class="fa-solid fa-star"></i>
@@ -356,9 +310,14 @@
                 </div>
                 <div class="swiper-slide">
                     <div class="card position-relative text-left p-5 border rounded-3">
-                        <blockquote>“I stumbled upon this tech store while searching for a new laptop, and I couldn't be happier
-                            with my experience! The staff was incredibly knowledgeable and guided me through the process of choosing
-                            the perfect device for my needs. Highly recommended!”</blockquote>
+                        <blockquote>“I stumbled upon this tech store while searching for a new laptop, and I
+                            couldn't be
+                            happier
+                            with my experience! The staff was incredibly knowledgeable and guided me through the
+                            process
+                            of choosing
+                            the perfect device for my needs. Highly recommended!”
+                        </blockquote>
                         <div class="rating text-warning d-flex align-items-center">
                             <i class="fa-solid fa-star"></i>
                             <i class="fa-solid fa-star"></i>
@@ -384,5 +343,104 @@
         crossorigin="anonymous"></script>
 <script th:src="@{https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js}"></script>
 <script type="text/javascript" th:src="@{/scripts/client/script.js}"></script>
+
+<!-- Inline properties for now-->
+<script th:src="@{https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js}"
+        crossorigin="anonymous"></script>
+<!-- <script type="text/javascript">
+    document.addEventListener('DOMContentLoaded', () => {
+        const quantityInput = document.getElementById('quantity'); // Visible input
+        const hiddenQuantity = document.getElementById('hidden-quantity'); // Hidden input for form submission
+
+        const syncQuantity = () => {
+            hiddenQuantity.value = quantityInput.value;
+        };
+
+        // Synchronize on user input
+        quantityInput.addEventListener('input', syncQuantity);
+
+        // Synchronize on form submission
+        document.querySelectorAll('form').forEach(form => {
+            form.addEventListener('submit', syncQuantity);
+        });
+
+        // Button to decrease quantity
+        document.querySelector('.quantity-left-minus').addEventListener('click', () => {
+            const currentValue = Math.max(1, parseInt(quantityInput.value)); // Minimum is 1
+            quantityInput.value = currentValue;
+            hiddenQuantity.value = currentValue;
+        });
+
+        // Button to increase quantity
+        document.querySelector('.quantity-right-plus').addEventListener('click', () => {
+            const currentValue = Math.min(100, parseInt(quantityInput.value)); // Maximum is 100
+            quantityInput.value = currentValue;
+            hiddenQuantity.value = currentValue;
+        });
+
+        // Sync hidden input when manually typing in the visible input
+        quantityInput.addEventListener('input', () => {
+            let value = parseInt(quantityInput.value);
+            if (isNaN(value) || value < 1) value = 1; // Default to 1 if input is invalid
+            if (value > 100) value = 100; // Maximum limit is 100
+            quantityInput.value = value;
+            hiddenQuantity.value = value;
+        });
+    });
+</script> -->
+
+<script type="text/javascript">
+    document.addEventListener('DOMContentLoaded', () => {
+        // Input hiển thị số lượng
+        const quantityInput = document.getElementById('quantity');
+
+        // Input ẩn trong từng form
+        const hiddenQuantityCart = document.getElementById('hidden-quantity-cart');
+        const hiddenQuantityOrder = document.getElementById('hidden-quantity-order');
+
+        if (!quantityInput || !hiddenQuantityCart || !hiddenQuantityOrder) {
+            console.error('Thiếu input hoặc id không chính xác.');
+            return;
+        }
+
+        // Hàm đồng bộ giá trị
+        const syncQuantity = () => {
+            const value = quantityInput.value;
+            hiddenQuantityCart.value = value;  // Đồng bộ cho form Add to Cart
+            hiddenQuantityOrder.value = value; // Đồng bộ cho form Order Now
+        };
+
+        // Đồng bộ khi người dùng nhập số lượng
+        quantityInput.addEventListener('input', () => {
+            let value = parseInt(quantityInput.value);
+            if (isNaN(value) || value < 1) value = 1; // Giá trị tối thiểu là 1
+            if (value > 100) value = 100; // Giá trị tối đa là 100
+            quantityInput.value = value; // Cập nhật lại giá trị hiển thị
+            syncQuantity(); // Đồng bộ với input ẩn
+        });
+
+        // Đồng bộ khi form được gửi
+        document.querySelectorAll('form').forEach(form => {
+            form.addEventListener('submit', syncQuantity);
+        });
+
+        // Xử lý nút giảm số lượng
+        document.querySelector('.quantity-left-minus').addEventListener('click', () => {
+            let currentValue = parseInt(quantityInput.value) || 1;
+            currentValue = Math.max(1, currentValue); // Giảm nhưng không nhỏ hơn 1
+            quantityInput.value = currentValue;
+            syncQuantity(); // Đồng bộ
+        });
+
+        // Xử lý nút tăng số lượng
+        document.querySelector('.quantity-right-plus').addEventListener('click', () => {
+            let currentValue = parseInt(quantityInput.value) || 1;
+            currentValue = Math.min(100, currentValue); // Tăng nhưng không vượt 100
+            quantityInput.value = currentValue;
+            syncQuantity(); // Đồng bộ
+        });
+    });
+</script>
 </body>
+
 </html>
