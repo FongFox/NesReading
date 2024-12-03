@@ -13,277 +13,290 @@
   <meta name="description" content="">
   <!--  Link CDN || CSS/JS Source  -->
   <link rel="stylesheet" th:href="@{https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css}"
-    integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
   <link rel="stylesheet" type="text/css" th:href="@{/styles/client/style.css}">
   <link rel="stylesheet" th:href="@{https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css}" />
   <link rel="preconnect" th:href="@{https://fonts.googleapis.com}">
   <link rel="preconnect" th:href="@{https://fonts.gstatic.com}" crossorigin>
   <link th:href="@{https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap}"
-    rel="stylesheet">
+        rel="stylesheet">
 </head>
 
 <body>
-  <header th:replace="~{layouts/client-layout :: header}"></header>
+<header th:replace="~{layouts/client-layout :: header}"></header>
 
-  <!-- Carousel -->
-  <div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel">
-    <div class="carousel-inner" >
-      <div class="carousel-item active" data-bs-interval="5000">
-        <img th:src="@{images/default/banner_65cf61a00b255.jpg}" width="2330" height="559.2" class="img-fluid" alt="banner">
-      </div>
-      <div class="carousel-item" data-bs-interval="5000">
-        <img th:src="@{images/default/banner_65cf61a94e84b.jpg}" width="2330" height="559.2" class="img-fluid" alt="banner">
-      </div>
-      <div class="carousel-item" data-bs-interval="5000">
-        <img th:src="@{images/default/banner_65cf618f58a33.jpg}" width="2330" height="559.2" class="img-fluid" alt="banner">
-      </div>
+<!-- Carousel -->
+<div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel">
+  <div class="carousel-inner" >
+    <div class="carousel-item active" data-bs-interval="5000">
+      <img th:src="@{images/default/banner_65cf61a00b255.jpg}" width="2330" height="559.2" class="img-fluid" alt="banner">
     </div>
-    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="prev">
-      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-      <span class="visually-hidden">Previous</span>
-    </button>
-    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="next">
-      <span class="carousel-control-next-icon" aria-hidden="true"></span>
-      <span class="visually-hidden">Next</span>
-    </button>
+    <div class="carousel-item" data-bs-interval="5000">
+      <img th:src="@{images/default/banner_65cf61a94e84b.jpg}" width="2330" height="559.2" class="img-fluid" alt="banner">
+    </div>
+    <div class="carousel-item" data-bs-interval="5000">
+      <img th:src="@{images/default/banner_65cf618f58a33.jpg}" width="2330" height="559.2" class="img-fluid" alt="banner">
+    </div>
   </div>
+  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Previous</span>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Next</span>
+  </button>
+</div>
 
-  <!-- Best Selling Item -->
-  <section id="best-selling-items" class="position-relative padding-large">
-    <div class="container">
-      <div class="section-title d-md-flex justify-content-between align-items-center mb-4">
-        <h3 class="d-flex align-items-center">Best selling items</h3>
-        <a th:href="shop.html" class="btn">View All</a>
-      </div>
+<!-- Best Selling Item -->
+<section id="best-selling-items" class="position-relative padding-large">
+  <div class="container">
+    <div class="section-title d-md-flex justify-content-between align-items-center mb-4">
+      <h3 class="d-flex align-items-center">Best selling items</h3>
+      <a th:href="shop.html" class="btn">View All</a>
+    </div>
 
-      <div
-        class="position-absolute top-50 end-0 pe-0 pe-xxl-5 me-0 me-xxl-5 swiper-next best-selling-slider-button-next">
-        <i class="fa-solid fa-angle-right d-flex justify-content-center align-items-center p-2"
-          style="font-size: 80px;"></i>
-      </div>
-      <div
-        class="position-absolute top-50 start-0 ps-0 ps-xxl-5 ms-0 ms-xxl-5 swiper-prev best-selling-slider-button-prev">
-        <i class="fa-solid fa-angle-left d-flex justify-content-center align-items-center p-2"
-          style="font-size: 80px;"></i>
-      </div>
+    <div
+            class="position-absolute top-50 end-0 pe-0 pe-xxl-5 me-0 me-xxl-5 swiper-next best-selling-slider-button-next">
+      <i class="fa-solid fa-angle-right d-flex justify-content-center align-items-center p-2"
+         style="font-size: 80px;"></i>
+    </div>
+    <div
+            class="position-absolute top-50 start-0 ps-0 ps-xxl-5 ms-0 ms-xxl-5 swiper-prev best-selling-slider-button-prev">
+      <i class="fa-solid fa-angle-left d-flex justify-content-center align-items-center p-2"
+         style="font-size: 80px;"></i>
+    </div>
 
-      <div class="swiper best-selling-swiper">
-        <div class="swiper-wrapper">
-          <div class="swiper-slide" th:if="${bestSellerBookList == null or bestSellerBookList.isEmpty()}">
-            <div class="alert alert-danger" role="alert">Nothing in this list!</div>
-          </div>
-          <!-- Product Slide -->
-          <div class="swiper-slide" th:each="bestSellerBook : ${bestSellerBookList}">
-            <div class="card position-relative p-4 border rounded-3">
-              <img th:src="@{https://picsum.photos/id/24/845/1206}" class="img-fluid shadow-sm" alt="product item">
-              <h6 class="mt-4 mb-0 fw-bold">
-                <a th:href="@{/shop/{id}(id=${bestSellerBook.id})}" th:text="${bestSellerBook.title}"></a>
-              </h6>
-              <p class="my-2 me-2 fs-6 text-black-50" th:text="${bestSellerBook.author}"></p>
-              <span class="price text-primary fw-bold mb-2 fs-5"
-                th:text="${#numbers.formatDecimal(bestSellerBook.price, 0, 'COMMA', 0, 'POINT') + ' VND'}"></span>
-            </div>
+    <div class="swiper best-selling-swiper">
+      <div class="swiper-wrapper">
+        <div class="swiper-slide" th:if="${bestSellerBookList == null or bestSellerBookList.isEmpty()}">
+          <div class="alert alert-danger" role="alert">Nothing in this list!</div>
+        </div>
+        <!-- Product Slide -->
+        <div class="swiper-slide" th:each="bestSellerBook : ${bestSellerBookList}">
+          <div class="card position-relative p-4 border rounded-3">
+            <img th:src="@{https://picsum.photos/id/24/845/1206}" class="img-fluid shadow-sm" alt="product item">
+            <h6 class="mt-4 mb-0 fw-bold">
+              <a th:href="@{/shop/{id}(id=${bestSellerBook.id})}" th:text="${bestSellerBook.title}"></a>
+            </h6>
+            <p class="my-2 me-2 fs-6 text-black-50" th:text="${bestSellerBook.author}"></p>
+            <span class="price text-primary fw-bold mb-2 fs-5"
+                  th:text="${#numbers.formatDecimal(bestSellerBook.price, 0, 'COMMA', 0, 'POINT') + ' VND'}"></span>
           </div>
         </div>
       </div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- Featured Item -->
-  <section id="featured-items" class="position-relative padding-large pt-0">
-    <div class="container">
-      <div class="section-title d-md-flex justify-content-between align-items-center mb-4">
-        <h3 class="d-flex align-items-center">Feature items</h3>
-        <a th:href="@{/shop}" class="btn">View All</a>
-      </div>
-      <div class="position-absolute top-50 end-0 pe-0 pe-xxl-5 me-0 me-xxl-5 swiper-next featured-slider-button-next">
-        <i class="fa-solid fa-angle-right d-flex justify-content-center align-items-center p-2"
-          style="font-size: 80px;"></i>
-      </div>
-      <div class="position-absolute top-50 start-0 ps-0 ps-xxl-5 ms-0 ms-xxl-5 swiper-prev featured-slider-button-prev">
-        <i class="fa-solid fa-angle-left d-flex justify-content-center align-items-center p-2"
-          style="font-size: 80px;"></i>
-      </div>
-      <div class="swiper featured-swiper">
-        <div class="swiper-wrapper">
-          <div class="swiper-slide" th:if="${featureBookList == null or featureBookList.isEmpty()}">
-            <div class="alert alert-danger" role="alert">Nothing in this list!</div>
-          </div>
-          <!-- Product Slide -->
-          <div class="swiper-slide" th:each="featureBook : ${featureBookList}">
-            <div class="card position-relative p-4 border rounded-3">
-              <img th:src="@{https://picsum.photos/id/24/845/1206}" class="img-fluid shadow-sm" alt="product item">
-              <h6 class="mt-4 mb-0 fw-bold">
-                <a th:href="@{/shop/1}" th:text="${featureBook.title}"></a>
-              </h6>
-              <p class="my-2 me-2 fs-6 text-black-50" th:text="${featureBook.author}"></p>
-              <span class="price text-primary fw-bold mb-2 fs-5"
-                th:text="${#numbers.formatDecimal(featureBook.price, 0, 'COMMA', 0, 'POINT') + ' VND'}"></span>
-            </div>
+<!-- Featured Item -->
+<section id="featured-items" class="position-relative padding-large pt-0">
+  <div class="container">
+    <div class="section-title d-md-flex justify-content-between align-items-center mb-4">
+      <h3 class="d-flex align-items-center">Feature items</h3>
+      <a th:href="@{/shop}" class="btn">View All</a>
+    </div>
+    <div class="position-absolute top-50 end-0 pe-0 pe-xxl-5 me-0 me-xxl-5 swiper-next featured-slider-button-next">
+      <i class="fa-solid fa-angle-right d-flex justify-content-center align-items-center p-2"
+         style="font-size: 80px;"></i>
+    </div>
+    <div class="position-absolute top-50 start-0 ps-0 ps-xxl-5 ms-0 ms-xxl-5 swiper-prev featured-slider-button-prev">
+      <i class="fa-solid fa-angle-left d-flex justify-content-center align-items-center p-2"
+         style="font-size: 80px;"></i>
+    </div>
+    <div class="swiper featured-swiper">
+      <div class="swiper-wrapper">
+        <div class="swiper-slide" th:if="${featureBookList == null or featureBookList.isEmpty()}">
+          <div class="alert alert-danger" role="alert">Nothing in this list!</div>
+        </div>
+        <!-- Product Slide -->
+        <div class="swiper-slide" th:each="featureBook : ${featureBookList}">
+          <div class="card position-relative p-4 border rounded-3">
+            <img th:src="@{https://picsum.photos/id/24/845/1206}" class="img-fluid shadow-sm" alt="product item">
+            <h6 class="mt-4 mb-0 fw-bold">
+              <a th:href="@{/shop/1}" th:text="${featureBook.title}"></a>
+            </h6>
+            <p class="my-2 me-2 fs-6 text-black-50" th:text="${featureBook.author}"></p>
+            <span class="price text-primary fw-bold mb-2 fs-5"
+                  th:text="${#numbers.formatDecimal(featureBook.price, 0, 'COMMA', 0, 'POINT') + ' VND'}"></span>
           </div>
         </div>
       </div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- Company Service -->
-  <section id="company-services" class="padding-large pt-0">
-    <div class="container">
-      <div class="row">
-        <div class="col-lg-3 col-md-6 pb-3 pb-lg-0">
-          <div class="icon-box d-flex">
-            <div class="icon-box-icon pe-3 pb-3">
-              <i class="fa-solid fa-truck-fast"></i>
-            </div>
-            <div class="icon-box-content">
-              <h4 class="card-title mb-1 text-capitalize text-dark">Free delivery</h4>
-              <p>Consectetur adipi elit lorem ipsum dolor sit amet.</p>
-            </div>
+<!-- Company Service -->
+<section id="company-services" class="padding-large pt-0">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-3 col-md-6 pb-3 pb-lg-0">
+        <div class="icon-box d-flex">
+          <div class="icon-box-icon pe-3 pb-3">
+            <i class="fa-solid fa-truck-fast"></i>
+          </div>
+          <div class="icon-box-content">
+            <h4 class="card-title mb-1 text-capitalize text-dark">Free delivery</h4>
+            <p>Consectetur adipi elit lorem ipsum dolor sit amet.</p>
           </div>
         </div>
-        <div class="col-lg-3 col-md-6 pb-3 pb-lg-0">
-          <div class="icon-box d-flex">
-            <div class="icon-box-icon pe-3 pb-3">
-              <i class="fa-solid fa-thumbs-up"></i>
-            </div>
-            <div class="icon-box-content">
-              <h4 class="card-title mb-1 text-capitalize text-dark">Quality guarantee</h4>
-              <p>Dolor sit amet orem ipsu mcons ectetur adipi elit.</p>
-            </div>
+      </div>
+      <div class="col-lg-3 col-md-6 pb-3 pb-lg-0">
+        <div class="icon-box d-flex">
+          <div class="icon-box-icon pe-3 pb-3">
+            <i class="fa-solid fa-thumbs-up"></i>
+          </div>
+          <div class="icon-box-content">
+            <h4 class="card-title mb-1 text-capitalize text-dark">Quality guarantee</h4>
+            <p>Dolor sit amet orem ipsu mcons ectetur adipi elit.</p>
           </div>
         </div>
-        <div class="col-lg-3 col-md-6 pb-3 pb-lg-0">
-          <div class="icon-box d-flex">
-            <div class="icon-box-icon pe-3 pb-3">
-              <i class="fa-solid fa-tags"></i>
-            </div>
-            <div class="icon-box-content">
-              <h4 class="card-title mb-1 text-capitalize text-dark">Daily offers</h4>
-              <p>Amet consectetur adipi elit loreme ipsum dolor sit.</p>
-            </div>
+      </div>
+      <div class="col-lg-3 col-md-6 pb-3 pb-lg-0">
+        <div class="icon-box d-flex">
+          <div class="icon-box-icon pe-3 pb-3">
+            <i class="fa-solid fa-tags"></i>
+          </div>
+          <div class="icon-box-content">
+            <h4 class="card-title mb-1 text-capitalize text-dark">Daily offers</h4>
+            <p>Amet consectetur adipi elit loreme ipsum dolor sit.</p>
           </div>
         </div>
-        <div class="col-lg-3 col-md-6 pb-3 pb-lg-0">
-          <div class="icon-box d-flex">
-            <div class="icon-box-icon pe-3 pb-3">
-              <i class="fa-solid fa-shield"></i>
-            </div>
-            <div class="icon-box-content">
-              <h4 class="card-title mb-1 text-capitalize text-dark">100% secure payment</h4>
-              <p>Rem Lopsum dolor sit amet, consectetur adipi elit.</p>
-            </div>
+      </div>
+      <div class="col-lg-3 col-md-6 pb-3 pb-lg-0">
+        <div class="icon-box d-flex">
+          <div class="icon-box-icon pe-3 pb-3">
+            <i class="fa-solid fa-shield"></i>
+          </div>
+          <div class="icon-box-content">
+            <h4 class="card-title mb-1 text-capitalize text-dark">100% secure payment</h4>
+            <p>Rem Lopsum dolor sit amet, consectetur adipi elit.</p>
           </div>
         </div>
       </div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- Customer reviews -->
-  <section id="customers-reviews" class="position-relative padding-large"
-    style="background-image: url(images/default/banner-image-bg.jpg); background-size: cover; background-repeat: no-repeat; background-position: center; height: 600px;">
-    <div class="container offset-md-3 col-md-6">
-      <div class="position-absolute top-50 end-0 pe-0 pe-xxl-5 me-0 me-xxl-5 swiper-next testimonial-button-next">
-        <i class="fa-solid fa-angle-right d-flex justify-content-center align-items-center p-2"
-          style="font-size: 80px;"></i>
-      </div>
-      <div class="position-absolute top-50 start-0 ps-0 ps-xxl-5 ms-0 ms-xxl-5 swiper-prev testimonial-button-prev">
-        <i class="fa-solid fa-angle-left d-flex justify-content-center align-items-center p-2"
-          style="font-size: 80px;"></i>
-      </div>
-      <div class="section-title mb-4 text-center">
-        <h3 class="mb-4">Customers reviews</h3>
-      </div>
-      <div class="swiper testimonial-swiper ">
-        <div class="swiper-wrapper">
-          <div class="swiper-slide">
-            <div class="card position-relative text-left p-5 border rounded-3">
-              <blockquote>"I stumbled upon this bookstore while visiting the city, and it instantly became my favorite
-                spot. The cozy atmosphere, friendly staff, and wide selection of books make every visit a delight!"
-              </blockquote>
-              <div class="rating text-warning d-flex align-items-center">
-                <i class="fa-solid fa-star"></i>
-                <i class="fa-solid fa-star"></i>
-                <i class="fa-solid fa-star"></i>
-                <i class="fa-solid fa-star"></i>
-                <i class="fa-solid fa-star"></i>
-              </div>
-              <h5 class="mt-1 fw-normal">Emma Chamberlin</h5>
+<!-- Customer reviews -->
+<section id="customers-reviews" class="position-relative padding-large"
+         style="background-image: url(images/default/banner-image-bg.jpg); background-size: cover; background-repeat: no-repeat; background-position: center; height: 600px;">
+  <div class="container offset-md-3 col-md-6">
+    <div class="position-absolute top-50 end-0 pe-0 pe-xxl-5 me-0 me-xxl-5 swiper-next testimonial-button-next">
+      <i class="fa-solid fa-angle-right d-flex justify-content-center align-items-center p-2"
+         style="font-size: 80px;"></i>
+    </div>
+    <div class="position-absolute top-50 start-0 ps-0 ps-xxl-5 ms-0 ms-xxl-5 swiper-prev testimonial-button-prev">
+      <i class="fa-solid fa-angle-left d-flex justify-content-center align-items-center p-2"
+         style="font-size: 80px;"></i>
+    </div>
+    <div class="section-title mb-4 text-center">
+      <h3 class="mb-4">Customers reviews</h3>
+    </div>
+    <div class="swiper testimonial-swiper ">
+      <div class="swiper-wrapper">
+        <div class="swiper-slide">
+          <div class="card position-relative text-left p-5 border rounded-3">
+            <blockquote>"I stumbled upon this bookstore while visiting the city, and it instantly became my favorite
+              spot. The cozy atmosphere, friendly staff, and wide selection of books make every visit a delight!"
+            </blockquote>
+            <div class="rating text-warning d-flex align-items-center">
+              <i class="fa-solid fa-star"></i>
+              <i class="fa-solid fa-star"></i>
+              <i class="fa-solid fa-star"></i>
+              <i class="fa-solid fa-star"></i>
+              <i class="fa-solid fa-star"></i>
             </div>
+            <h5 class="mt-1 fw-normal">Emma Chamberlin</h5>
           </div>
-          <div class="swiper-slide">
-            <div class="card position-relative text-left p-5 border rounded-3">
-              <blockquote>"As an avid reader, I'm always on the lookout for new releases, and this bookstore never
-                disappoints. They always have the latest titles, and their recommendations have introduced me to some
-                incredible reads!"</blockquote>
-              <div class="rating text-warning d-flex align-items-center">
-                <i class="fa-solid fa-star"></i>
-                <i class="fa-solid fa-star"></i>
-                <i class="fa-solid fa-star"></i>
-                <i class="fa-solid fa-star"></i>
-                <i class="fa-solid fa-star"></i>
-              </div>
-              <h5 class="mt-1 fw-normal">Thomas John</h5>
+        </div>
+        <div class="swiper-slide">
+          <div class="card position-relative text-left p-5 border rounded-3">
+            <blockquote>"As an avid reader, I'm always on the lookout for new releases, and this bookstore never
+              disappoints. They always have the latest titles, and their recommendations have introduced me to some
+              incredible reads!"</blockquote>
+            <div class="rating text-warning d-flex align-items-center">
+              <i class="fa-solid fa-star"></i>
+              <i class="fa-solid fa-star"></i>
+              <i class="fa-solid fa-star"></i>
+              <i class="fa-solid fa-star"></i>
+              <i class="fa-solid fa-star"></i>
             </div>
+            <h5 class="mt-1 fw-normal">Thomas John</h5>
           </div>
-          <div class="swiper-slide">
-            <div class="card position-relative text-left p-5 border rounded-3">
-              <blockquote>"I ordered a few books online from this store, and I was impressed by the quick delivery and
-                careful packaging. It's clear that they prioritize customer satisfaction, and I'll definitely be
-                shopping here again!"</blockquote>
-              <div class="rating text-warning d-flex align-items-center">
-                <i class="fa-solid fa-star"></i>
-                <i class="fa-solid fa-star"></i>
-                <i class="fa-solid fa-star"></i>
-                <i class="fa-solid fa-star"></i>
-                <i class="fa-solid fa-star"></i>
-              </div>
-              <h5 class="mt-1 fw-normal">Kevin Bryan</h5>
+        </div>
+        <div class="swiper-slide">
+          <div class="card position-relative text-left p-5 border rounded-3">
+            <blockquote>"I ordered a few books online from this store, and I was impressed by the quick delivery and
+              careful packaging. It's clear that they prioritize customer satisfaction, and I'll definitely be
+              shopping here again!"</blockquote>
+            <div class="rating text-warning d-flex align-items-center">
+              <i class="fa-solid fa-star"></i>
+              <i class="fa-solid fa-star"></i>
+              <i class="fa-solid fa-star"></i>
+              <i class="fa-solid fa-star"></i>
+              <i class="fa-solid fa-star"></i>
             </div>
+            <h5 class="mt-1 fw-normal">Kevin Bryan</h5>
           </div>
-          <div class="swiper-slide">
-            <div class="card position-relative text-left p-5 border rounded-3">
-              <blockquote>“I stumbled upon this tech store while searching for a new laptop, and I couldn't be happier
-                with my experience! The staff was incredibly knowledgeable and guided me through the process of choosing
-                the perfect device for my needs. Highly recommended!”</blockquote>
-              <div class="rating text-warning d-flex align-items-center">
-                <i class="fa-solid fa-star"></i>
-                <i class="fa-solid fa-star"></i>
-                <i class="fa-solid fa-star"></i>
-                <i class="fa-solid fa-star"></i>
-                <i class="fa-solid fa-star"></i>
-              </div>
-              <h5 class="mt-1 fw-normal">Stevin</h5>
+        </div>
+        <div class="swiper-slide">
+          <div class="card position-relative text-left p-5 border rounded-3">
+            <blockquote>“I stumbled upon this tech store while searching for a new laptop, and I couldn't be happier
+              with my experience! The staff was incredibly knowledgeable and guided me through the process of choosing
+              the perfect device for my needs. Highly recommended!”</blockquote>
+            <div class="rating text-warning d-flex align-items-center">
+              <i class="fa-solid fa-star"></i>
+              <i class="fa-solid fa-star"></i>
+              <i class="fa-solid fa-star"></i>
+              <i class="fa-solid fa-star"></i>
+              <i class="fa-solid fa-star"></i>
             </div>
+            <h5 class="mt-1 fw-normal">Stevin</h5>
           </div>
-          <div class="swiper-slide">
-            <div class="card position-relative text-left p-5 border rounded-3">
-              <blockquote>“I stumbled upon this tech store while searching for a new laptop, and I couldn't be happier
-                with my experience! The staff was incredibly knowledgeable and guided me through the process of choosing
-                the perfect device for my needs. Highly recommended!”</blockquote>
-              <div class="rating text-warning d-flex align-items-center">
-                <i class="fa-solid fa-star"></i>
-                <i class="fa-solid fa-star"></i>
-                <i class="fa-solid fa-star"></i>
-                <i class="fa-solid fa-star"></i>
-                <i class="fa-solid fa-star"></i>
-              </div>
-              <h5 class="mt-1 fw-normal">Roman</h5>
+        </div>
+        <div class="swiper-slide">
+          <div class="card position-relative text-left p-5 border rounded-3">
+            <blockquote>“I stumbled upon this tech store while searching for a new laptop, and I couldn't be happier
+              with my experience! The staff was incredibly knowledgeable and guided me through the process of choosing
+              the perfect device for my needs. Highly recommended!”</blockquote>
+            <div class="rating text-warning d-flex align-items-center">
+              <i class="fa-solid fa-star"></i>
+              <i class="fa-solid fa-star"></i>
+              <i class="fa-solid fa-star"></i>
+              <i class="fa-solid fa-star"></i>
+              <i class="fa-solid fa-star"></i>
             </div>
+            <h5 class="mt-1 fw-normal">Roman</h5>
           </div>
         </div>
       </div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <footer th:replace="~{layouts/client-layout :: footer}"></footer>
+<!-- Chat Icon -->
+<div id="chat-button">💬</div>
 
-  <script th:src="@{https://use.fontawesome.com/releases/v6.3.0/js/all.js}" crossorigin="anonymous"></script>
-  <script th:src="@{/scripts/client/jquery-1.11.0.min.js}"></script>
-  <script th:src="@{https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js}"
-    integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
-    crossorigin="anonymous"></script>
-  <script th:src="@{https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js}"></script>
-  <script type="text/javascript" th:src="@{/scripts/client/script.js}"></script>
+<!-- Chat Container -->
+<div id="chat-container">
+  <iframe
+          allow="microphone;"
+          width="350"
+          height="430"
+          src="https://console.dialogflow.com/api-client/demo/embedded/90f3e9a9-d8be-41d8-a2d0-5a773f24b1c2">
+  </iframe>
+</div>
+
+<footer th:replace="~{layouts/client-layout :: footer}"></footer>
+
+<script th:src="@{https://use.fontawesome.com/releases/v6.3.0/js/all.js}" crossorigin="anonymous"></script>
+<script th:src="@{/scripts/client/jquery-1.11.0.min.js}"></script>
+<script th:src="@{https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js}"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
+<script th:src="@{https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js}"></script>
+<script type="text/javascript" th:src="@{/scripts/client/script.js}"></script>
 </body>
 
 </html>
