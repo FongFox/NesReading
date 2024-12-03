@@ -22,7 +22,7 @@ NesReadingAlternative is a web application project for online book sales, provid
 
 ### Requirements
 
-- **Java 17** or higher
+- **Java 21** or higher
 - **Maven** for dependency management
 
 ### Installation Guide
