@@ -37,8 +37,9 @@ public class Order {
 
 	@Column(name = "final_price")
 	private double finalPrice;
-	
-	private int status; //0: Pending; 1: Shipping; 2: Completed; 3: Canceled
+
+	//0: Pending; 1: Shipping; 3: Delivered; 4: Completed; 5: Canceled
+	private int status;
 
 	@ManyToOne
 	@JoinColumn(name = "user_id")
