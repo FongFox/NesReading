@@ -1,7 +1,7 @@
 package com.nesreading.service;
 
-import com.nesreading.domain.Book;
-import com.nesreading.domain.User;
+import com.nesreading.model.Book;
+import com.nesreading.model.User;
 import com.opencsv.CSVReader;
 import com.opencsv.exceptions.CsvValidationException;
 

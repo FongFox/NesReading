@@ -1,7 +1,7 @@
 package com.nesreading.controller;
 
-import com.nesreading.domain.Book;
-import com.nesreading.domain.User;
+import com.nesreading.model.Book;
+import com.nesreading.model.User;
 import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

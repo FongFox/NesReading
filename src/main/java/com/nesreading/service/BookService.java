@@ -1,6 +1,6 @@
 package com.nesreading.service;
 
-import com.nesreading.domain.Book;
+import com.nesreading.model.Book;
 import com.nesreading.repository.BookRepository;
 
 import com.nesreading.specification.BookSpecification;
@@ -55,11 +55,7 @@ public class BookService {
     }
 
     public Book handleFetchBookById(int id) {
-        return bookRepository.getReferenceById(id);
-    }
-
-    public Book findBookById(int bookId) {
-        return bookRepository.findById(bookId).orElse(null);
+        return bookRepository.findById(id).orElse(null);
     }
 
     public void handleCreateBook(Book newBook) {

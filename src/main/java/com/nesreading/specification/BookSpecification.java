@@ -1,6 +1,6 @@
 package com.nesreading.specification;
 
-import com.nesreading.domain.Book;
+import com.nesreading.model.Book;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Component;
 

@@ -1,8 +1,7 @@
 package com.nesreading.controller;
 
-import com.nesreading.domain.User;
-import com.nesreading.dto.RegisterDTO;
-import com.nesreading.mapper.UserMapper;
+import com.nesreading.model.User;
+import com.nesreading.model.dto.RegisterDTO;
 import com.nesreading.service.UserService;
 import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
@@ -18,11 +17,9 @@ import java.util.List;
 @Controller
 public class AuthController {
     private final UserService userService;
-    private final UserMapper userMapper;
 
-    public AuthController(UserService userService, UserMapper userMapper) {
+    public AuthController(UserService userService) {
         this.userService = userService;
-        this.userMapper = userMapper;
     }
 
     // ================== Login (Start) ====================
@@ -54,7 +51,7 @@ public class AuthController {
             return "auth/register";
         }
 
-        User user = userMapper.registerDtoToUser(registerDTO);
+        User user = userService.registerDtoToUser(registerDTO);
 
         userService.handleCreateUser(user);
 

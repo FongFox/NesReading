@@ -3,6 +3,11 @@ package com.nesreading.controller;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
+import com.nesreading.model.Order;
+import com.nesreading.model.User;
+import com.nesreading.service.OrderService;
+import com.nesreading.service.UserService;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -15,8 +20,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.nesreading.domain.Book;
-import com.nesreading.domain.Cart;
+import com.nesreading.model.Book;
+import com.nesreading.model.Cart;
 import com.nesreading.service.BookService;
 import com.nesreading.service.CartService;
 
@@ -26,10 +31,14 @@ import jakarta.servlet.http.HttpSession;
 public class ClientController {
     private final BookService bookService;
     private final CartService cartService;
+    private final UserService userService;
+    private final OrderService orderService;
 
-    public ClientController(BookService bookService, CartService cartService) {
+    public ClientController(BookService bookService, CartService cartService, UserService userService, OrderService orderService) {
         this.bookService = bookService;
         this.cartService = cartService;
+        this.userService = userService;
+        this.orderService = orderService;
     }
 
     // ================== Home (Start) ====================
@@ -119,77 +128,105 @@ public class ClientController {
     }
     // ================== Book (End) ======================
 
-    // ================== Shopping Cart (Start) ====================
-    @GetMapping("/cart")
-    public String viewCart(HttpSession session, Model model) {
-        model.addAttribute("cart", cartService.getCart(session));
-        return "/client/shopping-cart";
-    }
-
+    // ================== Shopping Cart & Checkout (Start) ====================
     @PostMapping("add-to-cart")
-    public String addToCart(@RequestParam("bookId") int bookId,
-                            @RequestParam("quantity") int quantity,
-                            HttpSession session) {
-        System.out.println("Received bookId: " + bookId);
-        System.out.println("Received quantity: " + quantity);
-        cartService.addBookToCart(bookId, quantity, session);
-        return "/client/shopping-cart";
-    }
-
-    @GetMapping("/cart/remove-item")
-    public String removeItem(@RequestParam("itemId") int itemId, HttpSession session) {
-        try {
-            System.out.println("Cart before removal: " + cartService.getCart(session).getCartItems());
-            cartService.removeItemFromCart(itemId, session);
-            System.out.println("Cart after removal: " + cartService.getCart(session).getCartItems());
-        } catch (IllegalArgumentException e) {
-            session.setAttribute("error", e.getMessage()); // Optional error handling
-        }
-        return "/client/shopping-cart";
-    }
-
-    @ModelAttribute("cart")
-    public Cart getCart(HttpSession session) {
-        return cartService.getCart(session);
-    }
-    // ================== Shopping Cart (End) ======================
-
-    // ================== Checkout (Start) ====================
-
-    // For N amount of only one type of book
-    @PostMapping("order-now")
-    public String orderNow(
+    public String handleAddToCart(
+            HttpServletRequest request,
             @RequestParam("bookId") int bookId,
-            @RequestParam("quantity") int quantity,
+            @RequestParam("quantity") int bookQuantity) {
+        HttpSession session = request.getSession(false);
+        String userEmail = (String) session.getAttribute("email");
+        User user = this.userService.handleFetchUserByEmail(userEmail);
+
+        this.cartService.handleAddBookToCart(session ,user, bookId, bookQuantity);
+
+        String referer = request.getHeader("Referer");
+        return "redirect:" + referer;
+    }
+
+    @GetMapping("cart")
+    public String getShoppingCartPage(HttpServletRequest request, Model model) {
+        HttpSession session = request.getSession(false);
+        String userEmail = (String) session.getAttribute("email");
+        User user = this.userService.handleFetchUserByEmail(userEmail);
+
+        Cart cart = this.cartService.handleFetchCartByUser(user);
+        if(cart == null) {
+            cart = this.cartService.handleCreateCart(user);
+        }
+
+        model.addAttribute("cart", cart);
+        model.addAttribute("bookTotalPrice", cart.getTotalPrice());
+        model.addAttribute("subPrice", cart.getSubPrice());
+        model.addAttribute("finalPrice", cart.getFinalPrice());
+
+        return "client/shopping-cart";
+    }
+
+    @PostMapping("cart/delete/{id}")
+    public String handleDeleteCartItem(@PathVariable int id, HttpServletRequest request) {
+        HttpSession session = request.getSession(false);
+
+        this.cartService.handleDeleteProductFromCartById(id, session);
+
+        String referer = request.getHeader("Referer");
+        return "redirect:" + referer;
+    }
+
+    @PostMapping("cart/delete-all")
+    public String handleDeleteAllCartItem(HttpServletRequest request) {
+        HttpSession session = request.getSession(false);
+
+        this.cartService.handleDeleteAllCartItem(session);
+        return "redirect:/cart";
+    }
+
+    @PostMapping("checkout")
+    public String getCheckoutConfirmPage(
+            HttpServletRequest request,
+            @RequestParam(name = "cartId") int cartId,
             Model model) {
-        System.out.println("Received bookId: " + bookId);
-        System.out.println("Received quantity: " + quantity);
+        HttpSession session = request.getSession(false);
+        String userEmail = (String) session.getAttribute("email");
+        User user = this.userService.handleFetchUserByEmail(userEmail);
+        String userFullName = user.getFirstName() + " " + user.getLastName();
 
-        Book book = bookService.handleFetchBookById(bookId);
-        double totalPrice = book.getPrice() * quantity;
+        Cart cart = this.cartService.handleFetchCartById(cartId);
+        // Reload page if cart not found!
+        if(cart == null) {
+            String referer = request.getHeader("Referer");
+            return "redirect:" + referer;
+        }
 
-        // Add data to the model
-        model.addAttribute("selectedBook", book.getTitle());
-        model.addAttribute("quantity", quantity);
-        model.addAttribute("totalPrice", totalPrice);
-        model.addAttribute("isSingleItem", true);
+        Order tempOrder = new Order();
+        tempOrder.setReceiverName(userFullName);
+        tempOrder.setReceiverPhoneNumber(user.getPhoneNumber());
+        tempOrder.setReceiverAddress(user.getAddress());
 
-        return "client/checkout";
+        model.addAttribute("tempOrder", tempOrder);
+        model.addAttribute("cart", cart);
+        model.addAttribute("bookTotalPrice", cart.getTotalPrice());
+        model.addAttribute("subPrice", cart.getSubPrice());
+        model.addAttribute("finalPrice", cart.getFinalPrice());
+
+        return "client/checkout-confirm";
     }
 
-    // For the entire shopping cart
-    @PostMapping("order-now-bulk")
-    public String proceedToCheckout(HttpSession session, Model model) {
-        Cart cart = cartService.getCart(session);
+    @PostMapping("place-an-order")
+    public String handlePlaceOrder(
+            HttpServletRequest request,
+            @ModelAttribute("tempOrder") Order requestOrder) {
+        HttpSession session = request.getSession(false);
+        String userEmail = (String) session.getAttribute("email");
+        User user = this.userService.handleFetchUserByEmail(userEmail);
 
-        // Pass all cart items
-        model.addAttribute("cartItems", cart.getCartItems());
-        model.addAttribute("totalPrice", cart.getTotalPrice());
-        model.addAttribute("isSingleItem", false); // Flag to indicate single book order
-        return "client/checkout";
+        this.orderService.handlePlaceOrder(session ,requestOrder, user);
+
+        return "client/checkout-success";
+//        String referer = request.getHeader("Referer");
+//        return "redirect:" + referer;
     }
-
-    // ================== Checkout (End) ======================
+    // ================== Shopping Cart & Checkout (End) ======================
 
     // ================== About (Start) ====================
     @GetMapping("about")
@@ -204,25 +241,90 @@ public class ClientController {
         return "client/contact";
     }
     // ================== Contact (End) ======================
-
-    // ================== Book-Detail (Start) ====================
-    @GetMapping("book-detail")
-    public String getBookDetailPage() {
-        return "client/book-detail";
-    }
-    // ================== Book-Detail (End) ======================
-
-    // ================== Blog (Start) ====================
-    @GetMapping("blog")
-    public String getBlogPage() {
-        return "client/blog";
-    }
-    // ================== Blog (End) ======================
-
-    // ================== Post (Start) ====================
-    @GetMapping("post")
-    public String getPostPage() {
-        return "client/post";
-    }
-    // ================== Post (End) ======================
 }
+
+
+// ================================ Old Code =================================
+//@GetMapping("/cart")
+//    public String viewCart(HttpSession session, Model model) {
+//        model.addAttribute("cart", cartService.getCart(session));
+//        return "/client/shopping-cart";
+//    }
+//
+//    @PostMapping("add-to-cart")
+//    public String addToCart(@RequestParam("bookId") int bookId,
+//                            @RequestParam("quantity") int quantity,
+//                            HttpSession session) {
+//        System.out.println("Received bookId: " + bookId);
+//        System.out.println("Received quantity: " + quantity);
+//        cartService.addBookToCart(bookId, quantity, session);
+//        return "/client/shopping-cart";
+//    }
+//
+//    @GetMapping("/cart/remove-item")
+//    public String removeItem(@RequestParam("itemId") int itemId, HttpSession session) {
+//        try {
+//            System.out.println("Cart before removal: " + cartService.getCart(session).getCartItems());
+//            cartService.removeItemFromCart(itemId, session);
+//            System.out.println("Cart after removal: " + cartService.getCart(session).getCartItems());
+//        } catch (IllegalArgumentException e) {
+//            session.setAttribute("error", e.getMessage()); // Optional error handling
+//        }
+//        return "/client/shopping-cart";
+//    }
+//
+//    @ModelAttribute("cart")
+//    public Cart getCart(HttpSession session) {
+//        return cartService.getCart(session);
+//    }
+
+
+// For N amount of only one type of book
+//@PostMapping("order-now")
+//public String orderNow(
+//        @RequestParam("bookId") int bookId,
+//        @RequestParam("quantity") int quantity,
+//        Model model) {
+//    System.out.println("Received bookId: " + bookId);
+//    System.out.println("Received quantity: " + quantity);
+//
+//    Book book = bookService.handleFetchBookById(bookId);
+//    double totalPrice = book.getPrice() * quantity;
+//
+//    // Add data to the model
+//    model.addAttribute("selectedBook", book.getTitle());
+//    model.addAttribute("quantity", quantity);
+//    model.addAttribute("totalPrice", totalPrice);
+//    model.addAttribute("isSingleItem", true);
+//
+//    return "client/checkout";
+//}
+//
+//// For the entire shopping cart
+//@PostMapping("order-now-bulk")
+//public String proceedToCheckout(HttpSession session, Model model) {
+//    Cart cart = cartService.getCart(session);
+//
+//    // Pass all cart items
+//    model.addAttribute("cartItems", cart.getCartItems());
+//    model.addAttribute("totalPrice", cart.getTotalPrice());
+//    model.addAttribute("isSingleItem", false); // Flag to indicate single book order
+//    return "client/checkout";
+//}
+
+//@PostMapping("add-to-cart")
+//public String handleAddToCart(
+//        HttpServletRequest request,
+//        @RequestParam("bookId") int bookId,
+//        @RequestParam("quantity") int quantity
+//) {
+//    HttpSession session = request.getSession(false);
+//    String userEmail = (String) session.getAttribute("email");
+//    User user = this.userService.handleFetchUserByEmail(userEmail);
+//
+//    this.cartService.handleAddBookToCart(user, bookId, quantity);
+//
+//    String referer = request.getHeader("Referer");
+//    return "redirect:" + referer;
+//}
+//
