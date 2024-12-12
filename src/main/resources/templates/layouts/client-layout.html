@@ -68,9 +68,8 @@
                                                 <span th:text="${session.fullName}"></span>
                                             </div>
                                         </li>
-                                        <li>
-                                            <hr class="dropdown-divider">
-                                        </li>
+                                        <li><a class="dropdown-item" th:href="@{/orders}">Your Order</a></li>
+                                        <li><hr class="dropdown-divider"></li>
                                         <li>
                                             <form th:action="@{/logout}" method="post">
                                                 <button class="dropdown-item" type="submit">Logout</button>

@@ -1,10 +1,10 @@
 package com.nesreading.controller;
 
+import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-import com.nesreading.model.Order;
-import com.nesreading.model.User;
+import com.nesreading.model.*;
 import com.nesreading.service.OrderService;
 import com.nesreading.service.UserService;
 import jakarta.servlet.http.HttpServletRequest;
@@ -19,9 +19,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.nesreading.model.Book;
-import com.nesreading.model.Cart;
 import com.nesreading.service.BookService;
 import com.nesreading.service.CartService;
 
@@ -61,14 +60,16 @@ public class ClientController {
             @RequestParam(name = "minPrice", required = false) Double minPrice,
             @RequestParam(name = "maxPrice", required = false) Double maxPrice,
             @RequestParam(name = "sort", required = false) String sort) {
+        double defaultMinPrice = 0;
+        double defaultMaxPrice = 1000000;
 
         // Xử lý các giá trị rỗng hoặc null
         if (title != null && title.isEmpty())
             title = null;
         if (author != null && author.isEmpty())
             author = null;
-        Double minPriceValue = (minPrice != null && minPrice > 0) ? minPrice : null;
-        Double maxPriceValue = (maxPrice != null && maxPrice > 0) ? maxPrice : null;
+        Double minPriceValue = (minPrice != null && minPrice >= 0) ? minPrice : defaultMinPrice;
+        Double maxPriceValue = (maxPrice != null && maxPrice > 0) ? maxPrice : defaultMaxPrice;
 
         // Xử lý sắp xếp
         String sortOption = (sort != null && !sort.isEmpty()) ? sort : "titleAsc";
@@ -223,8 +224,57 @@ public class ClientController {
         this.orderService.handlePlaceOrder(session ,requestOrder, user);
 
         return "client/checkout-success";
-//        String referer = request.getHeader("Referer");
-//        return "redirect:" + referer;
+    }
+
+    @GetMapping("orders")
+    public String getUserOrderPage(HttpServletRequest request, Model model) {
+        HttpSession session = request.getSession(false);
+        String userEmail = (String) session.getAttribute("email");
+        User user = this.userService.handleFetchUserByEmail(userEmail);
+        if(user == null) {
+            String referer = request.getHeader("Referer");
+            return "redirect:" + referer;
+        }
+
+        model.addAttribute("orderList", this.orderService.handleFetchAllOrderByUser(user));
+
+        return "client/order";
+    }
+
+    @GetMapping("orders/{id}")
+    public String getUserOrderDetail(@PathVariable int id, HttpServletRequest request, Model model) {
+        HttpSession session = request.getSession(false);
+        String userEmail = (String) session.getAttribute("email");
+        User user = this.userService.handleFetchUserByEmail(userEmail);
+        if(user == null) {
+            String referer = request.getHeader("Referer");
+            return "redirect:" + referer;
+        }
+
+        Order order = this.orderService.handleFetchOrderById(id);
+        List<OrderItem> orderItemList = order.getOrderItems();
+
+        model.addAttribute("order", order);
+        model.addAttribute("orderItemList",orderItemList);
+        model.addAttribute("bookTotalPrice",  order.getTotalPrice());
+        model.addAttribute("subPrice",  order.getSubPrice());
+        model.addAttribute("finalPrice",  order.getFinalPrice());
+
+        return "client/order-detail";
+    }
+
+    @PostMapping("/orders/confirm-received")
+    public String confirmOrderReceived(@RequestParam("orderId") int orderId, RedirectAttributes redirectAttributes) {
+        Order order = orderService.handleFetchOrderById(orderId);
+        if (order != null && order.getStatus() == 3) {
+            order.setStatus(4); // Đổi trạng thái thành 'Completed'
+            orderService.handleSaveOrder(order);
+            redirectAttributes.addFlashAttribute("success", "Order has been marked as completed!");
+        } else {
+            redirectAttributes.addFlashAttribute("error", "Order cannot be updated!");
+        }
+
+        return "redirect:/orders/" + orderId;
     }
     // ================== Shopping Cart & Checkout (End) ======================
 

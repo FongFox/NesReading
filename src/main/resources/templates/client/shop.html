@@ -157,14 +157,14 @@
                         <div class="mb-3">
                             <label for="title" class="form-label">Search by Title</label>
                             <input class="form-control" id="title" name="title" type="text"
-                                   placeholder="Enter book title">
+                                   placeholder="Enter book title" th:value="${title} ? ${title} : null" />
                         </div>
 
                         <!-- Search by Author -->
                         <div class="mb-3">
                             <label for="author" class="form-label">Search by Author</label>
                             <input class="form-control" id="author" name="author" type="text"
-                                   placeholder="Enter author name">
+                                   placeholder="Enter author name" th:value="${author} ? ${author} : null" />
                         </div>
 
                         <!-- Price Range -->
@@ -173,12 +173,14 @@
                             <div class="row">
                                 <div class="col-12 mb-3 input-group">
                                     <input class="form-control" name="minPrice" type="number" placeholder="0 VND"
-                                           aria-label="Min Price" min="0" step="1000">
+                                           aria-label="Min Price" min="0" step="1000"
+                                           th:value="${minPrice != null && minPrice != 0} ? ${minPrice} : null" />
                                     <span class="input-group-text" id="basic-addon2">Min</span>
                                 </div>
                                 <div class="col-12 input-group">
                                     <input class="form-control" name="maxPrice" type="number"
-                                           placeholder="100,000 VND" aria-label="Max Price" min="0" step="1000">
+                                           placeholder="1000000 VND" aria-label="Max Price" min="0" step="1000"
+                                           th:value="${maxPrice != null && maxPrice != 1000000} ? ${maxPrice} : null" />
                                     <span class="input-group-text" id="basic-addon3">Max</span>
                                 </div>
                             </div>

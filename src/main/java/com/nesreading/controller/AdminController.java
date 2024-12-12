@@ -254,10 +254,10 @@ public class AdminController {
 				return "redirect:/admin/orders";
 			}
 			// Announce error when choosing 4
-			if(status == 4) {
-				redirectAttributes.addFlashAttribute("error", "Cannot choose this option!");
-				return "redirect:/admin/orders";
-			}
+//			if(status == 4) {
+//				redirectAttributes.addFlashAttribute("error", "Cannot choose this option!");
+//				return "redirect:/admin/orders";
+//			}
 			order.setStatus(status);
 			orderService.handleSaveOrder(order);
 		}
