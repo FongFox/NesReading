@@ -6,6 +6,8 @@ import com.nesreading.repository.OrderRepository;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class OrderService {
     private final OrderRepository orderRepository;
@@ -46,5 +48,17 @@ public class OrderService {
 
         this.orderRepository.save(order);
         this.cartService.clearCart(cart, session);
+    }
+
+    public List<Order> handleFetchAllOrder() {
+        return this.orderRepository.findAll();
+    }
+
+    public Order handleFetchOrderById(int id) {
+        return this.orderRepository.findById(id).orElse(null);
+    }
+
+    public void handleSaveOrder(Order order) {
+        this.orderRepository.save(order);
     }
 }
