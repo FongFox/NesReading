@@ -61,4 +61,8 @@ public class OrderService {
     public void handleSaveOrder(Order order) {
         this.orderRepository.save(order);
     }
+
+    public List<Order> handleFetchAllOrderByUser(User user) {
+        return this.orderRepository.findAllByUser(user);
+    }
 }
