@@ -40,12 +40,19 @@
                                 <a class="nav-link me-4" th:href="@{/contact}">Contact</a>
                             </li>
                         </ul>
-
-                        <div class="user-items d-flex align-items-center">
+                        <!-- If user full name (session) is null -->
+                        <div th:if="${session.fullName == null}">
+                            <a th:href="@{/login}" class="position-relative me-4 my-auto">
+                                Login
+                            </a>
+                        </div>
+                        <!-- If user full name (session) isn't null -->
+                        <div class="user-items d-flex align-items-center" th:if="${session.fullName != null}">
                             <ul class="d-flex justify-content-end list-unstyled mb-0">
                                 <li class="pe-3">
                                     <a th:href="@{/cart}">
                                         <i class="fa-solid fa-cart-shopping"></i>
+                                        <span class="fs-6 fw-light" th:text="'('+${session.cartSum}+')'"></span>
                                     </a>
                                 </li>
                                 <li class="pe-3 dropdown">
@@ -73,7 +80,6 @@
                                 </li>
                             </ul>
                         </div>
-
                     </div>
                 </div>
             </div>
@@ -151,30 +157,6 @@
                                     If you need support? Just give us a call.
                                     <a th:href="@{/}" class="text-decoration-underline"> +8493 327 8628</a>
                                 </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <hr>
-        <div id="footer-bottom" class="mb-2">
-            <div class="container">
-                <div class="d-flex flex-wrap justify-content-between">
-                    <div class="ship-and-payment d-flex gap-md-5 flex-wrap">
-                        <div class="shipping d-flex">
-                            <p>We ship with:</p>
-                            <div class="card-wrap ps-2">
-                                <i class="fa-brands fa-cc-visa"></i>
-                                <i class="fa-brands fa-cc-mastercard"></i>
-                            </div>
-                        </div>
-                        <div class="payment-method d-flex">
-                            <p>Payment options:</p>
-                            <div class="card-wrap ps-2">
-                                <i class="fa-brands fa-cc-visa"></i>
-                                <i class="fa-brands fa-cc-mastercard"></i>
-                                <i class="fa-brands fa-cc-paypal"></i>
                             </div>
                         </div>
                     </div>

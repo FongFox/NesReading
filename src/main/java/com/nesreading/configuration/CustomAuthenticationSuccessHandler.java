@@ -1,6 +1,6 @@
 package com.nesreading.configuration;
 
-import com.nesreading.domain.User;
+import com.nesreading.model.User;
 import com.nesreading.service.UserService;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -59,8 +59,19 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
             if (dbUser.getFirstName() != null) {
                 session.setAttribute("fullName", dbUser.getFirstName() + " " + dbUser.getLastName());
             }
+
             if (dbUser.getAvatar() != null) {
                 session.setAttribute("avatar", dbUser.getAvatar());
+            }
+
+            if(dbUser.getEmail() != null) {
+                session.setAttribute("email", dbUser.getEmail());
+            }
+
+            if(dbUser.getCart() != null) {
+                session.setAttribute("cartSum", dbUser.getCart().getSum());
+            } else {
+                session.setAttribute("cartSum", 0);
             }
         }
     }
@@ -77,4 +88,5 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
         redirectStrategy.sendRedirect(request, response, targetUrl);
         clearAuthenticationAttributes(request, authentication);
     }
+
 }
