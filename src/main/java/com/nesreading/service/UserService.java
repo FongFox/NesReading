@@ -76,6 +76,17 @@ public class UserService {
         userRepository.save(dbUser);
     }
 
+    public void handleUpdateClientProfile(User tempUser) {
+        User dbUser = handleFetchUserById(tempUser.getId());
+
+        dbUser.setFirstName(tempUser.getFirstName());
+        dbUser.setLastName(tempUser.getLastName());
+        dbUser.setPhoneNumber(tempUser.getPhoneNumber());
+        dbUser.setAddress(tempUser.getAddress());
+
+        userRepository.save(dbUser);
+    }
+
     public void handleUpdateUser(User tempUser, MultipartFile file) {
         User dbUser = handleFetchUserById(tempUser.getId());
 
