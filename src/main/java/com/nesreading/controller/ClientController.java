@@ -291,6 +291,34 @@ public class ClientController {
         return "client/contact";
     }
     // ================== Contact (End) ======================
+
+    // ================== Account Page (Start) ====================
+    @GetMapping("profile")
+    public String getAccountPage(HttpServletRequest request, Model model) {
+        HttpSession session = request.getSession(false);
+        String userEmail = (String) session.getAttribute("email");
+        User user = this.userService.handleFetchUserByEmail(userEmail);
+        if(user == null) {
+            String referer = request.getHeader("Referer");
+            return "redirect:" + referer;
+        }
+
+        model.addAttribute("user", user);
+
+        return "client/profile";
+    }
+
+    @PostMapping("/update-profile")
+    public String updateProfile(@ModelAttribute("user") User updatedUser, RedirectAttributes redirectAttributes) {
+        try {
+            userService.handleUpdateUser(updatedUser);
+            redirectAttributes.addFlashAttribute("success", "Profile updated successfully!");
+        } catch (Exception e) {
+            redirectAttributes.addFlashAttribute("error", "Failed to update profile.");
+        }
+        return "redirect:/profile";
+    }
+    // ================== Account Page (End) ======================
 }
 
 
