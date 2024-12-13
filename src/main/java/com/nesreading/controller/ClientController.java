@@ -311,7 +311,7 @@ public class ClientController {
     @PostMapping("/update-profile")
     public String updateProfile(@ModelAttribute("user") User updatedUser, RedirectAttributes redirectAttributes) {
         try {
-            userService.handleUpdateUser(updatedUser);
+            userService.handleUpdateClientProfile(updatedUser);
             redirectAttributes.addFlashAttribute("success", "Profile updated successfully!");
         } catch (Exception e) {
             redirectAttributes.addFlashAttribute("error", "Failed to update profile.");
