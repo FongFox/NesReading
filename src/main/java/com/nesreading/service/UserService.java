@@ -67,6 +67,7 @@ public class UserService {
         dbUser.setLastName(tempUser.getLastName());
         dbUser.setPhoneNumber(tempUser.getPhoneNumber());
         dbUser.setRole(tempUser.getRole());
+        dbUser.setAddress(tempUser.getAddress());
 
         if(!tempUser.getPassword().isEmpty() && !tempUser.getPassword().isBlank()) {
             dbUser.setPassword(handleConvertHashPassword(tempUser.getPassword()));
