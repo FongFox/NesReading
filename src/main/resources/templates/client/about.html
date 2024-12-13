@@ -21,37 +21,7 @@
 </head>
 
 <body>
-<!--  <div id="preloader" class="preloader-container">-->
-<!--    <div class="book">-->
-<!--      <div class="inner">-->
-<!--        <div class="left"></div>-->
-<!--        <div class="middle"></div>-->
-<!--        <div class="right"></div>-->
-<!--      </div>-->
-<!--      <ul>-->
-<!--        <li></li>-->
-<!--        <li></li>-->
-<!--        <li></li>-->
-<!--        <li></li>-->
-<!--        <li></li>-->
-<!--        <li></li>-->
-<!--        <li></li>-->
-<!--        <li></li>-->
-<!--        <li></li>-->
-<!--        <li></li>-->
-<!--        <li></li>-->
-<!--        <li></li>-->
-<!--        <li></li>-->
-<!--        <li></li>-->
-<!--        <li></li>-->
-<!--        <li></li>-->
-<!--        <li></li>-->
-<!--        <li></li>-->
-<!--      </ul>-->
-<!--    </div>-->
-<!--  </div>-->
-
-  <header th:replace="~{layouts/client-layout :: header}"></header>
+<header th:replace="~{layouts/client-layout :: header}"></header>
 
   <section class="hero-section position-relative padding-large"
     style="background-image: url(images/default/banner-image-bg-1.jpg); background-size: cover; background-repeat: no-repeat; background-position: center; height: 400px;">
@@ -128,16 +98,8 @@
       <div class="row">
         <div class="col-md-6">
           <div class="image-holder position-relative mb-4 d-flex align-items-center justify-content-center">
-            <a type="button" data-bs-toggle="modal" data-th:src="@{https://www.youtube.com/embed/l4MOE3hZATA}"
-              data-bs-target="#myModal" class="play-btn position-absolute">
-              <div class="play-icon border border-2 border-dark rounded-pill p-5">
-                <svg class="search" width="40" height="40">
-                  <use xlink:th:href="@{#play}"></use>
-                </svg>
-              </div>
-            </a>
             <div class="image">
-              <img th:src="@{images/default/single-image-about.jpg}" alt="single" class="img-fluid rounded-3 single-image">
+              <img th:src="@{images/single-image-about.jpg}" alt="single" class="img-fluid rounded-3 single-image">
             </div>
           </div>
         </div>
@@ -151,7 +113,7 @@
               <p>Nulla adipiscing pharetra pellentesque maecenas odio eros at. Et libero vulputate amet duis erat
                 volutpat vitae eget. Quam libero etiam et in ac at quis. Risus augue curabitur diam senectus congue
                 velit et. </p>
-              <a th:href="@{/shop}" class="btn mt-3">Go to shop</a>
+              <a th:href="@{/shop(page=${1})}" class="btn mt-3">Go to shop</a>
             </div>
           </div>
         </div>

@@ -25,43 +25,6 @@
 
 <header th:replace="~{layouts/client-layout :: header}"></header>
 
-<div class="search-popup">
-    <div class="search-popup-container">
-
-        <form role="search" method="get" class="search-form" action="">
-            <input type="search" id="search-form" class="search-field" placeholder="Type and press enter" value="" name="s" />
-            <button type="submit" class="search-submit"><svg class="search"><use th:href="@{#search}"></use></svg></button>
-        </form>
-
-        <h5 class="cat-list-title">Browse Categories</h5>
-
-        <ul class="cat-list">
-            <li class="cat-list-item">
-                <a th:href="@{/}" title="Romance">Romance</a>
-            </li>
-            <li class="cat-list-item">
-                <a th:href="@{/}" title="Thriller">Thriller</a>
-            </li>
-            <li class="cat-list-item">
-                <a th:href="@{/}" title="Sci-fi">Sci-fi</a>
-            </li>
-            <li class="cat-list-item">
-                <a th:href="@{/}" title="Cooking">Cooking</a>
-            </li>
-            <li class="cat-list-item">
-                <a th:href="@{/}" title="Health">Health</a>
-            </li>
-            <li class="cat-list-item">
-                <a th:href="@{/}" title="Lifestyle">Lifestyle</a>
-            </li>
-            <li class="cat-list-item">
-                <a th:href="@{/}" title="Fiction">Fiction</a>
-            </li>
-        </ul>
-
-    </div>
-</div>
-
 <section class="hero-section position-relative padding-large"
          style="background-image: url(../images/default/banner-image-bg-1.jpg); background-size: cover; background-repeat: no-repeat; background-position: center; height: 400px;">
     <div class="hero-content">
@@ -131,29 +94,9 @@
                 </div>
             </div>
             <div class="inquiry-item col-lg-6">
-                <h3>Any questions?</h3>
-                <p class="mb-5">Use the form below to get in touch with us.</p>
-
-                <form id="form" class="d-flex gap-3 flex-wrap">
-                    <div class="w-100 d-flex gap-3">
-                        <div class="w-50">
-                            <input type="text" name="name" placeholder="Write your name here *" class="form-control w-100">
-                        </div>
-                        <div class="w-50">
-                            <input type="text" name="email" placeholder="Write your email here *" class="form-control w-100">
-                        </div>
-                    </div>
-                    <div class="w-100">
-                        <input type="text" name="phone" placeholder="Phone number" class="form-control w-100">
-                    </div>
-                    <div class="w-100">
-                        <input type="text" name="subject" placeholder="Write your subject here" class="form-control w-100">
-                    </div>
-                    <div class="w-100">
-                        <textarea placeholder="Write your message here *" class="form-control w-100"></textarea>
-                    </div>
-                    <button type="submit" name="submit" class="btn my-3">Submit</button>
-                </form>
+                <div class="image-holder mb-5">
+                    <img th:src="@{images/single-image2.jpg}" alt="our-store" class="img-fluid">
+                </div>
             </div>
         </div>
     </div>
@@ -164,7 +107,7 @@
         <div class="row d-flex flex-wrap align-items-center">
             <div class="col-lg-6">
                 <div class="image-holder mb-5">
-                    <img th:src="@{images/default/single-image2.jpg}" alt="our-store" class="img-fluid">
+                    <img th:src="@{images/insta-item1.jpg}" alt="our-store" class="img-fluid">
                 </div>
             </div>
             <div class="col-lg-6">
