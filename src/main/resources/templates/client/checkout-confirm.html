@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>NesReading</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="author" content="">
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+
+    <!--  Link CDN || CSS/JS Source  -->
+    <link rel="stylesheet" th:href="@{https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css}"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" th:href="@{/styles/client/style.css}">
+    <link rel="stylesheet" th:href="@{https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css}" />
+    <link rel="preconnect" th:href="@{https://fonts.googleapis.com}">
+    <link rel="preconnect" th:href="@{https://fonts.gstatic.com}" crossorigin>
+    <link th:href="@{https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap}"
+        rel="stylesheet">
+
+    <!--Also hard coded-->
+    <style>
+        .cart-items-section {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 5px;
+            box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .cart-items-section h3 {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .table {
+            margin-bottom: 0;
+            font-size: 0.9rem;
+        }
+
+        .table th,
+        .table td {
+            text-align: center;
+            vertical-align: middle;
+        }
+
+        .total-section h5 {
+            margin-top: 15px;
+            font-size: 1.25rem;
+        }
+
+        .total-section .text-primary {
+            color: #007bff !important;
+        }
+    </style>
+
+</head>
+
+<body>
+    <header th:replace="~{layouts/client-layout :: header}"></header>
+
+    <section class="hero-section position-relative padding-large"
+        style="background-image: url(../../images/default/banner-image-bg-1.jpg); background-size: cover; background-repeat: no-repeat; background-position: center; height: 400px;">
+        <div class="hero-content">
+            <div class="container">
+                <div class="row">
+                    <div class="text-center">
+                        <h1>Checkout</h1>
+                        <div class="breadcrumbs">
+                            <span class="item"> <a th:href="@{/}">Home ></a></span>
+                            <span class="item text-decoration-underline">Checkout</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Order form-->
+    <section class="checkout-wrap padding-large">
+        <div class="container">
+
+            <form class="form-group" method="post" th:action="@{/place-an-order}" th:object="${tempOrder}">
+                <div class="row d-flex flex-wrap">
+<!--                    <input type="hidden" class="d-none" th:field="*{id}">-->
+                    <!-- Billing Details -->
+                    <div class="col-lg-6">
+                        <h3 class="mb-3">Billing Details</h3>
+                        <div class="billing-details">
+                            <label>Receiver Name</label>
+                            <input class="form-control mt-2 mb-4 ps-3" type="text" name="receiverName"
+                                th:field="*{receiverName}" required />
+                            <label>Receiver Phone Number</label>
+                            <input class="form-control mt-2 mb-4 ps-3" type="number" name="receiverPhoneNumber"
+                                th:field="*{receiverPhoneNumber}" required />
+                            <label>Receiver Address</label>
+                            <textarea class="form-control mt-2 mb-4 ps-3" type="text" name="receiverAddress"
+                                th:field="*{receiverAddress}" required></textarea>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <!-- Additional Information -->
+                        <div class="mb-3">
+                            <h3 class="mb-3">Additional Information</h3>
+                            <div class="billing-details">
+                                <label>Order notes (optional)</label>
+                                <textarea class="form-control pt-3 pb-3 ps-3 mt-2" th:field="*{orderNote}"></textarea>
+                            </div>
+                        </div>
+                        <!-- Cart Items Section -->
+                        <div class="cart-items-section mb-4">
+                            <h3 class="mb-4">Your Cart Items</h3>
+                            <!-- If cart items is empty -->
+                            <div th:if="${cart.cartItems.size() == 0}" class="alert alert-warning">
+                                Your cart is empty. Please add some items.
+                            </div>
+                            <!-- If cart items isn't empty -->
+                            <div th:if="${cart.cartItems.size() > 0}">
+                                <table class="table table-bordered">
+                                    <thead class="table-light">
+                                        <tr>
+                                            <th>Book</th>
+                                            <th>Quantity</th>
+                                            <th>Price</th>
+                                            <th>Total</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <!-- Iterate through cart items -->
+                                        <tr th:each="item : ${cart.cartItems}">
+                                            <td th:text="${item.book.title}"></td> <!-- Dynamic Book Title -->
+                                            <td
+                                                th:text="${#numbers.formatDecimal(item.bookPrice, 0, 'COMMA', 0, 'POINT') + ' VND'}">
+                                            </td>
+                                            <td th:text="${item.quantity}"></td> <!-- Dynamic Quantity -->
+                                            <td
+                                                th:text="${#numbers.formatDecimal(item.getTotalPrice(), 0, 'COMMA', 0, 'POINT') + ' VND'}">
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div><br />
+                            <!-- Billing Price -->
+                            <div class="total-section mt-3" th:if="${cart.cartItems.size() > 0}">
+                                <h5 class="text-start">
+                                    <span>Total Price: </span>
+                                    <span class="text-primary fw-bold"
+                                        th:text="${#numbers.formatDecimal(bookTotalPrice, 0, 'COMMA', 0, 'POINT') + ' VND'}">
+                                    </span>
+                                </h5>
+                                <h5 class="text-start">
+                                    <span>Sub Price: </span>
+                                    <span class="text-primary fw-bold"
+                                        th:text="${#numbers.formatDecimal(subPrice, 0, 'COMMA', 0, 'POINT') + ' VND'}">
+                                    </span> (VAT + Shipping)
+                                </h5> <br />
+                                <hr />
+                                <h5 class="text-start">
+                                    <span>Final Price: </span>
+                                    <span class="text-primary fw-bold"
+                                        th:text="${#numbers.formatDecimal(finalPrice, 0, 'COMMA', 0, 'POINT') + ' VND'}">
+                                    </span>
+                                </h5>
+                                <h6 class="text-start">
+                                    Payment Method: COD (Cash On Delivery)
+                                </h6>
+                            </div>
+                        </div>
+                        <!-- Button Submit -->
+                        <div class="button-wrap mt-3" th:if="${cart.cartItems.size() > 0}">
+                            <button type="submit" class="btn">Place an order</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </section>
+    <hr>
+
+    <footer th:replace="~{layouts/client-layout :: footer}"></footer>
+    <script th:src="@{https://use.fontawesome.com/releases/v6.3.0/js/all.js}" crossorigin="anonymous"></script>
+    <script th:src="@{/scripts/client/jquery-1.11.0.min.js}"></script>
+    <script th:src="@{https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js}"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
+    <script th:src="@{https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js}"></script>
+    <script type="text/javascript" th:src="@{/scripts/client/script.js}"></script>
+</body>
+
+</html>

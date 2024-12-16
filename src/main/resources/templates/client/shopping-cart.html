@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.w3.org/1999/xhtml">
+<html xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <title>Shopping Cart - NesReading</title>
     <meta charset="utf-8">
@@ -33,73 +34,91 @@
 <section class="cart padding-large">
     <div class="container">
         <div class="row">
-            <div class="cart-table">
+            <!-- If cart size is empty -->
+            <div th:if="${cart.cartItems.size() == 0}" class="text-center alert alert-primary" role="alert">
+                <h4 class="mt-auto mb-auto">Your cart is empty.</h4>
+            </div>
+
+            <!-- If cart size isn't empty -->
+            <div class="cart-table" th:if="${cart.cartItems.size() > 0}">
+                <div class="d-flex justify-content-end mb-3">
+                    <form method="post" th:action="@{/cart/delete-all}" class="col-lg-2 col-md-2"
+                          onsubmit="handleConfirmDelete(event)">
+                        <button class="btn btn-danger">Remove All</button>
+                    </form>
+                </div>
                 <div class="cart-header border-bottom border-top">
                     <div class="row text-capitalize">
                         <h4 class="col-lg-4 py-3">Product</h4>
                         <h4 class="col-lg-3 py-3">Quantity</h4>
-                        <h4 class="col-lg-3 py-3">Subtotal</h4>
+                        <h4 class="col-lg-3 py-3">Price</h4>
                         <h4 class="col-lg-2 py-3">Action</h4>
                     </div>
                 </div>
-
                 <!-- Loop qua các CartItem -->
-                <div th:if="${cart.cartItems.size() > 0}">
-                    <div th:each="item : ${cart.cartItems}" class="cart-item border-bottom padding-small">
-                        <div class="row align-items-center">
-                            <!-- Product Info -->
-                            <div class="col-lg-4 col-md-3">
-                                <div class="d-flex align-items-center gap-2">
-                                    <img th:src="${item.book.imageUrl}" alt="cart-img" class="img-fluid border rounded-3" style="width: 80px; height: auto;">
-                                    <div>
-                                        <h5><a th:href="@{/shop/{id}(id=${item.book.id})}" th:text="${item.book.title}"></a></h5>
-                                        <div class="text-primary fw-light" th:text="${#numbers.formatDecimal(item.price, 0, 'COMMA', 0, 'POINT') + ' VND'}"></div>
-                                    </div>
+                <div th:each="item : ${cart.cartItems}" class="cart-item border-bottom padding-small">
+                    <div class="row align-items-center">
+                        <!-- Product Info -->
+                        <div class="col-lg-4 col-md-3">
+                            <div class="d-flex align-items-center gap-2">
+                                <!--<img th:src="${item.book.imageUrl}" alt="cart-img" class="img-fluid border rounded-3" style="width: 80px; height: auto;">-->
+                                <img th:src="@{https://picsum.photos/id/24/845/1206}"
+                                     class="img-fluid border rounded-3" style="width: 80px; height: auto;"
+                                     alt="sample image">
+                                <div>
+                                    <h5>
+                                        <a th:href="@{/shop/{id}(id=${item.book.id})}" th:text="${item.book.title}"></a>
+                                    </h5>
+                                    <!--<div class="text-primary fw-light" th:text="${#numbers.formatDecimal(item.price, 0, 'COMMA', 0, 'POINT') + ' VND'}"></div>-->
                                 </div>
                             </div>
-                            
-                            <!-- Quantity -->
-                            <div class="col-lg-3 col-md-3">
-                                <span class="text-primary fs-5" th:text="${item.quantity}"></span>
-                            </div>
-                            
-                            <!-- Subtotal -->
-                            <div class="col-lg-3 col-md-3">
-                                <span class="text-primary fs-5" th:text="${#numbers.formatDecimal(item.getTotalPrice(), 0, 'COMMA', 0, 'POINT') + ' VND'}"></span>
-                            </div>
-
-                            <!-- Action (Remove) -->
-                            <div class="col-lg-2 col-md-2">
-                                <a th:href="@{/cart/remove-item(itemId=${item.id})}" class="btn btn-danger">Remove</a>
-                            </div>
                         </div>
+                        <!-- Quantity -->
+                        <div class="col-lg-3 col-md-3">
+                            <span class="text-primary fs-5" th:text="${item.quantity}"></span>
+                        </div>
+                        <!-- Price -->
+                        <div class="col-lg-3 col-md-3">
+                                <span class="text-primary fs-5"
+                                      th:text="${#numbers.formatDecimal(item.getTotalPrice(), 0, 'COMMA', 0, 'POINT') + ' VND'}">
+                                </span>
+                        </div>
+                        <!-- Action (Remove) -->
+                        <form method="post" th:action="@{/cart/delete/}+${item.id}" class="col-lg-2 col-md-2">
+                            <button class="btn btn-danger">Remove</button>
+                        </form>
                     </div>
                 </div>
-
-                <!-- Thông báo nếu giỏ hàng trống -->
-                <div th:if="${cart.cartItems.size() == 0}" class="text-center my-4">
-                    <h4>Your cart is empty.</h4>
-                </div>
-
                 <!-- Cart Totals -->
                 <div class="cart-totals padding-medium">
                     <h3>Cart Totals</h3>
                     <table class="table">
                         <tr class="border-top border-bottom">
-                            <th>Subtotal</th>
-                            <td class="text-primary ps-5 fw-light" th:text="${#numbers.formatDecimal(cart.totalPrice, 0, 'COMMA', 0, 'POINT') + ' VND'}">0.00</td>
+                            <th>Total Price:</th>
+                            <td class="text-primary ps-5 fw-light"
+                                th:text="${#numbers.formatDecimal(bookTotalPrice, 0, 'COMMA', 0, 'POINT') + ' VND'}">
+                            </td>
+                        </tr>
+                        <tr class="border-top border-bottom">
+                            <th>Sub Price (VAT + shipping):</th>
+                            <td class="text-primary ps-5 fw-light"
+                                th:text="${#numbers.formatDecimal(subPrice, 0, 'COMMA', 0, 'POINT') + ' VND'}"></td>
                         </tr>
                         <tr class="border-bottom">
-                            <th>Total</th>
-                            <td class="text-primary ps-5 fw-light" th:text="${#numbers.formatDecimal(cart.totalPrice, 0, 'COMMA', 0, 'POINT') + ' VND'}">0.00</td>
+                            <th>Final Price</th>
+                            <td class="text-primary ps-5 fw-light"
+                                th:text="${#numbers.formatDecimal(finalPrice, 0, 'COMMA', 0, 'POINT') + ' VND'}">
+                            </td>
                         </tr>
                     </table>
                     <div class="button-wrap d-flex gap-3">
-                        <a th:href="@{/shop(page=${1})}" class="btn btn-secondary">Continue Shopping</a>
-                        <form th:action="@{/order-now-bulk}" method="post" class="d-inline">
+                        <a th:href="@{/shop(page=${1})}" class="btn btn-secondary">
+                            Continue Shopping
+                        </a>
+                        <form method="post" th:action="@{/checkout}" class="d-inline">
+                            <input type="hidden" name="cartId" th:value="${cart.id}"/>
                             <button type="submit" class="btn">Proceed To Checkout</button>
                         </form>
-
                     </div>
                 </div>
             </div>
@@ -113,5 +132,15 @@
 <script th:src="@{https://use.fontawesome.com/releases/v6.3.0/js/all.js}" crossorigin="anonymous"></script>
 <script th:src="@{https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js}"></script>
 <script type="text/javascript" th:src="@{/scripts/client/script.js}"></script>
+<script>
+    const handleConfirmDelete = (event) => {
+        const confirmed = confirm("Are you sure?");
+        if (!confirmed) {
+            event.preventDefault();
+        }
+        return confirmed;
+    }
+</script>
 </body>
+
 </html>
