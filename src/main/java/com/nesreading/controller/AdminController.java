@@ -1,7 +1,12 @@
 package com.nesreading.controller;
 
-import com.nesreading.domain.Book;
-import com.nesreading.domain.User;
+import com.nesreading.model.Book;
+import com.nesreading.model.Order;
+import com.nesreading.model.OrderItem;
+import com.nesreading.model.User;
+import com.nesreading.service.OrderService;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 import com.nesreading.service.BookService;
 import com.nesreading.service.UserService;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 
@@ -20,11 +26,13 @@ import java.util.List;
 public class AdminController {
 	private final UserService userService;
 	private final BookService bookService;
+	private final OrderService orderService;
 
-	public AdminController(UserService userService, BookService bookService) {
+	public AdminController(UserService userService, BookService bookService, OrderService orderService) {
 		this.userService = userService;
 		this.bookService = bookService;
-	}
+        this.orderService = orderService;
+    }
 
 	//================== Dashboard (Start) ====================
 	@GetMapping("")
@@ -210,13 +218,51 @@ public class AdminController {
 
 	// ================== Order (Start) ====================
 	@GetMapping("orders")
-	public String getAdminOrderViewPage() {
+	public String getAdminOrderViewPage(Model model) {
+		model.addAttribute("orderList", this.orderService.handleFetchAllOrder());
+
 		return "admin/order/view";
 	}
 
 	@GetMapping("orders/{id}")
-	public String getAdminOrderDetailPage(@PathVariable int id) {
+	public String getAdminOrderDetailPage(@PathVariable int id, HttpServletRequest request, Model model) {
+		HttpSession session = request.getSession(false);
+
+		Order order = this.orderService.handleFetchOrderById(id);
+		if(order == null) {
+			String referer = request.getHeader("Referer");
+			return "redirect:" + referer;
+		}
+		List<OrderItem> orderItemList = order.getOrderItems();
+
+		model.addAttribute("order", order);
+		model.addAttribute("orderItemList", orderItemList);
+
 		return "admin/order/detail";
 	}
+
+	@PostMapping("orders/update")
+	public String updateOrderStatus(
+			@RequestParam("orderId") int orderId,
+			@RequestParam("status") int status,
+			RedirectAttributes redirectAttributes) {
+		Order order = orderService.handleFetchOrderById(orderId);
+		if (order != null) {
+			// Announce error if order status is 4 or 5
+			if (order.getStatus() == 4 || order.getStatus() == 5) {
+				redirectAttributes.addFlashAttribute("error", "Cannot update a completed or canceled order.");
+				return "redirect:/admin/orders";
+			}
+			// Announce error when choosing 4
+//			if(status == 4) {
+//				redirectAttributes.addFlashAttribute("error", "Cannot choose this option!");
+//				return "redirect:/admin/orders";
+//			}
+			order.setStatus(status);
+			orderService.handleSaveOrder(order);
+		}
+		return "redirect:/admin/orders";
+	}
+
 	// ================== Order (End) ======================
 }

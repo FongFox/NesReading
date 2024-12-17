@@ -34,6 +34,114 @@
           </ol>
 
           <!-- Todo Here! -->
+          <div class="mt-5">
+            <div class="row">
+              <div class="col-12 mx-auto">
+                <div class="d-flex justify-content-between">
+                  <h3>Table Orders</h3>
+                </div>
+                <hr/>
+                <table class="table table-bordered table-hover text-center">
+                  <thead>
+                  <tr>
+                    <th class="d-none" scope="col">#</th>
+                    <th scope="col">Receiver Name</th>
+                    <th scope="col">Receiver Phone Number</th>
+                    <th scope="col">Receiver Address</th>
+                    <th scope="col">Status</th>
+                    <th scope="col" colspan="3">Action</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  <!-- If Order not exist -->
+                  <tr th:if="${orderList == null or orderList.isEmpty()}">
+                    <td colspan="9">Nothing in this list!</td>
+                  </tr>
+                  <!-- Else -->
+                  <tr th:each="order : ${orderList}">
+                    <td class="d-none" th:text="${order.id}"></td>
+                    <td th:text="${order.receiverName}"></td>
+                    <td th:text="${order.receiverPhoneNumber}"></td>
+                    <td th:text="${order.receiverAddress}"></td>
+<!--                    <td th:text="${order.status}"></td>-->
+                    <td th:switch="${order.status}">
+                      <span th:case="0">Pending</span>
+                      <span th:case="1">Shipping</span>
+                      <span th:case="3">Delivered</span>
+                      <span th:case="4">Completed</span>
+                      <span th:case="5">Canceled</span>
+                      <span th:case="*">Unknown</span>
+                    </td>
+                    <td>
+                      <a th:href="@{/admin/orders/{id}(id=${order.id})}" type="button"
+                         class="btn btn-outline-success">
+                        View
+                      </a>
+                    </td>
+
+                    <td>
+                      <!-- Button trigger modal -->
+                      <div th:switch="${order.status}">
+                        <button type="button" class="btn btn-outline-warning"
+                                th:case="4" disabled>Completed</button>
+                        <button type="button" class="btn btn-outline-danger"
+                                th:case="5" disabled>Canceled</button>
+                        <button type="button" class="btn btn-outline-warning"
+                                th:case="*" th:attr="onclick='openUpdateModal(' + ${order.id} + ', ' + ${order.status} + ')'">
+                          Update
+                        </button>
+                      </div>
+                      <!-- Modal -->
+                      <div class="modal fade" id="updateModal" tabindex="-1" aria-labelledby="updateModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h1 class="modal-title fs-5" id="updateModalLabel">Update Order Status</h1>
+                              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <!-- Hiển thị lỗi trong modal -->
+                            <div th:if="${error}" class="alert alert-danger m-3">
+                              <span th:text="${error}"></span>
+                            </div>
+                            <form id="updateForm" th:action="@{/admin/orders/update}" method="post">
+                              <div class="modal-body">
+                                <input type="hidden" id="orderId" name="orderId" />
+                                <div class="mb-3">
+                                  <label for="orderStatus" class="form-label">Select Status</label>
+                                  <select id="orderStatus" name="status" class="form-select">
+                                    <option value="0">Pending</option>
+                                    <option value="1">Shipping</option>
+                                    <option value="3">Delivered</option>
+                                    <option value="4">Completed</option>
+                                    <option value="5">Canceled</option>
+                                  </select>
+                                </div>
+                              </div>
+                              <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <button type="submit" class="btn btn-primary">Save changes</button>
+                              </div>
+                            </form>
+                          </div>
+                        </div>
+                      </div>
+                    </td>
+
+<!--                    <td class="d-none">-->
+<!--                      <form th:action="@{/admin/orders/delete/{id}(id=${order.id})}" method="post"-->
+<!--                            onsubmit="handleConfirmDelete(event)">-->
+<!--                        <button type="submit" class="btn btn-outline-danger">-->
+<!--                          Delete-->
+<!--                        </button>-->
+<!--                      </form>-->
+<!--                    </td>-->
+
+                  </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
 
         </div>
       </main>
@@ -46,6 +154,15 @@
     crossorigin="anonymous"></script>
   <!-- Scripts Link Source Code -->
   <script th:src="@{/scripts/admin/scripts.js}"></script>
+  <script>
+    // Hàm mở modal và set dữ liệu
+    function openUpdateModal(orderId, currentStatus) {
+      document.getElementById('orderId').value = orderId;
+      document.getElementById('orderStatus').value = currentStatus;
+      var updateModal = new bootstrap.Modal(document.getElementById('updateModal'));
+      updateModal.show();
+    }
+  </script>
 </body>
 
 </html>

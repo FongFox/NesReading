@@ -1,6 +1,6 @@
 package com.nesreading.validation;
 
-import com.nesreading.dto.RegisterDTO;
+import com.nesreading.model.dto.RegisterDTO;
 import com.nesreading.service.UserService;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;

@@ -2,10 +2,11 @@ package com.nesreading.service;
 
 import java.util.List;
 
+import com.nesreading.model.dto.RegisterDTO;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.nesreading.domain.User;
+import com.nesreading.model.User;
 import com.nesreading.repository.UserRepository;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -66,10 +67,22 @@ public class UserService {
         dbUser.setLastName(tempUser.getLastName());
         dbUser.setPhoneNumber(tempUser.getPhoneNumber());
         dbUser.setRole(tempUser.getRole());
+        dbUser.setAddress(tempUser.getAddress());
 
         if(!tempUser.getPassword().isEmpty() && !tempUser.getPassword().isBlank()) {
             dbUser.setPassword(handleConvertHashPassword(tempUser.getPassword()));
         }
+
+        userRepository.save(dbUser);
+    }
+
+    public void handleUpdateClientProfile(User tempUser) {
+        User dbUser = handleFetchUserById(tempUser.getId());
+
+        dbUser.setFirstName(tempUser.getFirstName());
+        dbUser.setLastName(tempUser.getLastName());
+        dbUser.setPhoneNumber(tempUser.getPhoneNumber());
+        dbUser.setAddress(tempUser.getAddress());
 
         userRepository.save(dbUser);
     }
@@ -101,8 +114,20 @@ public class UserService {
     public User handleFetchUserByEmail(String email) {
         return userRepository.findByEmail(email);
     }
+
     // ======================= Security Service ============================
     public  String handleConvertHashPassword(String userPassword) {
         return this.passwordEncoder.encode(userPassword);
+    }
+
+    // ======================= User Mapper ============================
+    public User registerDtoToUser(RegisterDTO registerDTO) {
+        User user = new User(
+                "USER", registerDTO.getFirstName(),
+                registerDTO.getLastName(), registerDTO.getEmail(), ""
+        );
+        user.setPassword(registerDTO.getPassword());
+
+        return user;
     }
 }
