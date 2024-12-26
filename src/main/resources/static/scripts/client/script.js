@@ -177,6 +177,20 @@
           },
       });
 
+      // Swiper cho Top Liked Items
+      var topLikedSwiper = new Swiper(".top-liked-swiper", {
+        spaceBetween: 20,
+        navigation: {
+            nextEl: ".top-liked-swiper-button-next",
+            prevEl: ".top-liked-swiper-button-prev",
+        },
+        breakpoints: {
+            0: { slidesPerView: 1 },
+            660: { slidesPerView: 3 },
+            980: { slidesPerView: 4 },
+            1500: { slidesPerView: 5 }
+        },
+    });
 
       var testimonialSwiper = new Swiper(".testimonial-swiper", {
         slidesPerView: 1,

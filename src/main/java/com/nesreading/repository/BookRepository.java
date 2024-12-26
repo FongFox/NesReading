@@ -17,4 +17,7 @@ public interface BookRepository extends JpaRepository<Book, Integer>, JpaSpecifi
   List<Book> find8RandomBooks();
 
   Page<Book> findAll(Pageable pageable);
+
+  @Query("SELECT b FROM Book b ORDER BY b.totalLikes DESC")
+  List<Book> findTopLikedBooks(Pageable pageable);
 }
