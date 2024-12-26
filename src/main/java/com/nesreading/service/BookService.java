@@ -1,10 +1,13 @@
 package com.nesreading.service;
 
 import com.nesreading.model.Book;
+import com.nesreading.model.BookLike;
+import com.nesreading.repository.BookLikeRepository;
 import com.nesreading.repository.BookRepository;
 
 import com.nesreading.specification.BookSpecification;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
@@ -15,13 +18,14 @@ import java.util.List;
 
 @Service
 public class BookService {
-    @Autowired
     private final BookRepository bookRepository;
+    private final BookLikeRepository bookLikeRepository;
     private final UploadService uploadService;
     private final BookSpecification bookSpecification;
 
-    public BookService(BookRepository bookRepository, UploadService uploadService, BookSpecification bookSpecification) {
+    public BookService(BookRepository bookRepository, BookLikeRepository bookLikeRepository, UploadService uploadService, BookSpecification bookSpecification) {
         this.bookRepository = bookRepository;
+        this.bookLikeRepository = bookLikeRepository;
         this.uploadService = uploadService;
         this.bookSpecification = bookSpecification;
     }
@@ -102,5 +106,36 @@ public class BookService {
         }
 
         bookRepository.save(dbBook);
+    }
+
+    public boolean hasUserLikedBook(int userId, int bookId) {
+        return bookLikeRepository.existsByUserIdAndBookId(userId, bookId);
+    }
+
+    public String handleLikeBook(int userId, int bookId) {
+        Book book = this.bookRepository.findById(bookId).orElseThrow(() -> new RuntimeException("Book Not Found!"));
+
+        if(bookLikeRepository.existsByUserIdAndBookId(userId, bookId)) {
+            book.setTotalLikes(book.getTotalLikes() - 1);
+            bookLikeRepository.deleteByUserIdAndBookId(userId, bookId);
+            bookRepository.save(book);
+
+            return "Unlike Successful!";
+        } else {
+            book.setTotalLikes(book.getTotalLikes() + 1);
+
+            BookLike bookLike = new BookLike();
+            bookLike.setUserId(userId);
+            bookLike.setBookId(bookId);
+
+            bookLikeRepository.save(bookLike);
+            bookRepository.save(book);
+
+            return "Like Successful!";
+        }
+    }
+
+    public List<Book> handleFetchTopLikedBooks(int limit) {
+        return bookRepository.findTopLikedBooks(PageRequest.of(0, limit));
     }
 }

@@ -45,6 +45,7 @@ public class ClientController {
     public String getHomePage(Model model) {
         model.addAttribute("bestSellerBookList", bookService.handleFetchBestSellerBooks());
         model.addAttribute("featureBookList", bookService.handleFetchRandomBooks());
+        model.addAttribute("topLikedBookList", bookService.handleFetchTopLikedBooks(8));
 
         return "client/home";
     }
@@ -119,13 +120,37 @@ public class ClientController {
     }
 
     @GetMapping("shop/{id}")
-    public String getBookDetailPage(@PathVariable int id, Model model) {
+    public String getBookDetailPage(HttpServletRequest request, @PathVariable int id, Model model) {
+        HttpSession session = request.getSession(false);
+        String userEmail = (String) session.getAttribute("email");
+        User user = this.userService.handleFetchUserByEmail(userEmail);
+        if(user != null) {
+            boolean hasLiked = false;
+            hasLiked = bookService.hasUserLikedBook(user.getId(), id);
+
+            model.addAttribute("userId", user.getId());
+            model.addAttribute("hasLiked", hasLiked);
+        }
+
         if (bookService.handleCheckBookExist(id)) {
             return "redirect:/shop";
         }
-
         model.addAttribute("dbBook", bookService.handleFetchBookById(id));
+
         return "client/book-detail";
+    }
+
+    @PostMapping("shop/{id}/like")
+    public String handleToggleLike(
+            HttpServletRequest request,
+            @PathVariable(name = "id") int bookId,
+            @RequestParam int userId,
+            RedirectAttributes redirectAttributes) {
+        String message = bookService.handleLikeBook(userId, bookId);
+        redirectAttributes.addFlashAttribute("message", message);
+
+        String referer = request.getHeader("Referer");
+        return "redirect:" + referer;
     }
     // ================== Book (End) ======================
 

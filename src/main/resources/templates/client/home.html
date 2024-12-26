@@ -58,7 +58,7 @@
         <div class="container">
             <div class="section-title d-md-flex justify-content-between align-items-center mb-4">
                 <h3 class="d-flex align-items-center">Best selling items</h3>
-                <a th:href="shop.html" class="btn">View All</a>
+<!--                <a th:href="shop.html" class="btn">View All</a>-->
             </div>
 
             <div
@@ -96,6 +96,61 @@
                                 </p>
                                 <form method="post" th:action="@{/add-to-cart}">
                                     <input type="hidden" name="bookId" th:value="${bestSellerBook.id}" />
+                                    <input type="hidden" name="quantity" value="1" />
+                                    <button class="mx-auto btn border border-secondary rounded-pill px-3">
+                                        <i class="fa fa-shopping-bag me-2"></i>
+                                        Add to cart
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Top Liked Item -->
+    <section id="top-liked-items" class="position-relative padding-large pt-0">
+        <div class="container">
+            <div class="section-title d-md-flex justify-content-between align-items-center mb-4">
+                <h3 class="d-flex align-items-center">Top Liked Book</h3>
+<!--                <a th:href="shop.html" class="btn">View All</a>-->
+            </div>
+
+            <div class="position-absolute top-50 end-0 pe-0 pe-xxl-5 me-0 me-xxl-5 swiper-next top-liked-swiper-button-next">
+                <i class="fa-solid fa-angle-right d-flex justify-content-center align-items-center p-2"
+                   style="font-size: 80px;"></i>
+            </div>
+            <div class="position-absolute top-50 start-0 ps-0 ps-xxl-5 ms-0 ms-xxl-5 swiper-prev top-liked-swiper-button-prev">
+                <i class="fa-solid fa-angle-left d-flex justify-content-center align-items-center p-2"
+                   style="font-size: 80px;"></i>
+            </div>
+
+            <div class="swiper top-liked-swiper">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide" th:if="${topLikedBookList == null or topLikedBookList.isEmpty()}">
+                        <div class="alert alert-danger" role="alert">Nothing in this list!</div>
+                    </div>
+
+                    <!-- Product Slide -->
+                    <div class="swiper-slide" th:each="topLikedBook : ${topLikedBookList}">
+                        <div>
+                            <img th:src="@{https://picsum.photos/id/24/845/1206}" class="img-fluid w-100 rounded-top"
+                                 alt="">
+                        </div>
+                        <div class="p-4 border border-secondary border-top-0 rounded-bottom">
+                            <h6 class="fw-bold text-center">
+                                <a th:href="@{/shop/{id}(id=${topLikedBook.id})}"
+                                   th:text="${topLikedBook.title}"></a>
+                            </h6>
+                            <p class="fs-6 text-black-50 text-center" th:text="${topLikedBook.author}"></p>
+                            <div class="d-flex flex-lg-wrap justify-content-center">
+                                <p style="text-align: center; width: 100%;" class="text-dark  fw-bold mb-3"
+                                   th:text="${#numbers.formatDecimal(topLikedBook.price, 0, 'COMMA', 0, 'POINT') + ' VND'}">
+                                </p>
+                                <form method="post" th:action="@{/add-to-cart}">
+                                    <input type="hidden" name="bookId" th:value="${topLikedBook.id}" />
                                     <input type="hidden" name="quantity" value="1" />
                                     <button class="mx-auto btn border border-secondary rounded-pill px-3">
                                         <i class="fa fa-shopping-bag me-2"></i>

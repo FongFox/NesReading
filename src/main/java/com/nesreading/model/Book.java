@@ -9,11 +9,17 @@ import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 @Entity
 @Table(name = "books")
+@Getter
+@Setter
+@ToString
 public class Book implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -66,6 +72,9 @@ public class Book implements Serializable {
 
 	@Column(name = "image_url")
 	private String imageUrl;
+
+	@Column(name = "total_likes")
+	private int totalLikes = 0;
 	
 	@CreationTimestamp
 	@Column(name = "create_at")
@@ -76,155 +85,5 @@ public class Book implements Serializable {
 	private LocalDateTime updateAt;
 
 	public Book() {
-	}
-
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
-
-	public String getTitle() {
-		return title;
-	}
-
-	public void setTitle(String title) {
-		this.title = title;
-	}
-
-	public String getAuthor() {
-		return author;
-	}
-
-	public void setAuthor(String author) {
-		this.author = author;
-	}
-
-	public String getCategory() {
-		return category;
-	}
-
-	public void setCategory(String category) {
-		this.category = category;
-	}
-
-	public String getPublisher() {
-		return publisher;
-	}
-
-	public void setPublisher(String publisher) {
-		this.publisher = publisher;
-	}
-
-	public int getPublicationYear() {
-		return publicationYear;
-	}
-
-	public void setPublicationYear(int publicationYear) {
-		this.publicationYear = publicationYear;
-	}
-
-	public double getPrice() {
-		return price;
-	}
-
-	public void setPrice(double price) {
-		this.price = price;
-	}
-
-	public String getShortDescription() {
-		return shortDescription;
-	}
-
-	public void setShortDescription(String shortDescription) {
-		this.shortDescription = shortDescription;
-	}
-
-	public int getStock() {
-		return stock;
-	}
-
-	public void setStock(int stock) {
-		this.stock = stock;
-	}
-
-	public String getDetailDescription() {
-		return detailDescription;
-	}
-
-	public void setDetailDescription(String detailDescription) {
-		this.detailDescription = detailDescription;
-	}
-
-	public int getSold() {
-		return sold;
-	}
-
-	public void setSold(int sold) {
-		this.sold = sold;
-	}
-
-	public int getStatus() {
-		return status;
-	}
-
-	public void setStatus(int status) {
-		this.status = status;
-	}
-
-	public List<BookReview> getBookReviews() {
-		return bookReviews;
-	}
-
-	public void setBookReviews(List<BookReview> bookReviews) {
-		this.bookReviews = bookReviews;
-	}
-
-	public String getImageUrl() {
-		return imageUrl;
-	}
-
-	public void setImageUrl(String imageUrl) {
-		this.imageUrl = imageUrl;
-	}
-
-	public LocalDateTime getCreateAt() {
-		return createAt;
-	}
-
-	public void setCreateAt(LocalDateTime createAt) {
-		this.createAt = createAt;
-	}
-
-	public LocalDateTime getUpdateAt() {
-		return updateAt;
-	}
-
-	public void setUpdateAt(LocalDateTime updateAt) {
-		this.updateAt = updateAt;
-	}
-
-	@Override
-	public String toString() {
-		return "Book{" +
-				"id=" + id +
-				", title='" + title + '\'' +
-				", author='" + author + '\'' +
-				", category='" + category + '\'' +
-				", publisher='" + publisher + '\'' +
-				", publicationYear=" + publicationYear +
-				", price=" + price +
-				", shortDescription='" + shortDescription + '\'' +
-				", detailDescription='" + detailDescription + '\'' +
-				", stock=" + stock +
-				", sold=" + sold +
-				", status=" + status +
-				", bookReviews=" + bookReviews +
-				", imageUrl='" + imageUrl + '\'' +
-				", createAt=" + createAt +
-				", updateAt=" + updateAt +
-				'}';
 	}
 }
